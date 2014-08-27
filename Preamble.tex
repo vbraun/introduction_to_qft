@@ -1,0 +1,454 @@
+\newcommand{\VersionInformation}{}  % overwritten by Debug.tex
+\InputIfFileExists{Debug}{}{}
+
+
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}          % if you want the fonts
+\usepackage{amssymb}           % if you want extra symbols
+%\usepackage{euscript}
+\usepackage[mathscr]{eucal}
+%\usepackage{stmaryrd}          % \lightning is defined there
+\usepackage{graphicx}
+\usepackage{color}
+%\usepackage{floatflt}
+%\usepackage{bbold}
+%\usepackage{ulem}
+\usepackage[nosort]{cite}
+\usepackage{hypbmsec}
+\usepackage{fancyvrb}
+\usepackage{sepnum}
+\usepackage{xspace}
+\usepackage{booktabs}
+\usepackage{rotating}
+\usepackage{multirow}
+\usepackage[vcentermath]{youngtab}
+%\usepackage{slashbox}
+\usepackage[isu,bf]{caption}
+\setlength{\captionmargin}{1cm}
+\renewcommand{\captionfont}{\small\itshape}
+
+
+%\usepackage{algorithm}
+%\usepackage{algorithmic}
+
+\font\csc=cmcsc10
+
+\newlength{\xtrawidth}
+\setlength{\xtrawidth}{8mm}
+\newlength{\xtraheight}
+\setlength{\xtraheight}{10mm}
+\addtolength{\textwidth}{\xtrawidth}
+\addtolength{\textwidth}{\xtrawidth}
+\addtolength{\oddsidemargin}{-\xtrawidth}
+\addtolength{\evensidemargin}{-\xtrawidth}
+\addtolength{\textheight}{\xtraheight}
+\addtolength{\textheight}{\xtraheight}
+\addtolength{\topmargin}{-\xtraheight}
+
+
+\usepackage[all]{xy}           % Commutative diagrams
+
+
+
+\ifx\NoBackreferences\EMPTYMACRO
+  % arXiv will complain about option clash in hyperref
+  % \usepackage[backref,linktocpage,bookmarks]{hyperref}
+  \usepackage{hyperref}
+\else
+  \usepackage[linktocpage,bookmarks]{hyperref}
+\fi
+
+% \usepackage[sort&compress]{natbib}
+
+
+\def\footnoteautorefname{Footnote}%
+\def\itemautorefname{Item}%
+\def\sectionautorefname{Section}%
+\def\subsectionautorefname{Subsection}%
+\def\subsubsectionautorefname{Subsubsection}%
+\def\paragraphautorefname{Paragraph}%
+\def\subparagraphautorefname{Subparagraph}%
+\def\FancyVerbLineautorefname{Line}%
+
+%%%%%%%%%%%%%%% volker's defs %%%%%%%%%%%%%%%
+
+% \entrymodifiers={[F.]}
+%\usepackage[floats,textmath,displaymath,delayed,sections,auctex]{preview}
+
+\ifx\DEBUG\EMPTYMACRO
+  % Don't use showlabels
+\else
+  \usepackage{showlabels}
+\fi
+
+
+\newcommand{\lrstack}[3][t]{
+  \ensuremath{
+    \begin{array}[#1]{c}
+      \multicolumn{1}{l}{\displaystyle{#2}\quad} \\[0.5em] 
+      \multicolumn{1}{r}{\displaystyle\quad{#3}}
+    \end{array}
+  }}
+\def\clap#1{\hbox to 0pt{\hss#1\hss}}
+\def\mathllap{\mathpalette\mathllapinternal}
+\def\mathrlap{\mathpalette\mathrlapinternal}
+\def\mathclap{\mathpalette\mathclapinternal}
+\def\mathllapinternal#1#2{%
+\llap{$\mathsurround=0pt#1{#2}$}}
+\def\mathrlapinternal#1#2{%
+\rlap{$\mathsurround=0pt#1{#2}$}}
+\def\mathclapinternal#1#2{%
+\clap{$\mathsurround=0pt#1{#2}$}}	
+
+\makeatletter
+  \def\adots{\mathinner{\mkern2mu\raise\p@\hbox{.}
+      \mkern2mu\raise4\p@\hbox{.}\mkern1mu
+      \raise7\p@\vbox{\kern7\p@\hbox{.}}\mkern1mu}}
+\makeatother
+
+\newcommand{\comma}[1]{\ensuremath{\sepnum{{.}}{{,}}{}{#1}}}
+
+
+\newcommand{\eqdef}{%
+  \mathrel{\lower.1mm
+    \hbox{$\stackrel{\lower.424ex\hbox{\scriptsize def}}{=}$}}
+}
+%\newcommand{\eqdef}{\stackrel{\mathrm{def}}{=}}
+%\newcommand{\eqdef}{=}
+\newcommand{\Q}{\ensuremath{{\mathbb{Q}}}}
+\newcommand{\R}{\ensuremath{{\mathbb{R}}}}
+\newcommand{\C}{\ensuremath{{\mathbb{C}}}}
+\newcommand{\Hbb}{\ensuremath{{\mathbb{H}}}}
+\newcommand{\Z}{\mathbb{Z}}
+% \newcommand{\CP}{\ensuremath{\mathop{\mathbb{C}{\rm P}}}\nolimits}
+\newcommand{\CP}{{\ensuremath{\mathop{\null {\mathbb{P}}}\nolimits}}}
+\newcommand{\IP}{{\ensuremath{\mathop{\null {\mathbb{P}}}\nolimits}}}
+\newcommand{\RP}{\ensuremath{\mathop{\mathbb{R}{\rm P}}}\nolimits}
+\newcommand{\F}{\ensuremath{{\mathbb{F}}}}
+
+\newcommand{\ibar}{\ensuremath{{\bar{\text{\it\i\/}}}}}
+\newcommand{\jbar}{\ensuremath{{\bar{\text{\it\j\/}}}}}
+\newcommand{\alphabar}{\ensuremath{{\bar{\alpha}}}}
+\newcommand{\betabar}{\ensuremath{{\bar{\beta}}}}
+\newcommand{\sbar}{\ensuremath{{\bar{s}}}}
+\newcommand{\zbar}{\ensuremath{{\bar{z}}}}
+
+\newcommand{\FS}{\ensuremath{{\text{FS}}}}
+
+\newcommand{\Dbrane}{D-brane}
+\newcommand{\Dbranes}{D-branes}
+\newcommand{\YM}{Yang-Mills}
+\newcommand{\MW}{Mordell-Weil}
+\newcommand{\MWgrp}{\MW{} group}
+\newcommand{\MWlat}{\MW{} lattice}
+\newcommand{\even}{\ensuremath{\mathrm{ev}}}
+\newcommand{\odd}{\ensuremath{\mathrm{odd}}}
+\newcommand{\Ktheory}{K-theory}
+\newcommand{\Ktheories}{K-theories}
+\newcommand{\Kgroup}{K-group}
+\newcommand{\Kgroups}{K-groups}
+\newcommand{\KRtheory}{KR-theory}
+\newcommand{\KRtheories}{KR-theories}
+\newcommand{\KRgroup}{KR-group}
+\newcommand{\KRgroups}{KR-groups}
+\newcommand{\KOtheory}{KO-theory}
+\newcommand{\Ktilde}{\widetilde{K}}
+\newcommand{\KOtilde}{\widetilde{KO}}
+\newcommand{\Kan}{K_\mathrm{an}}
+\newcommand{\Kcoh}{K_\mathrm{coh}}
+\newcommand{\Kalg}{K_\mathrm{alg}}
+\newcommand{\Cech}{{\v{C}ech}}
+\newcommand{\Hcech}{{\check{H}}}
+\newcommand{\Hdr}{H_\mathrm{DR}}
+\newcommand{\Hol}{\mathrm{Hol}}
+\newcommand{\Kunneth}{K{\"u}nneth}
+\newcommand{\inv}{\mathrm{inv}}
+
+\newcommand{\Ncal}{\mathcal{N}}
+\newcommand{\tKop}[1]{\ensuremath{\vphantom{K}^{#1}\!K}}
+\newcommand{\tK}{\ensuremath{\tKop{t}}}
+\newcommand{\T}[1]{\lbrack{#1}\rbrack} % shift functor X[i]
+\newcommand{\ptset}{\ensuremath{\{\text{pt.}\}}}
+\newcommand{\iunit}{\ensuremath{\mathrm{i}}}
+\newcommand{\Cunits}{\ensuremath{\C^\times}}
+\newcommand{\free}{\ensuremath{\text{free}}}
+\newcommand{\tors}{\ensuremath{\text{tors}}}
+
+\newcommand{\Moduli}{\mathcal{M}}
+\newcommand{\rt}{\ensuremath{\tilde{r}}}
+
+\DeclareMathOperator{\Div}{Div}
+\DeclareMathOperator{\TDiv}{TDiv}
+
+
+\DeclareMathOperator{\diff}{d\!}
+\DeclareMathOperator{\Span}{span}
+\DeclareMathOperator{\Pic}{Pic}
+\DeclareMathOperator{\re}{re}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\Mat}{Mat}
+\DeclareMathOperator{\Id}{id}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\codim}{codim}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\Alt}{Alt}
+\DeclareMathOperator{\idx}{Index}
+\DeclareMathOperator{\img}{img}
+\DeclareMathOperator{\coker}{coker}
+
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Tor}{Tor}
+\DeclareMathOperator{\Ext}{Ext}
+
+\DeclareMathOperator{\HOM}{\underline{Hom}}
+\DeclareMathOperator{\TOR}{\underline{Tor}}
+\DeclareMathOperator{\EXT}{\underline{Ext}}
+
+\DeclareMathOperator{\Sing}{Sing}
+\DeclareMathOperator{\Li}{Li}
+\DeclareMathOperator{\Vol}{Vol}
+\DeclareMathOperator{\dVol}{dVol}
+\DeclareMathOperator{\diag}{diag}
+
+\DeclareMathOperator{\Ind}{Ind}
+\DeclareMathOperator{\Res}{Res}
+\DeclareMathOperator{\AltInd}{AltInd}
+\DeclareMathOperator{\SymInd}{SymInd}
+\DeclareMathOperator{\GrInd}{GrInd}
+
+\DeclareMathOperator{\Stab}{Stab}
+
+\newcommand{\Spin}{{\mathop{\text{\textit{Spin}}}\nolimits}}
+\newcommand{\sofrak}{{\mathop{\mathfrak{so}}\nolimits}}
+\newcommand{\sufrak}{{\mathop{\mathfrak{su}}\nolimits}}
+\newcommand{\hfrak}{{\mathop{\mathfrak{h}}\nolimits}}
+\newcommand{\soTenC}{{\mathop{\sofrak(10)_\C}\nolimits}}
+\newcommand{\Rep}[1]{\ensuremath{\mathbf{\underline{#1}}}}
+\newcommand{\barRep}[1]{\ensuremath{\overline{\Rep{#1}}}}
+\DeclareMathOperator{\Reg}{Reg}
+\DeclareMathOperator{\Ad}{ad}
+
+
+\newcommand{\textdef}[1]{\textit{#1}}
+
+\newcommand{\Xt}{{\ensuremath{\widetilde{X}}}}
+\newcommand{\Vt}{{\ensuremath{\widetilde{V}}}}
+\newcommand{\Xb}{{\ensuremath{\overline{X}}}}
+\newcommand{\Ct}{{\ensuremath{\widetilde{C}}}}
+\newcommand{\ZZZ}{\ensuremath{{\Z_3\times\Z_3}}}
+\newcommand{\Lsheaf}{\ensuremath{\mathscr{L}}}
+\newcommand{\Osheaf}{\ensuremath{\mathscr{O}}}
+\newcommand{\OsheafXt}{\ensuremath{\mathscr{O}_{\Xt}}}
+\newcommand{\OsheafBone}{\ensuremath{\mathscr{O}_{B_1}}}
+\newcommand{\OsheafBtwo}{\ensuremath{\mathscr{O}_{B_2}}}
+\newcommand{\OsheafP}{\ensuremath{\mathscr{O}_{\CP^1}}}
+\newcommand{\Vsheaf}{\ensuremath{\mathscr{V}}}
+\newcommand{\Wsheaf}{\ensuremath{\mathscr{W}}}
+\newcommand{\Esheaf}{\ensuremath{\mathscr{E}}}
+\newcommand{\Fsheaf}{\ensuremath{\mathscr{F}}}
+\newcommand{\Hsheaf}{\ensuremath{\mathscr{H}}}
+\newcommand{\Hsheafdual}{\ensuremath{\mathscr{H}^\vee}}
+\newcommand{\Ksheaf}{\ensuremath{\mathscr{K}}}
+\newcommand{\Ssheaf}{\ensuremath{\mathscr{S}}}
+\newcommand{\dual}{\ensuremath{\vee}}
+\newcommand{\Asheaf}{\ensuremath{\mathscr{A}}}
+\newcommand{\Bsheaf}{\ensuremath{\mathscr{B}}}
+\newcommand{\Csheaf}{\ensuremath{\mathscr{C}}}
+\newcommand{\Qsheaf}{\ensuremath{\mathscr{Q}}}
+\newcommand{\At}{{\ensuremath{\widetilde{A}}}}
+\newcommand{\Ab}{{\ensuremath{\overline{A}}}}
+
+\newcommand{\Yt}{{\ensuremath{\widetilde{Y}}}}
+
+\newcommand{\Lss}{Leray spectral sequence}
+\newcommand{\LSss}{Leray-Serre spectral sequence}
+\newcommand{\CLss}{Cartan-Leray spectral sequence}
+
+\newcommand{\Htate}{\ensuremath{\widehat{H}}}
+\newcommand{\CPambient}{\ensuremath{\CP^2\times \CP^1 \times \CP^2}}
+\newcommand{\dP}[1]{\ensuremath{dP_{#1}}}
+\newcommand{\FPtimes}{\underline{\times}}
+\newcommand{\Xhat}{{\ensuremath{\Hat{X}}}}
+\newcommand{\Bhat}{{\ensuremath{\Hat{B}}}}
+
+\newcommand{\Fprepotential}{\mathscr{F}}
+\newcommand{\FprepotentialNP}{\mathscr{F}^\text{np}}
+\newcommand{\Fprepot}[1]{\ensuremath{\Fprepotential_{{#1},0}}}
+\newcommand{\FprepotNP}[1]{\ensuremath{\Fprepot{#1}^\text{np}}}
+\newcommand{\FprepotX}{\Fprepot{X}}
+\newcommand{\FprepotXNP}{\FprepotNP{X}}
+\newcommand{\FprepotXt}{\Fprepot{\Xt}}
+\newcommand{\FprepotXtNP}{\FprepotNP{\Xt}}
+
+\newcommand{\Kahler}{K\"ahler\xspace}
+\newcommand{\Kcone}{\ensuremath{\mathcal{K}}}
+
+\newcommand{\ThetaEeight}{\ensuremath{\Theta_{E_8}}}
+\newcommand{\mathemph}[1]{\textcolor{red}{\mbox{\boldmath $#1$}}}
+\newcommand{\isorightarrow}{\ensuremath{\stackrel{\sim}{\rightarrow}}}
+\newcommand{\isolongrightarrow}{\ensuremath{\stackrel{\sim}{\longrightarrow}}}
+\newcommand{\hooklongrightarrow}{\lhook\joinrel\longrightarrow}
+\newcommand{\tmod}{~\mathrm{mod}~}
+
+\newcommand{\cyclperm}{\ensuremath{(\text{cyc})}}
+\newcommand{\abbar}{\ensuremath{\alpha\bar{\beta}}}
+\newcommand{\Qt}{{\ensuremath{\widetilde{Q}}}}
+\newcommand{\QtF}{{\ensuremath{\widetilde{Q}}_F}}
+\newcommand{\QtFsub}[1]{{\ensuremath{\widetilde{Q}}_{F,{#1}}}}
+
+\newcommand{\Pt}{{\ensuremath{\widetilde{P}}}}
+\newcommand{\Rt}{{\ensuremath{\widetilde{R}}}}
+
+\newcommand{\CY}{\text{CY}}
+\newcommand{\Npoints}{\ensuremath{N_p}}
+
+\newcommand{\Etilde}{\ensuremath{\widetilde{E}}}
+
+\newcommand{\ESixAffineLabels}[7]{
+  \ensuremath{
+    \vcenter{\xymatrix@C=8mm@R=3mm@!0{
+        & & & #4 \ar@{-}[dl] & #2 \ar@{-}[l] \\
+        #1 \ar@{-}[r] & #3 \ar@{-}[r] & #5 \\
+        & & & #6 \ar@{-}[ul] & #7 \ar@{-}[l] 
+      }}
+  }
+}
+
+% \newcommand{\smallESixAffineLabels}[7]{
+%   \small
+%   \ensuremath{
+%     \vcenter{\xymatrix@C=7mm@R=1.5mm@!0{
+%         & & & #4 \ar@{-}[dl] & #2 \ar@{-}[l] \\
+%         #1 \ar@{-}[r] & #3 \ar@{-}[r] & #5 \\
+%         & & & #6 \ar@{-}[ul] & #7 \ar@{-}[l] 
+%       }}
+%   }
+% }
+
+\newcommand{\smallESixAffineLabels}[7]{
+  \tiny
+  \ensuremath{
+    \vcenter{\xymatrix@C=5mm@R=.8mm@!0{
+        & & & #4 \ar@{-}[dl] & #2 \ar@{-}[l] \\
+        #1 \ar@{-}[r] & #3 \ar@{-}[r] & #5 \\
+        & & & #6 \ar@{-}[ul] & #7 \ar@{-}[l] 
+      }}
+  }
+}
+
+\newcommand{\IIA}{\ensuremath{\text{II\!A}}}
+\newcommand{\IIB}{\ensuremath{\text{IIB}}}
+
+\newcommand{\Omegabar}{\overline{\Omega}}
+\DeclareMathOperator{\Ric}{Ric}
+\DeclareMathOperator{\Her}{Her}
+
+
+\DeclareMathOperator{\conv}{conv}
+\DeclareMathOperator{\ord}{ord}
+
+\newcommand{\cone}[1]{\ensuremath{\left<#1\right>}}
+
+
+
+\newcommand{\CC}{C\nolinebreak\hspace{-.05em}\raisebox{.4ex}{\tiny\bf +}\nolinebreak\hspace{-.10em}\raisebox{.4ex}{\tiny\bf +}}
+\newcommand{\blitzpp}{blitz\nolinebreak\hspace{-.05em}\raisebox{.4ex}{\tiny\bf +}\nolinebreak\hspace{-.10em}\raisebox{.4ex}{\tiny\bf +}}
+
+\newenvironment{descriptionlist}{%
+\begin{list}%
+{}%
+{\renewcommand{\makelabel}[1]{##1}}}%
+{\end{list}}
+
+% an array with displaystyle (=large) cells
+\newenvironment{displayarray}%
+{\everymath{\displaystyle\everymath{}}\array}%
+{\endarray}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{example}{Example}
+\newtheorem{exercise}{Exercise}
+\newtheorem{notation}{Notation}
+\newtheorem{proposition}{Proposition}
+\newtheorem{fact}{Fact}
+\newtheorem{corollary}{Corollary}
+\newtheorem{conjecture}{Conjecture}
+\newtheorem{definition}{Definition}
+
+
+
+\input cyracc.def %sha
+\newfont{\twelvecyr}{wncyr10 at 12pt}
+%\font\tencyr=wncyr10
+%\def\sha{\text{\tencyr\cyracc{Sh}}}
+\def\sha{\text{\twelvecyr\cyracc{Sh}}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\usepackage{color}
+\usepackage{listings} 
+\usepackage{courier}
+
+\definecolor{dbluecolor}{rgb}{0.01,0.02,0.7}
+\definecolor{dgreencolor}{rgb}{0.2,0.4,0.0}
+\definecolor{dgraycolor}{rgb}{0.30,0.3,0.30}
+
+\lstdefinelanguage{SageInputLanguage}{
+  language=Python, 
+  morekeywords={False,sage,True},
+  sensitive=true,
+}
+
+\lstdefinestyle{SageInput}{
+  language=SageInputLanguage,
+  basicstyle=\fontsize{11pt}{11pt}\ttfamily\bfseries,
+  commentstyle={\ttfamily\color{dgreencolor}},
+  stringstyle={\color{dgraycolor}\bfseries},
+  keywordstyle=\ttfamily\color{dbluecolor}\bfseries\color{red},
+  xleftmargin=25pt,
+  belowskip=3pt,
+}
+
+\lstdefinelanguage{SageOutputLanguage}{
+  morekeywords={False,True},
+  sensitive=true,
+}
+
+\lstdefinestyle{SageOutput}{
+  language=SageOutputLanguage,
+  basicstyle={\fontsize{11pt}{11pt}\ttfamily},
+  commentstyle={\ttfamily\color{dgreencolor}},
+  keywordstyle={\ttfamily\color{dbluecolor}},
+  stringstyle={\ttfamily\color{dgraycolor}},
+  xleftmargin=25pt,
+  aboveskip=0pt,
+}
+
+\lstdefinestyle{DefaultSageInputOutput}{
+  identifierstyle=,
+  numbersep=5pt,
+  aboveskip=0pt,
+  belowskip=0pt,
+  breaklines=true,
+  numberstyle=\footnotesize,
+  numbers=right,
+}
+
+\newcommand{\textsage}[1]{\lstinline[style=SageInput]{#1}}
+
+
+
+%%% Local Variables:
+%%% TeX-master: "Main"
+%%% eval: (TeX-PDF-mode 1)
+%%% End:
+
