@@ -1,0 +1,74 @@
+\documentclass[12pt]{article}
+\input{Preamble}
+
+
+\begin{document}
+\begin{center}
+  {\Huge Homework \#1}
+  \\[1pt]
+  Please hand in by next Thursday (October 23)
+\end{center}
+\vspace{1cm}
+
+\begin{enumerate}
+\item 
+  The position-space creation and annihilation operators satisfy 
+  \begin{equation}
+    \begin{gathered}[]
+      [a(\vec{x}), a(\vec{y})] = 
+      [a^\dagger(\vec{x}), a^\dagger(\vec{y})] = 0
+      \\[1pt]
+      [a(\vec{x}), a^\dagger(\vec{y})] =
+      \delta^3\big(\vec{x}-\vec{y}\big)      
+    \end{gathered}
+  \end{equation}
+  Show that the position-space Hamiltonian 
+  \begin{multline}
+    \label{eq:H}
+    H = \int d^3x \; 
+    a^\dagger(\vec{x}) 
+    \left( 
+      -\frac{1}{2m} \sum_i \frac{\partial^2}{\partial x_i^2}
+      + U(\vec{x})
+    \right)
+    a(\vec{x})
+    \\
+    + \frac{1}{2} \int d^3x \; d^3y \;
+    a^\dagger(\vec{x}) a^\dagger(\vec{y}) V(\vec{x}-\vec{y})
+    a(\vec{x}) a(\vec{y})
+  \end{multline}
+  preserves the total number of particles measured by
+  \begin{equation}
+    N = \int d^3x \; a^\dagger(x) a(x).
+  \end{equation}
+\item Apply the abstract Schr\"odinger equation $i\partial_t
+  |\psi,t\rangle=H|\psi,t\rangle$ to the $n$-particle state
+  \begin{equation}
+    |\psi, t\rangle = 
+    \int d^3x_1 \; d^3x_2 \cdots d^3 x_n \;
+    \psi(\vec{x}_1, \vec{x}_2, \dots, \vec{x}_n; t) \;
+    a^\dagger(\vec{x}_1)\cdots a^\dagger(\vec{x}_n)
+    |0\rangle
+  \end{equation}
+  with the Hamiltonian eq.~\eqref{eq:H}. Conclude that the
+  position-space wave function satisfies
+  \begin{multline}
+    i \frac{\partial}{\partial t} \psi(\vec{x}_1, \vec{x}_2, \dots, \vec{x}_n; t) =
+    \bigg[
+      \sum_{j=1}^n \Big(
+        -\frac{1}{2m} \sum_i \frac{\partial^2}{\partial (\vec{x}_j)_i^2}
+        + U(\vec{x}_j)
+      \Big)
+      \\
+      + \frac{1}{2} \sum_{j, k=1}^n
+      V(\vec{x}_j - \vec{x}_k)
+    \bigg]
+    \psi(\vec{x}_1, \vec{x}_2, \dots, \vec{x}_n; t).
+  \end{multline}
+\item Show that $|\psi,t\rangle$ is invariant under exchange of any
+  two particles.
+\end{enumerate}
+
+
+
+\end{document}

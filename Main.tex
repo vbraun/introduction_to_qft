@@ -7,11 +7,13 @@
 \input{Titlepage}
 
 
+% http://www.phy.olemiss.edu/~luca/Topics/ft/scalar.html
 
+\section{Syllabus}
 
-\section{Introduction}
+\subsection{Introduction}
 
-\subsection{Fields}
+\subsubsection{Fields}
 
 The subject of these lectures is quantum field theory, one of the most
 important tools for quantitatively describe physical processes in the
@@ -30,13 +32,13 @@ observables and find rules for the time evolution of states.
 
 
 
-\subsection{Quantum Mechanics}
+\subsubsection{Quantum Mechanics}
 
 
 
 
 
-\subsection{What Is Missing in Quantum Mechanics}
+\subsubsection{What Is Missing in Quantum Mechanics}
 
 \begin{itemize}
 \item Decay of excited atoms
@@ -45,14 +47,19 @@ observables and find rules for the time evolution of states.
 \end{itemize}
 
 
-\subsection{Spin-0 and the Lorentz Group}
+\subsubsection{Spin-0 and the Lorentz Group}
+
+\begin{itemize}
+\item Lorentz group
+\item Particles = irreducible representations
+\item Indistinguishable
+\end{itemize}
 
 
 
 
 
-
-\section{The Path Integral}
+\subsection{The Path Integral}
 
 
 
@@ -68,7 +75,7 @@ observables and find rules for the time evolution of states.
 \end{enumerate}
 
 
-\section{{\boldmath $\phi^4$} Theory}
+\subsection{{\boldmath $\phi^4$} Theory}
 
 \begin{enumerate}
 \item Quartic Interaction
@@ -81,10 +88,191 @@ observables and find rules for the time evolution of states.
 
 
 
-\section{Ising Model}
+\subsection{Ising Model}
 
 
-\section{Fermions}
+\subsection{Fermions}
+
+
+\newpage
+
+
+\section{First class (13.10)}
+
+The Schrödinger equation $i\hbar\frac{\partial}{\partial
+  t}|\psi,t\rangle = H|\psi,t\rangle$ is not relativistic since it
+treats space and time differently. Solution: Make space a parameter
+like time.
+\begin{definition}
+  An operator $\varphi(x,t)$ is a quantum field.
+\end{definition}
+Quantum mechanics is not a good description for
+multi-particle systems where the total number is not
+conserved. E.g. excited hydrogen atoms really decay (by creating
+photons), so the electron wave function can't be a stationary
+solution.
+
+\subsection{Lightning review of electrodynamics}
+
+\begin{equation}
+  F_{\mu\nu} =
+  \begin{pmatrix}
+    0 & E_x & E_y & E_z \\
+    -E_x & 0 & -B_z & B_y \\
+    - E_y & B_z & 0 & -B_x \\
+    -E_z & -B_y & B_x & 0 \\
+  \end{pmatrix}
+  = \partial_{[\mu} A_{\nu]}
+\end{equation}
+Maxwell equations $\partial_{[\alpha} F_{\beta\gamma]} = 0$,
+$\partial_\mu F^{\nu\mu}=j^\nu$ are equations of motion of action
+\begin{equation}
+  S = \int d^4x \left[- \tfrac{1}{4} F_{\mu\nu} F^{\mu\nu} + A_\nu j^\nu\right]
+\end{equation}
+
+\begin{example}
+  Point charge solution located at origin has 4-vector
+  potential
+  \begin{equation}
+    A = \left(
+      -\frac{1}{\sqrt{x^2+y^2+z^2}}, 0, 0, 0)
+    \right)
+  \end{equation}
+  We checked that this satisfies equations of motion with
+  $j=(-\delta^3(\vec{x}), 0, 0, 0)$. The action integral diverges.
+\end{example}
+Since there is no magnetic field (in this coordinate frame), the
+current-independent part of the Lagrangian density $L=- \tfrac{1}{4}
+F_{\mu\nu} F^{\mu\nu} = |B|^2-|E|^2$ diverges just like the energy
+stored in the electromagnetic field $|E|^2 + |B|^2$. The action
+integral diverges for the same reason that the energy in the electric
+field is infinite. 
+
+These infinities are unavoidable in a field theory. Quantum field
+theory cannot avoid them either, but has a formalism for dealing with
+them.
+
+
+\section{Second class (15.10)}
+
+\subsection{Klein-Gordon Equation}
+
+What would the relativistic Hamiltonian be? We know the
+non-relativistic Hamiltonian for free particle is
+$\frac{1}{2m}P^2$. We also know the relativistic energy of a free
+particle with 4-momentum $p_\mu = (E/c, p_x, p_y, p_z) = (E/c,
+\vec{p})$ is
+\begin{equation}
+  |p|^2 = p_\mu p^\mu = -m^2 c^2
+  \quad \Leftrightarrow \quad
+  E = mc^2 \sqrt{1 + \frac{\vec{p}^2}{m^2 c^2}} =
+  mc^2 + \frac{1}{2m} \vec{p}^2 
+  + O(\tfrac{1}{c}).
+\end{equation}
+The terms in the Taylor series are rest energy, the non-relativistic
+energy, and higher-order corrections. This suggests the ``relativistic
+Schr\"odinger'' equation
+\begin{equation}
+  -i\hbar \frac{\partial}{\partial t} |\phi, t\rangle =
+  H |\phi, t\rangle =
+  \sqrt{m^2c^4 + c^2 P^2}
+  H |\phi, t\rangle
+\end{equation}
+but the square root makes it difficult to make sense out of that
+equation. In particular, the series expansion in $P$ will mean
+infinite number of terms. It is also not Lorentz invariant, still
+treating time and space differently. Square (i.e.~apply twice) the
+operator on both sides and switch to position space,
+$P_j=i\hbar \partial_j$:
+\begin{equation}
+  \begin{gathered}
+    -\hbar^2 \frac{\partial^2}{\partial t^2} \phi(x, t) 
+    =
+    \left(
+      m^2c^4  - \hbar^2 c^2 \sum_{j=1}^3 \frac{\partial}{\partial x_j}
+    \right) \phi(x,t)
+    \\
+    \Leftrightarrow \quad
+    \left(
+      \partial_\mu \partial^\mu  -
+      \frac{m^2 c^2}{\hbar^2}
+    \right) \phi(x,t) = 0
+  \end{gathered}
+\end{equation}
+This is the Klein-Gordon equation. It is manifestly relativistic, but
+second order in time derivatives. So initial conditions involve
+$\phi(x,0)$ and $\dot\phi(x,0)$. Depending on initial conditions,
+$\int d^3x |\phi(x,t)|^2$ is not conserved.
+
+Instead of going to second derivatives, one might hope that there
+would be a way to do it with first derivatives in space and time. But
+that is incompatible with the action principle. For example, consider
+this simple 1-dimensional theory (so we don't have to figure out how
+to contract the $\partial_\mu$):
+\begin{equation}
+  S = \int dx \; \phi \partial \phi
+  = \int dx \; \partial\phi^2 - \int dx \; (\partial \phi) \phi
+  = [\phi^2]_{-\infty}^\infty - \int dx \; \phi \partial \phi
+\end{equation}
+with sensible boundary conditions for $\phi$ the surface term will
+vanish. But then we get $S=-S \Rightarrow S=0$. There is one way to
+evade this conclusion, if $\phi$ \emph{anti-commutes} then the last
+sign is reversed and the action is not constrained. This will be
+important later on when we talk about fermions.
+
+
+\subsection{Action Principle}
+
+The Klein-Gordon equation is the equation of motion for the Lagrangian
+($c=\hbar=1$ from now on)
+\begin{equation}
+  \mathcal{L} = -\frac{1}{2} 
+  \partial_\mu \phi \partial^\mu \phi
+  - \frac{1}{2} m^2 \phi^2
+\end{equation}
+Check by setting the variation to zero:
+\begin{equation}
+  0 = \delta S = \int d^4x \delta\mathcal{L} =
+  -\int d^4x \partial_\mu (\delta \phi \partial^\mu \phi)
+  + \int d^4x \delta \phi (\partial_\mu \partial^\mu - m^2) \phi
+\end{equation}
+The first summand is a surface term. We only allow compactly-supported
+variations $\delta \phi$, hence the surface term is zero. The second
+term vanishes precisely when $\phi$ satisfies the Klein-Gordon
+equation, which are the equations of motion for the Lagrangian.
+
+Another Lagrangian would be 
+\begin{equation}
+  \mathcal{L}' = \frac{1}{2} \phi \partial_\mu \partial^\mu \phi
+  - \frac{1}{2}m^2\phi^2
+\end{equation}
+The difference is a divergence
+$\mathcal{L}'-\mathcal{L}=\partial_\mu(\frac{1}{2}\phi\partial^\mu
+\phi)$. If the field at infinity is sufficiently well-behaved then the
+surface term vanishes, and the equations of motion are the same. This
+is the case for the free scalar field. In general, whether or not
+boundary terms contribute can depend on the details of the physical
+theory.
+
+
+\subsection{Canonical Quantization}
+
+By definition, this means 
+\begin{itemize}
+\item Take the classical Hamiltonian $H(P, Q)$.
+\item Promote $P$, $Q$ to operations with $[Q, P] = i$.
+\end{itemize}
+We reviewed the harmonic oscillator $H=\frac{1}{2}Q^2 + \frac{1}{2}m^2
+Q^2$. Trick: there is a linear combination $a$, $a^\dagger$ of $P$ and
+$Q$ that act as creation/annihilation operators. In this notation,
+\begin{equation}
+  H= m(a^\dagger a + \tfrac{1}{2} )
+  ,\quad
+  [a, a^\dagger] = 1.
+\end{equation}
+The operator $a$ annihilates the ground state: $a|0\rangle =
+0$. Therefore, its energy is $H|0\rangle = \frac{m}{2}|0\rangle$.
+
 
 
 
