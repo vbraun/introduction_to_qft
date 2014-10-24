@@ -1,0 +1,83 @@
+\documentclass[12pt]{article}
+\input{Preamble}
+
+
+\begin{document}
+\begin{center}
+  {\Huge Homework \#2}
+  \\[1pt]
+  Please hand in by next Thursday (October 30), either during the
+  lecture
+  \\ 
+  or email to \texttt{<Philipp.Kleinert@physics.ox.ac.uk>}
+\end{center}
+\vspace{1cm}
+
+
+\begin{enumerate}
+\item Campbell-Baker-Hausdorff formula: Show that 
+  \begin{equation}
+    e^X e^Y = e^{X+Y}
+    e^{\frac{1}{2}[X,Y]} + 
+    (\text{3${}^\text{rd}$ order terms}).
+  \end{equation}
+\item Consider the free particle path integral (with $m=1$ for
+  simplicity)
+  \begin{equation}
+    \langle q_f, t_f|q_i, t_i\rangle = 
+    \int \mathcal{D}q(t) \;
+    \exp\left[
+      i \int_{t_i}^{t_f} \frac{1}{2} \dot{q}^2 \; dt
+    \right]
+  \end{equation}
+  Write a general path $q(t)$ as the sum of the classical
+  path\footnote{That is, motion at constant velocity.}  $q_c(t)$ plus
+  a Fourier series with coefficients $a_n$, $n\geq 1$.
+\item Show that the action for such a general path is
+  \begin{equation}
+    S = \frac{1}{2} \frac{(q_f-q_i)^2}{t_f-t_i}
+    + \frac{1}{2}
+    \sum_{n=1}^\infty \frac{1}{2}
+    \frac{(n \pi)^2}{t_f-t_i} a_n^2
+  \end{equation}
+\item Perform the integral 
+  \begin{equation}
+    \int da_k \; e^{iS}
+  \end{equation}
+  over a single Fourier mode.
+\item Write the entire path integral as a constant, depending only on
+  $t_f-t_i$, times the classical action,
+  \begin{equation}
+    \int \prod_{n=1}^\infty a_n \; e^{iS}
+    = 
+    c(t_f-t_i)
+    \exp\left(
+      \frac{i}{2} \frac{(q_f-q_i)^2}{t_f-t_i}
+    \right)
+  \end{equation}
+  Does the constant have a finite value?
+\item The actual path integral measure contains a normalization
+  constant $\gamma$, 
+  \begin{equation}
+    \langle q_f, t_f|q_i, t_i\rangle = 
+    \int \mathcal{D}q e^{iS}= 
+    \gamma \int \prod da_n \; e^{iS},
+  \end{equation}
+  such that the combination $\gamma \cdot c(t_f-t_i)$ is a finite
+  number. The requirement that 
+  \begin{equation}
+    \int dq \;
+    \langle q_f,t_f|q,t\rangle
+    \langle q,t|q_i,t_i\rangle
+    = 
+    \langle q_f,t_f|q_i,t_i\rangle
+  \end{equation}
+  implies a relation between $\gamma c(t_f-t)$, $\gamma c(t-t_i)$, and
+  $\gamma c(t_f-t_i)$. Find it and solve it. Hint: $\gamma c(\tau) \sim
+  \tau^{-1/2}$.
+\end{enumerate}
+
+
+
+
+\end{document}

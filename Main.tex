@@ -345,6 +345,7 @@ where $\ast$ is complex conjugation and $kx = k_\mu x^\mu$ is the
 invert this to write the Fourier modes as linear combination of field
 and conjugate momentum:
 \begin{equation}
+  \label{eq:a(phi)}
   a(\vec{k}) = \int d^3x e^{-ikx} (i\dot \phi + \omega \phi)
 \end{equation}
 A longish algebra exercise yields the Hamiltonian
@@ -395,6 +396,306 @@ easily fixable. It is perhaps not surprising, if there is a harmonic
 oscillator at each point in space-time then there are still infinitely
 many in a given volume, contributing an infinite zero-point energy
 when you add them up.
+
+
+
+\section{Week 2, Monday}
+
+\subsection{Zero Point Energy}
+
+The zero point energy density is
+\begin{equation}
+  \mathcal{E}_0 = \int \widetilde{dk} \omega^2 =
+  \frac{4\pi}{2(2\pi)^3} \int_0^\Lambda dk \; k^2 \sqrt{k^2+m^2}
+  \sim
+  \frac{1}{4\pi^2}\int_0^\Lambda dk k^3 = \frac{\Lambda^4}{14\pi^2}
+\end{equation}
+where $\Lambda \gg m$ is a \emph{momentum cutoff} that we use to
+regulate the integral. If we send $\Lambda\to \infty$ the integral
+diverges, as expected.
+
+One interpretation is that this is not a problem, at some high enough
+scale (e.g.\ the Plank scale, say, $\Lambda=10^{15} GeV$) new physical
+states must appear, changing the theory. This is a perfectly
+reasonable arguments as long as we ignore the gravitational effect of
+the energy density. Since it is everywhere, it will appear as a
+cosmological constant in Einstein's equations. In fact, we did
+discover a cosmological constant (a.k.a.\ dark energy) recently, but
+at a much much smaller scale of about $\Lambda = 2 \times
+10^{-3}ev$. In a supersymmetric theory there are additional
+contributions from the superpartners that cancel the zero point energy
+exactly. But in the real world supersymmetry is broken, and the
+breaking will spoil the exact cancellation. It is up to you to figure
+this out!
+
+
+\subsection{Casimir Effect}
+
+There is a measurable physical effect of the zero point energy: Two
+uncharged parallel plates attract. In the context of scalar field
+theory, we mean boundary conditions $\phi=0$ in two parallel planes of
+distance $d$. The effect of the plates is that the momentum of the
+field perpendicular to the plates is quantized $\vec{k} =
+(\frac{n\pi}{d}, k_y, k_z)$, $n\in \Z_{\geq}$. 
+
+For simplicity, consider only the massless field $m=0$ in $1+1$
+dimensions. Then the total zero point energy between the
+(0-dimensional) plates is
+\begin{equation}
+  E(d) = \frac{1}{2} \sum_{n=1}^\infty \sqrt{k^2} = 
+  \frac{\pi}{2d} \sum _{n=1}^\infty n
+\end{equation}
+Now this obviously diverges, but we knew that. The question is, how
+does it vary with $d$? A quick and dirty argument is that $\sum n =
+\zeta(-1) = -\frac{1}{12}$ using the Riemann zeta function. A slightly
+more careful argument is to first regulate the sum by introducing a
+factor $\exp(-\frac{an}{d})$ that falls off with $n$ sufficiently fast to make
+the sum converge, and reproduces the original sum in the limit $a\to
+0$:
+\begin{equation}
+  \begin{split}
+    E_a(d) =&\;
+    \frac{\pi}{2d} \sum_{n=1}^\infty n e^{-\frac{an}{d}} = 
+    - \frac{\pi}{2a} \frac{\partial}{\partial a} 
+    \sum_{n=1}^\infty e^{-\frac{an}{d}} 
+    \\ =&\;
+    - \frac{\pi}{2a} 
+    \frac{1}{1- e^{-\frac{a}{d}}} =   
+    -\frac{\pi}{2d} \frac{e^{a/d}}{e^{a/d}-1} 
+    \\ =&\;
+    \frac{\pi}{2d} 
+    \left(
+      \frac{d^2}{a^2} - \frac{1}{12} + O(\tfrac{a^2}{d^2}) 
+    \right)    
+  \end{split}
+\end{equation}
+When we move the plates apart, we not only increase the amount of
+vacuum between the plates but we also decrease the amount of vacuum
+outside. Hence we imagine the whole system in a wide box of size $L\gg
+d$. The total energy is 
+\begin{equation}
+  E_\text{tot} = E(d) + E(L-d) = 
+  \frac{\pi}{2a^2} - \frac{\pi}{24 d} + \cdots
+\end{equation}
+The first summand is the divergence from the zero point energy. It
+diverges independently of $d$. The subleading term leads to the
+Casimir force
+\begin{equation}
+  F = \lim_{a\to 0} \frac{\partial E_\text{tot}}{\partial d} 
+  = \frac{\pi}{24 d}
+\end{equation}
+
+
+\subsection{Interactions}
+
+In classical mechanics we know how to incorporate a potential into the
+Lagrangian formalism, we just add it to the Lagrangian. Expanding in a
+series, this suggest
+\begin{equation}
+  \mathcal{L} = -\frac{1}{2} 
+  \partial_\mu \phi \partial^\mu \phi
+  - \frac{1}{2} m^2 \phi^2
+  + \sum_{n=3} \frac{1}{n!} \lambda_n \phi^n.
+\end{equation}
+where $\lambda_n$ are \emph{coupling constants} that define the
+strength of interactions. We note that it is \emph{local}, that is,
+the Lagrange density at a space-time point $x$ depends only on
+$\phi(x)$ and its derivatives (but never on $\phi(y)$ at a different
+point). This is necessary to never transmit information faster than
+light.
+
+Let us count the dimensions using our favorite convention
+$\hbar=c=1$. There is only one kind of unit left, which we take to be
+mass:
+\begin{equation}
+  [m] = 1
+  ,\quad
+  [x] = -1
+  ,\quad
+  [x] = -1
+  .
+\end{equation}
+The action is dimensionless and $[d^4x]=-4$, so $[\mathcal{L}] =
+4$. Therefore the dimension of the coupling constants
+\begin{equation}
+  [\lambda_n] = 4-n
+\end{equation}
+We distinguish three cases:
+\begin{itemize}
+\item $[\lambda_3] = 1$: Whether a given dimensionful value is small
+  or large makes only sense relative to a energy $E$ at which we
+  perform our experiments. Here, the ratio $\frac{\lambda_3}{E}$ is
+  dimensionless. This will be important at small energies, but not at
+  very high energies. This is called a \emph{marginal} perturbation.
+\item $[\lambda_4]=0$ is already dimensionless. \emph{Marginal}
+  perturbation.
+\item $\lambda_5]=-1$, and similar for all higher order
+  terms. \emph{Irrelevant} perturbation. They become important at high
+  energies, and typically lead to problems there. As we will see, they
+  cannot be allowed if we want our theory to be renormalizable.
+\end{itemize}
+
+
+\section{Week 2, Wednesday}
+
+\subsection{LSZ Reduction}
+
+In accelerator physics we measure scattering of particles. The
+amplitude for two particles $1$, $2$ $\rightarrow$ $1'$, $2'$ is
+$\langle f|i\rangle$ with initial and final states
+\begin{equation}
+  |i\rangle = \lim_{t\to-\infty} a_1^\dagger(t) a_2^\dagger(t) |0\rangle
+  ,\quad
+  |f\rangle = \lim_{t\to+\infty} a_{1'}^\dagger(t) a_{2'}^\dagger(t) |0\rangle
+\end{equation}
+Using eq.~\eqref{eq:a(phi)} to go from the creation operator back to
+the field operator, we arrived at the Lehmann-Symanzik-Zimmermann
+formula
+\begin{equation}
+  \begin{split}
+    \langle f|i\rangle =&\; 
+    \langle 0| T a_{1'}(\infty) a_{2'}(\infty) 
+    a_1^\dagger(-\infty) a_2^\dagger(-\infty) |0\rangle
+    \\ =&\;
+    (-i)^2 
+    \int d^4x_1 (-\partial_{x_1}^2+m^2)
+    \int d^4x_2 (-\partial_{x_2}^2+m^2)
+    \\ & \qquad \times
+    \int d^4x_{1'} (-\partial_{x_{1'}}^2+m^2)
+    \int d^4x_{2'} (-\partial_{x_{2'}}^2+m^2)
+    \\ & \qquad \times
+    \langle 0| T \phi(x_1) \phi(x_2) 
+    \phi(x_{1'}) \phi(x_{2'}) |0\rangle    
+  \end{split}
+\end{equation}
+We notice the Klein-Gordon equation $(\partial^2-m^2)\phi$ inside the
+expression, if the field is not interacting then the amplitude will be
+zero. The LSZ formula separates the (trivial) propagation from / to
+infinity and the real interaction. All that remains is to compute the
+vev of time-ordered products!
+
+
+\subsection{Path Integral in Quantum Mechanics}
+
+Before moving to the path integral in quantum field theory, let's
+reformulate quantum mechanics of a point particle as a path
+integral. That is, we want to compute the amplitude
+\begin{equation}
+  \mathcal{A} = 
+  \langle q_f, t_f | e^{-i H (t_f-t_i)} | q_i, t_i \rangle
+\end{equation}
+of a particle starting at time $t_i$ and position $q_i$ to end up at
+position $q_f$ at the time $t_f$. The $e^{iHt}$ is, of course, the
+time evolution operator. We now slice the interval $[t_i, \dots, t_j,
+t_{j+1}, \dots, t_f]$ into small intervals of length $t_{j+1}-t_j =
+\Delta t$, and insert $1=\int dq |q, t_j\rangle \langle q, t_j|$ at
+each time step. Then the overall amplitude factorizes
+\begin{equation}
+  \mathcal{A} = 
+  \prod_j \int dq_j \;
+  \langle q_{j+1}, t_{j+1} | e^{-i H \Delta t} | q_j, t_j \rangle.
+\end{equation}
+We can think of the integral over all intermediate combinations of
+positions as the integral over paths, and write (up to a normalization
+constant to be determined later) 
+\begin{equation}
+  \prod_j \int dq_j = \int \mathcal{D}q.
+\end{equation}
+
+Using the Baker-Campbell-Hausdorff formula, the particle Hamiltonian
+$H(P, Q) = \tfrac{1}{2m} P^2 + V(Q)$ satisfies
+\begin{equation}
+  e^{-iH(P,Q)\Delta_t} =
+  e^{-\frac{i}{2m}H \Delta t} e^{-iV(Q) \Delta t}
+  + O(\Delta t^2)
+\end{equation}
+as if we can commute $P$ and $Q$ in the limit $\Delta t\to 0$.
+
+
+
+\section{Week 2, Thursday}
+
+\subsection{Path Integral continued}
+
+Inserting a $1=\int dp\; |p\rangle \langle p|$, we derive an expression
+for each small time step:
+\begin{equation}
+  \langle q_{j+1}, t_{j+1} | e^{-i H \Delta t} | q_j, t_j \rangle =
+  \frac{1}{2\pi} \int dp\;
+  e^{-iH(p,q_j)} e^{i (q_{j+1}-q_j) p}
+\end{equation}
+In the limit $\Delta t\to 0$, we can write $q_{j+1} - q_j = \dot{q}_j
+\Delta t$. To get the entire amplitude, we have to multiply the
+contribution from each step and then integrate over all intermediate
+positions,
+\begin{equation}
+  \mathcal{A} = 
+  \langle q_f, t_f | e^{-i H (t_f-t_i)} | q_i, t_i \rangle =
+  \int \mathcal{D}q \mathcal{D}p \;
+  \exp \left[
+    i \int_{t_i}^{t_f} dt \; \big(p \dot{q} - H(p,q) \big)
+  \right]
+\end{equation}
+Our particular (classical!) Hamiltonian $H(p, q) = \tfrac{1}{2m} p^2 +
+V(q)$ is quadratic in $p$, so the momentum integral at each time slice
+is just a Gaussian (actually, Fresnel) integral. The momentum midpoint
+$p_\text{mid}$ of the exponent is at
+\begin{equation}
+  \frac{\partial}{\partial p} \big(p \dot{q} - H(p,q) \big) = 0 
+  \quad \Leftrightarrow \quad
+  \dot{q} = \frac{\partial H}{\partial p}
+\end{equation}
+Hence the momentum integral amounts to replacing $p$ by the equations
+of motion in the Hamiltonian formalism of classical mechanics in the
+exponent $p \dot{q} - H(p,q)$, which is precisely how to translate to
+the Lagrangian formulation. The momentum integral also generates a
+coefficient that is independent of $p$, $q$, which we absorb in the
+normalization of the path integral. The final result is that
+\begin{equation}
+  \mathcal{A} = 
+  \int \mathcal{D}q \;
+  \exp \left[
+    \frac{i}{\hbar} \int_{t_i}^{t_f} dt \; L\big(q(t), \dot{q}(t) \big),
+  \right]
+\end{equation}
+where I also restored the $\hbar$ using dimensional analysis.
+
+A number of comments are in order. First, note that the path integral
+formulation traded all operators back into paths. That is, $q(t)$ is
+just an ordinary (commuting) function here. All quantum effects arise
+from the sum over all paths, and not from commutation relations.
+
+The classical limit $\hbar\to 0$ also has a nice interpretation, it
+causes the integrand to oscillate rapidly everywhere \emph{except}
+where the phase is stationary, that is, $\frac{\partial S}{\partial q}
+= 0$. The domain (paths) of the integration where the phase varies
+rapidly tend to cancel out, whereas the region around the extremal
+paths interfere constructively. By a similar argument, if you have a
+particle in a periodic orbit then the orbits whose action is an
+integer multiple of $2\pi\hbar$ all add up. This explains why the
+Bohr-Sommerfeld quantization condition worked so well.
+
+Due to the imaginary unit in the exponent, the behavior of the path
+integral is oscillatory instead of falling off exponentially. This
+leads to numerous convergence issues. One common trick is to formally
+write it as ``imaginary time path integral''
+\begin{equation}
+  \int \mathcal{D} e^{i\int dt\; L} = 
+  \int \mathcal{D} e^{-\int d\tau\; L}
+\end{equation}
+where $\tau = -i t$. If we treat $\tau$ as real (which we will
+motivate later on), then this changes the Fresnel into a Gaussian
+integral. The action turns into the \emph{Euclidean} action
+\begin{equation}
+  S = \int dt \; 
+  \left( \tfrac{1}{2} \dot{q}^2 - V(\phi) \right) 
+  \quad \longrightarrow \quad 
+  S_E = \int d\tau \; 
+  \left( \tfrac{1}{2} \dot{q}^2 + V(\phi) \right)
+\end{equation}
+
+
+
 
 
 
