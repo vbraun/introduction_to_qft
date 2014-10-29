@@ -1,0 +1,51 @@
+\documentclass[12pt]{article}
+\input{Preamble}
+
+
+\begin{document}
+\begin{center}
+  {\Huge Homework \#3}
+\end{center}
+\vspace{1cm}
+
+\noindent Please hand in by next Thursday (November 6), either during the
+lecture or email to \texttt{<Philipp.Kleinert@physics.ox.ac.uk>}.
+Tutorials location: Conference Room (31. October), Seminar Room
+(7. November).
+
+
+
+\begin{enumerate}
+\item Verify that the Feynman propagator is a Green's function by
+  acting on it with the Klein-Gordon operator $-\partial_x^2+m^2$.
+\item Let $\psi$ be a complex-valued\footnote{So far, we only used
+    real-valued fields in the lecture.} field with Lagrangian density
+  \begin{equation}
+    \mathcal{L} = -\partial_\mu \psi \partial^\mu \psi^* - |\psi|^2.
+  \end{equation}
+  Show that $\mathcal{L}$ is real and invariant under the symmetry
+  $\psi \mapsto e^{i\theta} \psi$ for a constant $\theta\in\R$.
+\item Add sources $\mathcal{L} \mapsto \mathcal{L} + J^* \psi + J
+  \psi^*$ to the Lagrangian and evaluate the path integral $Z(J,
+  J^*)$.
+\item Compute the time-ordered two-point functions
+  \begin{equation}
+    \langle 0 | T \psi(x) \psi(y) |0\rangle, \quad
+    \langle 0 | T \psi(x) \psi^*(y) |0\rangle, \quad
+    \langle 0 | T \psi^*(x) \psi^*(y) |0\rangle.
+  \end{equation}
+\item Use Wick's theorem to evaluate the time ordering of the product
+  of two normal ordered squares
+  \begin{equation}
+    T\Big(:\phi(x)^2:~\times~:\phi(y)^2:\Big).
+  \end{equation}
+  Show that this is finite, that is, can be written in terms of normal
+  ordered products and propagators \emph{not} evaluated at zero. Hint:
+  Write it as particular limit of 4 distinct points. You only need
+  to apply Wick's theorem repeatedly.
+\end{enumerate}
+
+
+
+
+\end{document}
