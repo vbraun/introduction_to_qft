@@ -697,12 +697,155 @@ integral. The action turns into the \emph{Euclidean} action
 
 
 
+\section{Week 3, Monday}
+
+\subsection{Green's Functions}
+
+The Klein-Gordon equation describes just propagating plane waves. A
+more interesting question is how does the field react to external
+influences. We can model this with a source term
+\begin{equation}
+  (-\partial_\mu \partial^\mu + m^2) \phi = J(x) = J(t, \vec{x})
+\end{equation}
+This is an inhomogeneous linear differential equation, so any solution
+is the sum of a solution of the homogeneous differential equation plus
+one particular solution of the inhomogeneous equation.
+\begin{definition}[Green's Function] 
+  A solution of 
+  \begin{equation}
+    (-\partial_x^2 + m^2) G(x,y) = \delta^4(x-y)
+  \end{equation}
+  is called a Green's function.
+\end{definition}
+In momentum space
+\begin{equation}
+  \tilde\phi(k) = \int d^4x e^{-ikx} \phi(x)
+  ,\quad
+  \phi(x) = \int \frac{d^4k}{(2\pi)^4} e^{ikx} \tilde\phi(k)
+\end{equation}
+we can formally solve for the Green's function. However, the Fourier
+transformation integral of the formal solution back to position space
+diverges because of poles at $k_0 = \pm \sqrt{\vec{k}+ m^2} = \pm
+\omega$. The correct way\footnote{This is the
+  \href{http://en.wikipedia.org/wiki/Sokhotski-Plemelj_theorem}{Sokhotski-Plemelj
+    Theorem}.} of dealing with the Fourier transform of distributions
+requires a choice of integration contour in the complex $k_0\in\C$
+plane that evades the two poles. The two natural contours are
+\begin{itemize}
+\item Just above the two poles at $k_0=\pm \omega$, this is the
+  \emph{retarded Green's function}. It vanishes if $x$ is in the past
+  of $y$.
+\item Just below the two poles, this is the \emph{advanced Green's
+    function}. It vanishes if $x$ is in the future of $y$.
+\end{itemize}
+In addition, any Green's function vanishes if $x$ and $y$ are
+space-like separated.  Instead of defining the integration in prose,
+we can also use the limit of a small positive $\epsilon$ to describe
+the integration contour as
+\begin{equation}
+  G_{\text{Adv}/\text{Ret}}(x, y) = 
+  \lim_{\epsilon\to 0^+}
+  \int \frac{d^4k}{(2\pi)^4} 
+  \frac{1}{-(k_0 \pm i \epsilon)^2 + \vec{k}^2 + m^2}
+  e^{ikx}
+\end{equation}
+The picture below is the propagator in the $x_2=x_3=0$ plane. At the
+light cone front $x_0 = \pm x_1$ the propagator is a delta function,
+which is not drawn.
+\begin{figure}
+  \centering
+  \includegraphics[width=\linewidth]{figures/propagator.png}
+  \caption{Propagator $G(x-y)$ at $x-y = (40, \xi, 0, 0)$ and $m=1$.}
+\end{figure}
+
+
+\subsection{Propagator of the Free Field}
+
+The propagator of a free scalar field is also a Green's function:
+\begin{equation}
+  \begin{split}
+    \langle 0| \phi(x) \phi(y) |0\rangle =&\;
+    \int \widetilde{dk} \int \widetilde{dk}' 
+    \langle 0| a(\vec{k}) a^\dagger(\vec{k}') |0\rangle \; e^{i(kx-k'y)}
+    \\    =&\;
+    \int \frac{d^3\vec{k}}{(2\pi)^3}
+    \frac{1}{2\omega} 
+    e^{ik(x-y)}
+    \\    =&\;
+    \frac{1}{2} 
+    \int \frac{d^3\vec{k}}{(2\pi)^3}
+    \oint \frac{dk_0}{2\pi i}
+    \frac{1}{k^2+m^2} 
+    e^{ik(x-y)}
+    \\    =&\;
+    \frac{1}{2i} \Big(
+    G_\text{Ret}(x-y) - G_\text{Adv}(x-y)
+    \Big)
+  \end{split}
+\end{equation}
+where the $\oint$-contour consists of two small circles around the two
+poles, which is equals to the retarded Green's function contour minus
+the advanced Green's function contour.
+
+
+\subsection{Feynman Propagator}
+
+There is a third choice of integration contour which turns out to be
+the most useful for quantum field theory. of course we need the vacuum
+expectation value of time-ordered products in quantum field theory, so
+let us define
+\begin{definition}[Feynman propagator]
+  The Green's function $\Delta$ defined as 
+  \begin{equation}
+    \tfrac{1}{i} \Delta(x-y) = 
+    \langle 0 | T \phi(x) \phi(y) |0\rangle
+  \end{equation}
+  is called the Feynman propagator.
+\end{definition}
+In terms of integration contour in the $k_0\in \C$ plane, this is the
+path that goes below at $k_0=-\omega$ and above at $k_0=\omega$, see
+\autoref{fig:feynman_propagator_path}. 
+\begin{figure}
+  \label{fig:feynman_propagator_path}
+  \centering
+  \includegraphics[width=\linewidth]{figures/FeynmanPropagatorPath.pdf}
+  \caption{Feynman propagator integration contour in the $k_0\in \C$ plane.}
+\end{figure}
+Depending on whether $x$ is in the future or the past of $y$, this
+contour selects the advanced or retarded Green's function. Finally, in
+terms of an algebraic $i\epsilon$ prescription, the Feynman propagator
+is
+\begin{equation}
+  \Delta(x-y) = 
+  \lim_{\epsilon \to 0^+}
+  \int
+  \frac{d^4k}{(2\pi)^4}
+  \frac{1}{k^2 + m^2 - i \epsilon}
+  e^{ik(x-y)}
+\end{equation}
+
+
+
+
+\section{Week 3, Wednesday}
+
+
+
+
+
+
+\newpage
+\appendix
+
+\section{test}
+
 
 
 \bibliographystyle{utcaps} 
 \renewcommand{\refname}{Bibliography}
 \addcontentsline{toc}{section}{Bibliography} 
 \bibliography{Main}
+
 
 \end{document}
 
