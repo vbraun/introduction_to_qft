@@ -829,9 +829,124 @@ is
 
 \section{Week 3, Wednesday}
 
+\subsection{Path Integral for Free Field Theory}
+
+The Lagrange density and path integral in field theory is
+\begin{equation}
+  \begin{gathered}
+    \mathcal{L} = -\frac{1}{2} \partial_\mu \phi \partial^\mu \phi
+    - \frac{1}{2} m^2 \phi^2 + J(x) \phi,
+    \\
+    Z = \int \mathcal{D}\phi \;
+    e^{i\int d^4x \; \mathcal{L}} =
+    \langle 0 | 0 \rangle,
+  \end{gathered}
+\end{equation}
+which equals one if the path integral measure is properly
+normalized. To get something non-trivial we need, for example,
+boundary conditions on fields. It turns out that a more fruitful way
+is to include insert fields into the integrand. By going back to the
+definition of the path integral as product over time slices, we get
+\begin{equation}
+  \int \mathcal{D}\phi \;
+  \phi(x) \phi(y) e^{i\int d^4x \mathcal{L}} =
+  \langle 0 | T \phi(x) \phi(y) |0\rangle
+\end{equation}
+and similar. A useful trick is to think of the extra fields as coming
+from a source term
+\begin{equation}
+  Z(J) = 
+  \int \mathcal{D}\phi \;
+  e^{i\int d^4x \; [\mathcal{L} + J \phi]}
+\end{equation}
+Acting with the functional derivative on the path integral and then
+setting $J=0$ results in 
+\begin{equation}
+  \tfrac{1}{i} \frac{\delta}{\delta J(x)} \;
+  \tfrac{1}{i} \frac{\delta}{\delta J(y)} \;
+  Z(J)|_{J=0} =
+  \int \mathcal{D}\phi \;
+  \phi(x) \phi(y) e^{i\int d^4x \mathcal{L}},
+\end{equation}
+which is precisely what we want. The analogous formula holds for
+arbitrary numbers of fields in the integrand.
 
 
+\subsection{Solving the Path Integral}
 
+The free Lagrangian is quadratic in $\phi$, so we can again use the
+Gaussian integral to solve it. In momentum space
+\begin{equation}
+  \tilde\phi(k) = \int d^4x e^{-ikx} \phi(x)
+  ,\quad
+  \phi(x) = \int \frac{d^4k}{(2\pi)^4} e^{ikx} \tilde\phi(k),
+\end{equation}
+the action including the source term is
+\begin{equation}
+  \begin{split}
+    S(J) =&\; \int d^4x \; (\mathcal{L} + J\phi) =
+    \\ =&\;
+    \frac{1}{2}
+    \int \frac{d^4k}{(2\pi)^4} \left[
+      \frac{\tilde{J}(k) \tilde{J}(-k)}{k^2+m^2-i\epsilon}
+      - \tilde\chi(k) (k^2+m^2) \tilde{\chi}(-k)
+    \right]
+  \end{split}
+\end{equation}
+where
+\begin{equation}
+  \tilde\chi(k) = \tilde\phi(k) - \frac{\tilde{J}(k)}{k^2 + m^2}
+\end{equation}
+is the ``midpoint'' variable of the quadratic exponent. The path
+integral measure is invariant under the shift, $\mathcal{D}\phi =
+\mathcal{D}\chi$, so we obtain
+\begin{equation}
+  \begin{split}
+    Z(J) =&\;
+    \exp\left[\frac{i}{2} \int \frac{d^4k}{(2\pi)^4} 
+      \frac{\tilde{J}(k)\tilde{J}(-k)}{k^2 + m^2}
+    \right]
+    \\ &\qquad
+    \times
+    \int \mathcal{D}\chi 
+    \exp\left[ i\int d^4x 
+      \left(-\tfrac{1}{2} \partial_\mu \chi \partial^\mu \chi
+      - \tfrac{1}{2} m^2\chi^2\right)
+    \right]
+    \\ =&\;
+    \exp\left[
+      \frac{i}{2} \int d^4x \; d^4y \;
+      J(x) \Delta(x-y) J(y) 
+    \right]
+  \end{split}
+\end{equation}
+where $\Delta$ is again the Feynman propagator.
+
+Hence, the path integral derivation of the propagator is 
+\begin{equation}
+  \begin{split}
+  \langle 0|T \phi(x) \phi(y) |0\rangle 
+  =&\;
+  \tfrac{1}{i} \frac{\delta}{\delta J(x)} \;
+  \tfrac{1}{i} \frac{\delta}{\delta J(y)} \;
+  Z(J)|_{J=0} 
+  \\ =&\;
+  \left( \tfrac{1}{i} \Delta(x-y) + O(J) \right) Z(J) |_{J=0} =
+  \tfrac{1}{i} \Delta(x-y)
+  \end{split}  
+\end{equation}
+which of course matches what we found in the previous lecture using
+the canonical quantization. The generalization to an arbitrary number
+of fields is
+\begin{theorem}[Wick's Theorem]
+  \begin{equation}
+    \langle 0 | T \phi(x_1) \phi(x_2) \cdots \phi(x_{2n}) |0\rangle  =
+    \frac{1}{i^n} \sum_\text{pairings}
+    \Delta(x_{i_1} - x_{i_2})
+    \cdots
+    \Delta(x_{i_{2n-1}} - x_{i_{2n}})
+  \end{equation}
+\end{theorem}
 
 
 \newpage
