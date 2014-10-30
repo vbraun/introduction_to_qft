@@ -949,8 +949,178 @@ of fields is
 \end{theorem}
 
 
+
+\section{Week 3, Friday}
+
+
+\subsection{Wick's Theorem For Operators}
+
+There is a version of Wick's theorem directly for operators, which
+roughly states that the difference between time- and normal-ordered
+products is a bunch of terms with pairs of operators replaced by the
+propagator. This replacement process is called a Wick contraction:
+\begin{definition}[Wick Contraction]
+  A Wick contraction, written as
+  $\contraction{}{\phi}{(x)}{\phi}{}\phi(x) \phi(y)$ is the process of
+  replacing the product $\phi(x)\phi(y)$ with the Feynman propagator
+  $\tfrac{1}{i}\Delta(x-y)$.
+\end{definition}
+\begin{theorem}[Wick's Theorem]
+  The time-ordered product of operators is the normal ordered sum of
+  all contractions,
+  \begin{equation}
+    T\big(\phi(x_1) \cdots \phi(x_n)\big) = 
+    \sum_\text{all contractions}
+    :\left(\text{contracted }\prod \phi(x_i)\right):
+  \end{equation}
+\end{theorem}
+For example, consider the field at $4$ positions. For brevity, I'll
+write $\phi_i = \phi(x_i)$. Then the time ordered product equals the
+sum of the normal ordering of terms with no contraction (1 term), one
+contraction (6 terms), and two contractions (3 terms):
+\begin{equation}
+  \begin{split}
+    T(\phi_1 \phi_2 \phi_3 \phi_4) =& \;
+    :\phi_1 \phi_2 \phi_3 \phi_4: +\;
+    \contraction{}{\phi_1}{}{\phi_2}{}\phi_1 \phi_2 :\phi_3 \phi_4: +\;
+    \contraction{}{\phi_1}{}{\phi_3}{}\phi_1 \phi_3 :\phi_2 \phi_4: +\;
+    \contraction{}{\phi_1}{}{\phi_4}{}\phi_1 \phi_4 :\phi_2 \phi_3: 
+    \\ &\quad +\;
+    \contraction{}{\phi_2}{}{\phi_3}{}\phi_2 \phi_3 :\phi_1 \phi_4: +\;
+    \contraction{}{\phi_2}{}{\phi_4}{}\phi_2 \phi_4 :\phi_1 \phi_3: +\;
+    \contraction{}{\phi_3}{}{\phi_4}{}\phi_3 \phi_4 :\phi_1 \phi_2: 
+    \\ &\quad +\;
+    \contraction{}{\phi_1}{}{\phi_2}
+    \contraction{\phi_1 \phi_2}{\phi_3}{}{\phi_4}
+    \phi_1 \phi_2 \phi_3 \phi_4 + 
+    \contraction{}{\phi_1}{\phi_2}{\phi_3}
+    \contraction[2ex]{\phi_1}{\phi_2}{\phi_3}{\phi_4}
+    \phi_1 \phi_2 \phi_3 \phi_4 + 
+    \contraction[2ex]{}{\phi_1}{\phi_2\phi_3}{\phi_4}
+    \contraction{\phi_1}{\phi_2}{}{\phi_3}
+    \phi_1 \phi_2 \phi_3 \phi_4.
+  \end{split}
+\end{equation}
+We note that the propagator evaluated at zero is infinite, this is
+where the delta function source term is located after all. So, at
+least naively,
+\begin{equation}
+  \contraction{}{\phi}{(x)}{\phi}{}\phi(x) \phi(x) =
+  \tfrac{1}{i} \Delta(x-x) =
+  \tfrac{1}{i} \Delta(0) = \infty
+\end{equation}
+does not make sense. On the other hand, if the coincident fields are
+normal-ordered as in 
+\begin{equation}
+  T\big(\phi(x_1) \cdots \phi(x_n) :\phi(y)^m:\big)
+\end{equation}
+then it turns out that there is no singularity. That is, the time
+ordered product can be rewritten, using only Wick's theorem, into
+terms involving normal orders and propagators but never the propagator
+evaluated at zero. An example can be found in the homework. Finally,
+note that Wick's theorem only holds for the free field. However, it
+will turn out to be a useful tool for perturbation theory around a
+free field theory.
+
+\subsection{Interacting QFT}
+
+Of course free fields are boring at the end of the day. Any kind of
+truly interesting quantum field theory has interactions. We have
+already seen that the coefficient $\lambda_n$ of a $\phi^n$ term in
+the potential has dimension $4-n$, so only $n=3$ and $n=4$ have
+non-negative mass dimension. As we will see later, negative
+dimensional terms will lead to problems with renormalization, so we
+will avoid them for now.
+
+First, consider a $\tfrac{1}{3!}\lambda_3 \phi^3$ term in the
+action. This means that the potential $V(\phi) = \tfrac{1}{2} m^2
+\phi^2 + \tfrac{1}{3!}\lambda_3 \phi^3$ is unbounded below, regardless
+of the sign of $\lambda_3$. So even though you might arrange for a
+metastable vacuum, that is, a local minimum of the potential, sooner
+or later your field will tunnel through any potential barrier and
+release an infinite amount of energy as it runs off $\phi(x)\to
+-\mathop{\mathrm{sign}}(\lambda_3)\infty$. Hence this theory cannot be
+defined for all times. Nevertheless, one should be able to describe it
+for small enough time intervals. Furthermore, it is a useful example
+for any calculation that does not describe the tunneling process, so
+you will find it in many books as an example. Hence the situation is
+perhaps not completely hopeless. Still, we will not consider the
+$\phi^3$ interaction in the following.
+
+This leaves us with a single possible interaction:
+\begin{definition}[Scalar $\phi^4$ theory]
+  The theory of a single real-valued scalar field $\phi(x)$ and
+  Lagrange density
+  \begin{equation}
+    \mathcal{L} = 
+    -\frac{1}{2} \partial_\mu \phi \partial^\mu \phi
+    -\frac{1}{2} m^2 \phi^2 
+    -\frac{1}{4!} \lambda \phi^4
+  \end{equation}
+  is called $\phi^4$ theory. It depends on two real parameters $m^2$
+  and $\lambda$.
+\end{definition}
+This is also the theory that you get if you take the Standard Model
+and set all fields to zero except for the Higgs field, so its study is
+a kind of toy model for the Higgs particle. We note that $m^2$ is just
+a name for the coefficient of $\phi^2$, and not necessarily the square
+of a real number. At least classically, we hence distinguish $3$
+regimes:
+\begin{itemize}
+\item $\lambda < 0$: Unstable vacuum.
+\item $\lambda \geq 0$, $m^2 > 0$: Deformed harmonic oscillator.
+\item $\lambda \geq 0$, $m^2 < 0$: Two distinct minima of the
+  potential. In particular, the minimum is not at $\phi=0$.
+\end{itemize}
+It turns out that the quantum theory has the same basic features,
+although the transition point between the different phases receives
+quantum corrections.
+
+There are two particularly useful limits of the parameters:
+\begin{itemize}
+\item $\lambda\to 0$ is the free field limit
+\item $\lambda\to \infty$, $m^2\to -\infty$ creates two
+  infinitely-deep potential wells. The field can no longer take any
+  value, but is constrained to $\phi(x) = \pm \phi_0$ for some some
+  constant $\phi_0\in\R$. This might remind you of a
+  spin-$\tfrac{1}{2}$ particle. In fact, in this limit the $\phi^4$
+  theory becomes the Ising model.
+\end{itemize}
+The bad news is that nobody has found an analytic solution to the
+$\phi^4$ theory so far, so we will have to do a certain amount of
+hand-waving to say anything about it. One thing that we can say much
+about is special limits, for example the Ising model can be solved
+exactly (at least in $1$ and $2$ dimensions). Similarly, we will have
+a lot to say about the perturbation expansion around the free field
+theory. However, there are limits to what perturbation theory can do
+for you. Essentially, perturbation theory is a Taylor series expansion
+\begin{equation}
+  \langle 0|T\prod \phi(x_i)|0\rangle =
+  \sum a_n \lambda^n.
+\end{equation}
+For example, we computed $a_0$ in the previous lecture as the sum of
+all Wick contractions of pairings. Although not physical, we can think
+of $\lambda \in \C$ and think of the correlators as complex
+functions. The radius of convergence of the power series should be as
+far as the first singularity in the complex $\lambda$-plane. But for
+any negative real $\lambda$, the vacuum is unstable and surely the
+correlation functions diverge. Hence the radius of convergence ought
+to be zero. Fortunately, perturbation theory turns out to be much more
+useful that what this argument suggests. What happens is that the
+first couple of terms in the series in fact do provide excellent
+approximations, even though it eventually diverges. But, since we
+anyways can only compute a limited number of terms in perturbation
+theory, this is in practice not much of a concern. This phenomenon is
+known as
+\href{http://en.wikipedia.org/wiki/Asymptotic_expansion}{asymptotic
+  series expansion}
+
+
+
+
+
 \newpage
-\appendix
+\appendixm
 
 \section{test}
 
