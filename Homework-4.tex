@@ -1,0 +1,70 @@
+\documentclass[12pt]{article}
+\input{Preamble}
+
+
+\begin{document}
+~
+\vspace{-2cm}
+\begin{center}
+  {\Huge Homework \#3}
+\end{center}
+\vspace{1cm}
+
+\noindent Please hand in by next Thursday (November 13), either during
+the lecture or email to \texttt{<Philipp.Kleinert@physics.ox.ac.uk>}.
+Tutorials location: Seminar Room (7. November), Fisher Room
+(14. November).
+
+
+
+\begin{enumerate}
+\item The specific heat $C=\tfrac{\partial\langle E\rangle}{\partial
+    T}$ measures how much heat is required to affect a temperature
+  change. Show that it satisfies 
+  \begin{equation}
+    C = \frac{1}{k_B T^2} \left[
+      \langle E^2 \rangle - 
+      \big( \langle E \rangle \big)^2
+    \right].
+  \end{equation}
+\item Produce a plot that shows the specific heat as it crosses the
+  phase transition line. You can find instructions for the lattice
+  simulation code at \url{http://vbraun.cc/qft/?page_id=116}. Either
+  install Sage on your own computer / lab, or run it at
+  \url{http://www.sagemathcloud.com}. Note: There is already a
+  \texttt{Simulation.specific\_heat} observable implemented, don't
+  reinvent the wheel.
+
+\item Another observable is the Binder cumulant
+  (\texttt{Simulation.Binder\_cumulant}):
+  \begin{equation}
+    U = 1 - \frac{\langle \overline\phi^4 \rangle}
+    {3 \big(\langle\overline\phi^2\rangle\big)^2}.
+  \end{equation}
+  Which values does it take far in the broken / far in the unbroken
+  phase? Confirm your answer with a numeric calculation.
+\end{enumerate}
+Installation:
+\begin{verbatim}
+$ git clone https://github.com/vbraun/lattice_phi4.git
+$ sage -sh -c make
+\end{verbatim}
+Running a simple simulation ($\mu_L^2=-1.26$, $\lambda_L=1.0$):
+\begin{verbatim}
+sage: from phi4 import Simulation
+sage: sim = Simulation(-1.26, 1.0, equilibrate=1000)
+sage: sim.run(1000)    # run for 1000 iterations
+sage: sim.abs_phi().samples()
+sage: sim.abs_phi().average()
+\end{verbatim}
+Plotting:
+\begin{verbatim}
+sage: from phase_plot import PhasePlot
+sage: susz = PhasePlot(32, 32, 
+....:    observable=Simulation.susceptibility, 
+....:    equilibrate=1000, iterations=1000)
+sage: susz.mass_squared = srange(-2, 0, 0.05)
+sage: susz.plot()
+\end{verbatim}
+
+\end{document}
