@@ -1117,10 +1117,247 @@ known as
 
 
 
+\section{Week 4, Monday}
+
+\subsection{Wick Rotation}
+
+We mentioned already the imaginary time path integral, where we make
+the time formally imaginary. Now that we have seen the Feynman
+propagator
+\begin{equation}
+  \Delta(x-y) = 
+  \lim_{\epsilon \to 0^+}
+  \int
+  \frac{d^4k}{(2\pi)^4}
+  \frac{1}{k^2 + m^2 - i \epsilon}
+  e^{ik(x-y)},
+\end{equation}
+we can give it a better justification. If we want to deform a
+time-integral into the complex plane, we must never cross a pole of
+the integrand. But the propagator does have two poles for complex
+$t$. Rotating the time contour to go from $-i \infty$ to $+i\infty$
+does not cross either pole, whereas rotating the integration contour
+the other way would have crossed both.
+\begin{definition}
+  A Wick Rotation is the analytic continuation of the time-integration
+  contour in the path integral to run from $-i \infty$ to $+i\infty$
+  along the imaginary axis. It is equivalent to replacing $t\mapsto -i
+  t$.
+\end{definition}
+In practice, nearly every QFT calculation is done after Wick
+rotation. It changes the space-time signature $(-+++) \mapsto (++++)$,
+and $e^{iS} \mapsto e^{-S_E}$ with the Euclidean action
+\begin{equation}
+  S_E = \int d^4x \left( 
+    \frac{1}{2} \partial_\mu\phi \partial^\mu \phi
+    + \frac{1}{2} m^2 \phi^2 
+    + \frac{1}{4!} \lambda \phi^4
+  \right),
+\end{equation}
+which is bounded below as long as the parameters $m^2$, $\lambda$ are
+such that the vacuum exists. By interpreting it as the energy of some
+statistical mechanical system, we see that the Wick rotation maps
+relates the quantum mechanical path integral to the partition function
+\begin{equation}
+  \int \mathcal{D}\phi e^{\frac{i}{\hbar}S} 
+  \mapsto
+  \int \mathcal{D}\phi e^{-\frac{1}{k_B T}S_E} 
+\end{equation}
+with $k_B T=\hbar$. This is a deep and often-used connection: Quantum
+field theory in $(1,d)$-dimensions is statistical mechanics in
+$(d+1)$-dimensional Euclidean space.
+
+
+\subsection{Lattice Action}
+
+In order to simulate QFT on a computer we need truncate the
+infinite-dimensional space of fields to something finite
+dimensional. The easiest way to do so is to allow only discrete
+positions $t, x \in a \mathbb{Z}$ with the lattice spacing $a$. For
+simplicity and to speed up the computations we will only consider
+$(1,1)$-dimensions, that is, one time and one space direction.
+
+The Lagrangian contains derivatives, which we need to discretize
+somehow. There is more than one way of doing so, for example
+\begin{equation}
+  \frac{\partial \phi}{\partial \phi}
+  \approx 
+  \frac{\phi(t,x+a) - \phi(t,x-a)}{2a}
+  \approx
+  \frac{\phi(t,x+a) - \phi(t,x)}{a}
+  \approx
+  \frac{\phi(t,x) - \phi(t,x-a)}{a}
+\end{equation}
+are all approximations that yield the derivative in the limit $a\to
+0$. We can multiply the two asymmetric versions to get a symmetric
+expression for the square,
+\begin{equation}
+  \left(\frac{\partial \phi}{\partial \phi}\right)^2
+  =
+  \frac{1}{a^2} \left(
+    \phi(t, x+a)^2 - 2 \phi(t,x-a) \phi(t,x+a) + \phi(t, x-a)^2
+  \right).
+\end{equation}
+If we furthermore sum over all lattice sites then we can combine the
+two $\phi^2$ terms. That way, we arrive at the lattice action
+\begin{equation}
+  S_E = \sum_{n\in \mathbb{Z}^2} \left[
+    \frac{1}{2} \sum_{i=1}^d 
+    \big(\phi(n+e_i) - \phi(n)\big)^2 
+    + \frac{1}{2} m_L^2 \phi(n)^2 + \frac{1}{4!} \lambda_L \phi(n)^4
+  \right]
+\end{equation}
+where $e_1=(1,0)$ and $e_2=(0,1)$ are the two lattice basis vectors,
+$m_L^2=a^2 m^2$ is the lattice mass-squared, and
+$\lambda_L=a^2\lambda$ is the lattice coupling constant. This also
+matches dimensional analysis, in $d=2$ the field is dimensionless and
+$m^2$, $\lambda$ have mass dimension $2$. A bit more compact is the
+alternate expression
+\begin{equation}
+  S_E = -\sum_{\text{adjacent }i,j} \phi(n_i) \phi(n_j)
+  + \sum_{n\in\mathbb{Z}^2}\Big[
+    \underbrace{\left(2+\tfrac{1}{2}m_L^2\right)}_{=\tilde\mu^2} \phi(n)^2 
+    + \underbrace{\frac{1}{4!} \lambda_L}_{=\tilde\lambda} \phi(n)^4
+  \Big]
+\end{equation}
+The continuum limit is $a\to 0$ with $\frac{m_L^2}{\lambda_L}$ fixed.
+
+The computer can of course not keep an infinite number of lattice
+sites in memory, so we have to approximate the lattice with a finite
+number $N$ of sites in each direction. It is convenient for the
+implementation to use periodic boundary conditions, then we do not
+have to implement separate differentials on the edges and vertices.
+
+
+
+\section{Week 4, Wednesday}
+
+\subsection{Markov Chains}
+
+We ultimately want to compute expectation values in QFT,
+\begin{equation}
+  \langle\mathcal{O}\rangle = 
+  \frac{
+    \int \mathcal{D}\phi \; \mathcal{O} e^{\frac{i}{\hbar}S}
+  }{
+    \int \mathcal{D}\phi \; e^{\frac{i}{\hbar}S}
+  },
+\end{equation}
+where we could set the denominator to one by properly normalizing the
+path integral measure. However, in practice this is too difficult and
+we rather divide by the normalization as above. Wick rotation turns
+this into normal expectation values that you are familiar with from
+statistical mechanics,
+\begin{equation}
+  \langle\mathcal{O}\rangle = 
+  \frac{
+    \sum_\mu \mathcal{O}_\mu e^{-\beta E_\mu}
+  }{
+    \sum_\mu e^{-\beta E_\mu}
+  }
+  ,\quad
+  \beta = \frac{1}{k_B T},
+\end{equation}
+where now $\mu$ indexes the states of the system, $\mathcal{O}_\mu$ is
+the value of some observable for the state $\mu$, and $E_\mu$ is the
+energy of the state $\mu$.
+
+Even for very modest lattices it is impossible to sum over all
+microstates on a computer, even if we restrict the field values to
+just $\pm 1$ instead of a floating-point number. We cannot even sample
+a significant fraction, so naively picking random fields would just
+yield numerical garbage. The trick is to sample \emph{important} ones,
+that is, with large $e^{-\beta E_\mu}$, that is, small energy. In
+fact, the ideal solution would be if we had a means to generate $n$
+random samples with probability not constant but equal to the
+Boltzmann distribution
+\begin{equation}
+  p_\mu = \frac{e^{-\beta\mu}}{\sum_\nu e^{-\beta E_\nu}}.
+\end{equation}
+Then the Boltzmann-weighted average just turns into the normal
+(arithmetic) average 
+\begin{equation}
+  \langle \mathcal{O} \rangle_n = 
+  \frac{
+    \sum_{j=1}^n p_j^{-1} \mathcal{O}_j e^{-\beta E_j}
+  }{
+    \sum_{j=1}^n p_j^{-1} e^{-\beta E_j}
+  }
+  = \frac{1}{n} \sum_{j=1}^n \mathcal{O}_j.
+\end{equation}
+
+In fact, there is a way, and it uses a random walk in the space of
+fields. That is, at each step you modify the field configuration
+according to certain rules and these step sample the fields with
+probability distribution $p_\mu$. The key idea is to use 
+\begin{definition}
+  A Markov chain is a process in which the probability $P(\mu\to\nu)$
+  of making a transition from $\mu$ to $\nu$ depends only on $\mu$ and $\nu$.
+\end{definition}
+Under two conditions the states in a Markov chain sample states with a
+prescribed probability distribution:
+\begin{itemize}
+\item Ergodicity: it must be possible to reach each state by a
+  sequence of steps.
+\item Detailed balance:
+  \begin{math}
+    p_\mu P(\mu\to\nu) = p_\nu P(\nu\to \mu).
+  \end{math}
+\end{itemize}
+Note that the detailed balance condition is a stronger condition than
+balance, that is, equilibrium. The latter means that the rate of
+transition out of $\mu$ must equal the rate of transition towards
+$\mu$, that is,
+\begin{equation}
+  \sum_\nu p_\mu P(\mu\to\nu) = \sum_\nu p_\nu P(\nu\to \mu).
+\end{equation}
+
+\subsection{Metropolis Algorithm}
+
+The Metropolis algorithm is a Markov chain whose states are
+discretized fields and with transition probabilities
+\begin{equation}
+  \frac{P(\mu\to\nu)}{P(\nu\to\mu)}
+  = 
+  \frac{p_\nu}{p_\mu}
+  = 
+  e^{-\beta(E_\nu - E_\mu)},
+\end{equation}
+as required for sampling fields with the Boltzmann probability
+distribution. It works by starting with a random field, in our
+implementation the values are taking to be $\phi(n) \in [-1.5,
+1.5]$. Then repeat the following steps:
+\begin{itemize}
+\item Select a random lattice site $n$.
+\item Select a random $\Delta \phi$, in our implementation uniformly
+  random in the range $[-1.5, 1.5]$.
+\item Let 
+  \begin{equation}
+    \phi'(m) =
+    \begin{cases}
+      \phi(n) + \Delta\phi & \text{if }n = m \\
+      \phi(m) & \text{else}.
+    \end{cases}
+  \end{equation}
+\item Accept $\phi'$ as the new field configuration with the
+  acceptance probability 
+  \begin{equation}
+    A(\phi\to\phi') = 
+    \begin{cases}
+      1 & \text{if } E(\phi') < E(\phi) \\
+      e^{-\beta[E(\phi')-E(\phi)]} & \text{else}.
+    \end{cases}
+  \end{equation}
+\end{itemize}
+
+
+
+
+
 
 
 \newpage
-\appendixm
+\appendix
 
 \section{test}
 
