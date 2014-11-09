@@ -1393,6 +1393,106 @@ numerical improvement over just the Metropolis algorithm.
 
 
 
+\section{Week 4, Thursday}
+
+\subsection{Lattice Simulation Results}
+
+We now have everything prepared, all that remains is to pick any
+observable. We then just have to evaluate it on sample field
+configurations and average over the samples to approximate the path
+integral with that observable inserted. The simplest observable would
+be the average field over the $N\times N$ lattice sites:
+\begin{equation}
+  \bar\phi = \frac{1}{N^2} \sum_{n\in (\mathbb{Z}/N)^2} \phi(n).
+\end{equation}
+While the distribution of samples shows some interesting patterns, the
+average alone is always going to be zero because of the $\phi\to
+-\phi$ symmetry of our theory. A more interesting observable would be,
+for example,
+\begin{equation}
+  |\bar\phi| = \frac{1}{N^2} \sum_{n\in (\mathbb{Z}/N)^2}  |\phi(n)|.
+\end{equation}
+By plotting it as a function of $m_L^2$, $\lambda_L$ we make the
+following observations:
+\begin{itemize}
+\item There seems to be a phase transition between an ``unbroken
+  phase'' with $\langle|\bar\phi\rangle=0$ for large $m^2$ and a
+  ``broken phase''with $\langle|\bar\phi\rangle>0$ for small (large
+  negative) $m^2$.
+\item The actual place where the phase transition takes place is at
+  finite negative $m_L^2$, for example $\lambda_L\approx 1.0$,
+  $m_L^2\approx -1.3$.
+\item In the broken phase the actual value of
+  $\langle|\bar\phi\rangle>0$ depends on $m_L^2$, $\lambda_L$. 
+\end{itemize}
+At least the last part is clear: the potential 
+\begin{equation}
+  V(\phi) =
+  \frac{1}{2}m_L^2 \phi^2 + \frac{1}{4!} \lambda_L \phi^4
+\end{equation}
+has two distinct minimal for $m_L^2 < 0$ whose position depends on
+$m_L^2$ and $\lambda_L$. It should also not be too surprising that
+there are qualitative differences between the case where $V(\phi)$ has
+a single minimum at $V(0)=0$ and the case where it has two separate
+minima. Though classically the distinction is just whether $m_L^2$ is
+positive or negative, the fact that the dividing line is not at zero
+will only find an explanation later on.
+
+If we want to numerically find the precise point of the phase
+transition then it would be nice to have a better observable than
+$|\bar\phi|$, for example one that has a simple peak at the point of
+the transition. Such an observable is the susceptibility, which you
+might have seen in the Ising model as magnetic susceptibility. The
+only difference is that $\phi\in \pm 1$ in the Ising model. There, the
+average $\bar\phi$ is the total magnetization. The susceptibility is
+the change of the magnetization if a constant external field is
+applied. In the $\phi^4$ theory it is not really justified to call
+$\bar\phi$ a magnetization, but we can still talk about the change
+in an external field. Technically, this means we add a source term $-E
+\mapsto -E + J\bar\phi$ to the exponent of the partition function.
+\begin{definition}
+  With $Z(J) = \sum_\mu \exp(-E_\mu + J\bar\phi)$, the susceptibility $\chi$
+  is the quantity
+  \begin{equation}
+    \chi = \frac{\partial\langle \bar\phi\rangle}{\partial J} \Big|_{J=0}.
+  \end{equation}
+\end{definition}
+We expect that it is only close to the phase transition that a small
+change in an external field will affect a large change in
+$\langle\bar\phi\rangle$. However, the definition is not very useful
+to compute $\chi$ from a lattice simulation. Fortunately, we can
+rewrite it as
+\begin{equation}
+  \begin{split}
+    \chi  =&\;
+    \frac{\partial}{\partial J}
+    \frac{\sum_\mu \bar\phi e^{-E_\mu +J\bar\phi}}
+    {\sum_\mu e^{-E_\mu +J\bar\phi}} = 
+    \frac{\partial}{\partial J} \frac{1}{Z(J)}
+    \frac{\partial}{\partial J} Z(J) \big|_{J=0}
+    \\ =&\;
+    \left[
+      \frac{1}{Z(J)}
+      \frac{\partial^2 Z(J)}{\partial J^2} -
+      \left(
+        \frac{1}{Z(J)} \frac{\partial Z(J)}{\partial J} Z(J)
+      \right)^2
+    \right]_{J=0}
+    \\ =&\;
+    \langle \bar\phi^2 \rangle - \big( \langle\bar\phi\rangle \big)^2,
+  \end{split}
+\end{equation}
+which is just the variance of the $\bar\phi$ observable. And the
+variance is of course easily approximated using the sample
+variance. The result is plotted in \autoref{fig:susceptibility}.
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth]{figures/susceptibility-latticesize.png}
+  \caption{The susceptibility for fixed $\lambda_L=1.0$ and varying
+    $-2\leq m_L^2 \leq 0$ and three different lattice sizes.}
+\end{figure}
+
+
 
 
 
