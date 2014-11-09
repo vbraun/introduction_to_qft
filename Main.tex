@@ -1349,6 +1349,47 @@ implementation the values are taking to be $\phi(n) \in [-1.5,
     \end{cases}
   \end{equation}
 \end{itemize}
+The acceptance probability might seem a bit arbitrary, and indeed is a
+choice that could have been made differently. Only the ratio
+\begin{equation}
+  \frac{P(\mu\to\nu)}{P(\nu\to\mu)}
+  = 
+  \frac{A(\mu\to\nu)}{A(\nu\to\mu)}
+  = 
+  e^{-\beta(E(\phi') - E(\phi))}
+\end{equation}
+matters. Also, note that the energy difference $E(\phi') - E(\phi)$
+can be computed very effectively since it only depends on the chosen
+lattice site and its nearest neighbors.
+
+The fields $\phi$, $\phi'$ from a single Metropolis step are by no
+means statistically independent samples. After all, the field was only
+changed at a single lattice site at most. This does not affect the
+limiting value for the average, but it does change how quickly the
+running average approaches the limit as we take more
+samples. Formally, this can be seen in the formula for the standard
+deviation of $M$ correlated samples,
+\begin{equation}
+  \sigma = 
+  \sqrt{
+    \frac{1+2\tau}{M-1}
+    \Big( \langle\mathcal{O}^2\rangle 
+    - (\langle\mathcal{O}\rangle)^2 \Big)
+  }
+\end{equation}
+where $\tau$ is the autocorrelation time. Instead of falling off like
+$\frac{1}{\sqrt{M}}$ form $M\gg1$ as familiar for the standard error
+of random errors, it behaves as if we only collected
+$\frac{M}{1+2\tau}$ samples. Since computing the observable typically
+is much more expensive than a single Metropolis step, one combines
+many steps into a ``Metropolis Sweep'' and only computes the
+observable each sweep. The field configuration after each sweep is
+much less correlated to the one before. For example, in our
+implementation each iteration consists of $5 \times \{\text{\# lattice
+  sites}\}$ Metropolis steps. In addition, the implementation also
+uses the \href{http://en.wikipedia.org/wiki/Wolff_algorithm}{Wolff
+  Algorithm} to flip entire clusters of points. This is a further
+numerical improvement over just the Metropolis algorithm. 
 
 
 
