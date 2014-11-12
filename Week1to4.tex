@@ -1,0 +1,1396 @@
+
+\section{First class (13.10)}
+
+The Schrödinger equation $i\hbar\frac{\partial}{\partial
+  t}|\psi,t\rangle = H|\psi,t\rangle$ is not relativistic since it
+treats space and time differently. Solution: Make space a parameter
+like time.
+\begin{definition}
+  An operator $\varphi(x,t)$ is a quantum field.
+\end{definition}
+Quantum mechanics is not a good description for
+multi-particle systems where the total number is not
+conserved. E.g. excited hydrogen atoms really decay (by creating
+photons), so the electron wave function can't be a stationary
+solution.
+
+\subsection{Lightning review of electrodynamics}
+
+\begin{equation}
+  F_{\mu\nu} =
+  \begin{pmatrix}
+    0 & E_x & E_y & E_z \\
+    -E_x & 0 & -B_z & B_y \\
+    - E_y & B_z & 0 & -B_x \\
+    -E_z & -B_y & B_x & 0 \\
+  \end{pmatrix}
+  = \partial_{[\mu} A_{\nu]}
+\end{equation}
+Maxwell equations $\partial_{[\alpha} F_{\beta\gamma]} = 0$,
+$\partial_\mu F^{\nu\mu}=j^\nu$ are equations of motion of action
+\begin{equation}
+  S = \int d^4x \left[- \tfrac{1}{4} F_{\mu\nu} F^{\mu\nu} + A_\nu j^\nu\right]
+\end{equation}
+
+\begin{example}
+  Point charge solution located at origin has 4-vector
+  potential
+  \begin{equation}
+    A = \left(
+      -\frac{1}{\sqrt{x^2+y^2+z^2}}, 0, 0, 0)
+    \right)
+  \end{equation}
+  We checked that this satisfies equations of motion with
+  $j=(-\delta^3(\vec{x}), 0, 0, 0)$. The action integral diverges.
+\end{example}
+Since there is no magnetic field (in this coordinate frame), the
+current-independent part of the Lagrangian density $L=- \tfrac{1}{4}
+F_{\mu\nu} F^{\mu\nu} = |B|^2-|E|^2$ diverges just like the energy
+stored in the electromagnetic field $|E|^2 + |B|^2$. The action
+integral diverges for the same reason that the energy in the electric
+field is infinite. 
+
+These infinities are unavoidable in a field theory. Quantum field
+theory cannot avoid them either, but has a formalism for dealing with
+them.
+
+
+\section{Second class (15.10)}
+
+\subsection{Klein-Gordon Equation}
+
+What would the relativistic Hamiltonian be? We know the
+non-relativistic Hamiltonian for free particle is
+$\frac{1}{2m}P^2$. We also know the relativistic energy of a free
+particle with 4-momentum $p_\mu = (E/c, p_x, p_y, p_z) = (E/c,
+\vec{p})$ is
+\begin{equation}
+  |p|^2 = p_\mu p^\mu = -m^2 c^2
+  \quad \Leftrightarrow \quad
+  E = mc^2 \sqrt{1 + \frac{\vec{p}^2}{m^2 c^2}} =
+  mc^2 + \frac{1}{2m} \vec{p}^2 
+  + O(\tfrac{1}{c}).
+\end{equation}
+The terms in the Taylor series are rest energy, the non-relativistic
+energy, and higher-order corrections. This suggests the ``relativistic
+Schr\"odinger'' equation
+\begin{equation}
+  -i\hbar \frac{\partial}{\partial t} |\phi, t\rangle =
+  H |\phi, t\rangle =
+  \sqrt{m^2c^4 + c^2 P^2}
+  H |\phi, t\rangle
+\end{equation}
+but the square root makes it difficult to make sense out of that
+equation. In particular, the series expansion in $P$ will mean
+infinite number of terms. It is also not Lorentz invariant, still
+treating time and space differently. Square (i.e.~apply twice) the
+operator on both sides and switch to position space,
+$P_j=i\hbar \partial_j$:
+\begin{equation}
+  \begin{gathered}
+    -\hbar^2 \frac{\partial^2}{\partial t^2} \phi(x, t) 
+    =
+    \left(
+      m^2c^4  - \hbar^2 c^2 \sum_{j=1}^3 \frac{\partial}{\partial x_j}
+    \right) \phi(x,t)
+    \\
+    \Leftrightarrow \quad
+    \left(
+      \partial_\mu \partial^\mu  -
+      \frac{m^2 c^2}{\hbar^2}
+    \right) \phi(x,t) = 0
+  \end{gathered}
+\end{equation}
+This is the Klein-Gordon equation. It is manifestly relativistic, but
+second order in time derivatives. So initial conditions involve
+$\phi(x,0)$ and $\dot\phi(x,0)$. Depending on initial conditions,
+$\int d^3x |\phi(x,t)|^2$ is not conserved.
+
+Instead of going to second derivatives, one might hope that there
+would be a way to do it with first derivatives in space and time. But
+that is incompatible with the action principle. For example, consider
+this simple 1-dimensional theory (so we don't have to figure out how
+to contract the $\partial_\mu$):
+\begin{equation}
+  S = \int dx \; \phi \partial \phi
+  = \int dx \; \partial\phi^2 - \int dx \; (\partial \phi) \phi
+  = [\phi^2]_{-\infty}^\infty - \int dx \; \phi \partial \phi
+\end{equation}
+with sensible boundary conditions for $\phi$ the surface term will
+vanish. But then we get $S=-S \Rightarrow S=0$. There is one way to
+evade this conclusion, if $\phi$ \emph{anti-commutes} then the last
+sign is reversed and the action is not constrained. This will be
+important later on when we talk about fermions.
+
+
+\subsection{Action Principle}
+
+The Klein-Gordon equation is the equation of motion for the Lagrangian
+($c=\hbar=1$ from now on)
+\begin{equation}
+  \mathcal{L} = -\frac{1}{2} 
+  \partial_\mu \phi \partial^\mu \phi
+  - \frac{1}{2} m^2 \phi^2
+\end{equation}
+Check by setting the variation to zero:
+\begin{equation}
+  0 = \delta S = \int d^4x \delta\mathcal{L} =
+  -\int d^4x \partial_\mu (\delta \phi \partial^\mu \phi)
+  + \int d^4x \delta \phi (\partial_\mu \partial^\mu - m^2) \phi
+\end{equation}
+The first summand is a surface term. We only allow compactly-supported
+variations $\delta \phi$, hence the surface term is zero. The second
+term vanishes precisely when $\phi$ satisfies the Klein-Gordon
+equation, which are the equations of motion for the Lagrangian.
+
+Another Lagrangian would be 
+\begin{equation}
+  \mathcal{L}' = \frac{1}{2} \phi \partial_\mu \partial^\mu \phi
+  - \frac{1}{2}m^2\phi^2
+\end{equation}
+The difference is a divergence
+$\mathcal{L}'-\mathcal{L}=\partial_\mu(\frac{1}{2}\phi\partial^\mu
+\phi)$. If the field at infinity is sufficiently well-behaved then the
+surface term vanishes, and the equations of motion are the same. This
+is the case for the free scalar field. In general, whether or not
+boundary terms contribute can depend on the details of the physical
+theory.
+
+
+\subsection{Canonical Quantization}
+
+By definition, this means 
+\begin{itemize}
+\item Take the classical Hamiltonian $H(P, Q)$.
+\item Promote $P$, $Q$ to operations with $[Q, P] = i$.
+\end{itemize}
+We reviewed the harmonic oscillator $H=\frac{1}{2}Q^2 + \frac{1}{2}m^2
+Q^2$. Trick: there is a linear combination $a$, $a^\dagger$ of $P$ and
+$Q$ that act as creation/annihilation operators. In this notation,
+\begin{equation}
+  H= m(a^\dagger a + \tfrac{1}{2} )
+  ,\quad
+  [a, a^\dagger] = 1.
+\end{equation}
+The operator $a$ annihilates the ground state: $a|0\rangle =
+0$. Therefore, its energy is $H|0\rangle = \frac{m}{2}|0\rangle$.
+
+
+\section{Third class (16.10.)}
+
+First homework.
+
+\subsection{Canonical Quantization of Free Scalar}
+
+Recall the Lagrangian density
+\begin{equation}
+  \mathcal{L} = -\frac{1}{2} 
+  \partial_\mu \phi \partial^\mu \phi
+  - \frac{1}{2} m^2 \phi^2.
+\end{equation}
+The canonically conjugate momentum is
+\begin{equation}
+  \pi(x,t) = \frac{\partial\mathcal{L}}{\partial \dot\phi} =
+  \partial_t \phi = \dot\phi
+\end{equation}
+Hence the Hamiltonian density is 
+\begin{equation}
+  \mathcal{H} = \pi \dot\phi - \mathcal{L} = 
+  \frac{1}{2}\pi^2 + 
+  \frac{1}{2}(\nabla \phi)^2 +
+  \frac{1}{2} m^2 \phi^2
+\end{equation}
+Canonical quantization amounts to promoting $\phi$, $\pi$ to operators
+and imposing the commutation relations
+\begin{equation}
+  \begin{gathered}[]
+    [\phi(\vec{x},t), \phi(\vec{y},t)] = 0 = 
+    [\pi(\vec{x},t), \pi(\vec{y},t)] = 0
+    \\
+    [\phi(\vec{x}, t), \pi(\vec{y}, t)] = i \delta^3(\vec{x}-\vec{y})
+  \end{gathered}
+\end{equation}
+
+
+\subsection{Creation/Annihilation Operators in Momentum Space}
+
+Classical solutions to the Klein-Gordon equation are plane waves
+\begin{equation}
+  \phi = e^{i\vec{k}\vec{x} \pm i\omega t}
+  ,\quad
+  \omega = \sqrt{\vec{k}^2 + m^2}.
+\end{equation}
+Plane waves are a basis for the space of functions. And one that is
+well adapted to the free field. Need to talk about the integration in
+momentum-space, though. A good (Lorentz-invariant) measure for the
+3-dimensional spacelike slice of momentum space $k_\mu=(\omega, \vec{k})$
+is
+\begin{equation}
+  \mu(k) \sim \int d^4k\; \delta(k^2+m^2) \Theta(k_0)
+  = \int d^3\vec{k} \; \frac{1}{2\omega}
+\end{equation}
+where $\Theta$ is the Heavyside (step) function. A useful abbreviation
+for the following is 
+\begin{equation}
+  \widetilde{dk} = \frac{d^3k}{2\omega (2\pi)^3}.
+\end{equation}
+Finally, imposing reality of the function $\phi$ relates the Fourier
+modes to be
+\begin{equation}
+  \phi = \int \widetilde{dk} 
+  \left[
+    a(\vec{k}) e^{ikx} + a^\ast(\vec{k}) e^{-ikx} 
+  \right]
+\end{equation}
+where $\ast$ is complex conjugation and $kx = k_\mu x^\mu$ is the
+4-vector inner product. Just as in the harmonic oscillator, we can
+invert this to write the Fourier modes as linear combination of field
+and conjugate momentum:
+\begin{equation}
+  \label{eq:a(phi)}
+  a(\vec{k}) = \int d^3x e^{-ikx} (i\dot \phi + \omega \phi)
+\end{equation}
+A longish algebra exercise yields the Hamiltonian
+\begin{equation}
+  H = \cdots = \frac{1}{2} \int \widetilde{dk}\; \omega
+  \left[
+    a^\ast(\vec{k}) a(\vec{k}) + 
+    a(\vec{k}) a^\ast(\vec{k}) 
+  \right]
+\end{equation}
+where I have been careful to not commute the Fourier modes $a$,
+$a^\ast$. We now perform canonical quantization by promoting $a$,
+$a^\ast$ to operators $a$, $a^\dagger$. The canonical commutation
+relations become
+\begin{equation}
+  \begin{gathered}[]
+    [a(\vec{k}), a(\vec{k}')] = 0 =
+    [a^\dagger(\vec{k}), a^\dagger(\vec{k}')]
+    \\
+    [a(\vec{k}), a(\vec{k}')] = 
+    2 \omega (2\pi)^3 \delta^3(\vec{k}-\vec{k}')
+  \end{gathered}
+\end{equation}
+and the Hamiltonian is
+\begin{equation}
+  H = \int \widetilde{dk} \; \omega
+  \left[
+    a^\dagger(\vec{k}) a(\vec{k})
+    + \omega (2\pi)^3 \delta^3(0)
+  \right]
+\end{equation}
+The $\delta^3(0)$ looks bad, but, going back into the calculation,
+just came from the space-integral $\int d^3x e^{i\vec{k}\vec{x}} =
+(2\pi)^3 \delta(\vec{k})$. It just signifies that the zero point
+energy density, integrated over all space, is infinite because the
+volume of space is infinite. Instead, we should factor off the volume
+of space times $V$ times the actual energy density
+$\mathcal{E}_0$. Hence
+\begin{equation}
+  H = \int \widetilde{dk}  \;
+  a^\dagger(\vec{k}) a(\vec{k})
+  + V  \mathcal{E}_0
+  ,\qquad
+  \mathcal{E}_0 = \int \widetilde{dk}\; \omega^2.
+\end{equation}
+The zero point energy \emph{density} still diverges! This is not so
+easily fixable. It is perhaps not surprising, if there is a harmonic
+oscillator at each point in space-time then there are still infinitely
+many in a given volume, contributing an infinite zero-point energy
+when you add them up.
+
+
+
+\section{Week 2, Monday}
+
+\subsection{Zero Point Energy}
+
+The zero point energy density is
+\begin{equation}
+  \mathcal{E}_0 = \int \widetilde{dk} \omega^2 =
+  \frac{4\pi}{2(2\pi)^3} \int_0^\Lambda dk \; k^2 \sqrt{k^2+m^2}
+  \sim
+  \frac{1}{4\pi^2}\int_0^\Lambda dk k^3 = \frac{\Lambda^4}{14\pi^2}
+\end{equation}
+where $\Lambda \gg m$ is a \emph{momentum cutoff} that we use to
+regulate the integral. If we send $\Lambda\to \infty$ the integral
+diverges, as expected.
+
+One interpretation is that this is not a problem, at some high enough
+scale (e.g.\ the Plank scale, say, $\Lambda=10^{15} GeV$) new physical
+states must appear, changing the theory. This is a perfectly
+reasonable arguments as long as we ignore the gravitational effect of
+the energy density. Since it is everywhere, it will appear as a
+cosmological constant in Einstein's equations. In fact, we did
+discover a cosmological constant (a.k.a.\ dark energy) recently, but
+at a much much smaller scale of about $\Lambda = 2 \times
+10^{-3}ev$. In a supersymmetric theory there are additional
+contributions from the superpartners that cancel the zero point energy
+exactly. But in the real world supersymmetry is broken, and the
+breaking will spoil the exact cancellation. It is up to you to figure
+this out!
+
+
+\subsection{Casimir Effect}
+
+There is a measurable physical effect of the zero point energy: Two
+uncharged parallel plates attract. In the context of scalar field
+theory, we mean boundary conditions $\phi=0$ in two parallel planes of
+distance $d$. The effect of the plates is that the momentum of the
+field perpendicular to the plates is quantized $\vec{k} =
+(\frac{n\pi}{d}, k_y, k_z)$, $n\in \Z_{\geq}$. 
+
+For simplicity, consider only the massless field $m=0$ in $1+1$
+dimensions. Then the total zero point energy between the
+(0-dimensional) plates is
+\begin{equation}
+  E(d) = \frac{1}{2} \sum_{n=1}^\infty \sqrt{k^2} = 
+  \frac{\pi}{2d} \sum _{n=1}^\infty n
+\end{equation}
+Now this obviously diverges, but we knew that. The question is, how
+does it vary with $d$? A quick and dirty argument is that $\sum n =
+\zeta(-1) = -\frac{1}{12}$ using the Riemann zeta function. A slightly
+more careful argument is to first regulate the sum by introducing a
+factor $\exp(-\frac{an}{d})$ that falls off with $n$ sufficiently fast to make
+the sum converge, and reproduces the original sum in the limit $a\to
+0$:
+\begin{equation}
+  \begin{split}
+    E_a(d) =&\;
+    \frac{\pi}{2d} \sum_{n=1}^\infty n e^{-\frac{an}{d}} = 
+    - \frac{\pi}{2a} \frac{\partial}{\partial a} 
+    \sum_{n=1}^\infty e^{-\frac{an}{d}} 
+    \\ =&\;
+    - \frac{\pi}{2a} 
+    \frac{1}{1- e^{-\frac{a}{d}}} =   
+    -\frac{\pi}{2d} \frac{e^{a/d}}{e^{a/d}-1} 
+    \\ =&\;
+    \frac{\pi}{2d} 
+    \left(
+      \frac{d^2}{a^2} - \frac{1}{12} + O(\tfrac{a^2}{d^2}) 
+    \right)    
+  \end{split}
+\end{equation}
+When we move the plates apart, we not only increase the amount of
+vacuum between the plates but we also decrease the amount of vacuum
+outside. Hence we imagine the whole system in a wide box of size $L\gg
+d$. The total energy is 
+\begin{equation}
+  E_\text{tot} = E(d) + E(L-d) = 
+  \frac{\pi}{2a^2} - \frac{\pi}{24 d} + \cdots
+\end{equation}
+The first summand is the divergence from the zero point energy. It
+diverges independently of $d$. The subleading term leads to the
+Casimir force
+\begin{equation}
+  F = \lim_{a\to 0} \frac{\partial E_\text{tot}}{\partial d} 
+  = \frac{\pi}{24 d}
+\end{equation}
+
+
+\subsection{Interactions}
+
+In classical mechanics we know how to incorporate a potential into the
+Lagrangian formalism, we just add it to the Lagrangian. Expanding in a
+series, this suggest
+\begin{equation}
+  \mathcal{L} = -\frac{1}{2} 
+  \partial_\mu \phi \partial^\mu \phi
+  - \frac{1}{2} m^2 \phi^2
+  + \sum_{n=3} \frac{1}{n!} \lambda_n \phi^n.
+\end{equation}
+where $\lambda_n$ are \emph{coupling constants} that define the
+strength of interactions. We note that it is \emph{local}, that is,
+the Lagrange density at a space-time point $x$ depends only on
+$\phi(x)$ and its derivatives (but never on $\phi(y)$ at a different
+point). This is necessary to never transmit information faster than
+light.
+
+Let us count the dimensions using our favorite convention
+$\hbar=c=1$. There is only one kind of unit left, which we take to be
+mass:
+\begin{equation}
+  [m] = 1
+  ,\quad
+  [x] = -1
+  ,\quad
+  [x] = -1
+  .
+\end{equation}
+The action is dimensionless and $[d^4x]=-4$, so $[\mathcal{L}] =
+4$. Therefore the dimension of the coupling constants
+\begin{equation}
+  [\lambda_n] = 4-n
+\end{equation}
+We distinguish three cases:
+\begin{itemize}
+\item $[\lambda_3] = 1$: Whether a given dimensionful value is small
+  or large makes only sense relative to a energy $E$ at which we
+  perform our experiments. Here, the ratio $\frac{\lambda_3}{E}$ is
+  dimensionless. This will be important at small energies, but not at
+  very high energies. This is called a \emph{marginal} perturbation.
+\item $[\lambda_4]=0$ is already dimensionless. \emph{Marginal}
+  perturbation.
+\item $\lambda_5]=-1$, and similar for all higher order
+  terms. \emph{Irrelevant} perturbation. They become important at high
+  energies, and typically lead to problems there. As we will see, they
+  cannot be allowed if we want our theory to be renormalizable.
+\end{itemize}
+
+
+\section{Week 2, Wednesday}
+
+\subsection{LSZ Reduction}
+
+In accelerator physics we measure scattering of particles. The
+amplitude for two particles $1$, $2$ $\rightarrow$ $1'$, $2'$ is
+$\langle f|i\rangle$ with initial and final states
+\begin{equation}
+  |i\rangle = \lim_{t\to-\infty} a_1^\dagger(t) a_2^\dagger(t) |0\rangle
+  ,\quad
+  |f\rangle = \lim_{t\to+\infty} a_{1'}^\dagger(t) a_{2'}^\dagger(t) |0\rangle
+\end{equation}
+Using eq.~\eqref{eq:a(phi)} to go from the creation operator back to
+the field operator, we arrived at the Lehmann-Symanzik-Zimmermann
+formula
+\begin{equation}
+  \begin{split}
+    \langle f|i\rangle =&\; 
+    \langle 0| T a_{1'}(\infty) a_{2'}(\infty) 
+    a_1^\dagger(-\infty) a_2^\dagger(-\infty) |0\rangle
+    \\ =&\;
+    (-i)^2 
+    \int d^4x_1 (-\partial_{x_1}^2+m^2)
+    \int d^4x_2 (-\partial_{x_2}^2+m^2)
+    \\ & \qquad \times
+    \int d^4x_{1'} (-\partial_{x_{1'}}^2+m^2)
+    \int d^4x_{2'} (-\partial_{x_{2'}}^2+m^2)
+    \\ & \qquad \times
+    \langle 0| T \phi(x_1) \phi(x_2) 
+    \phi(x_{1'}) \phi(x_{2'}) |0\rangle    
+  \end{split}
+\end{equation}
+We notice the Klein-Gordon equation $(\partial^2-m^2)\phi$ inside the
+expression, if the field is not interacting then the amplitude will be
+zero. The LSZ formula separates the (trivial) propagation from / to
+infinity and the real interaction. All that remains is to compute the
+vev of time-ordered products!
+
+
+\subsection{Path Integral in Quantum Mechanics}
+
+Before moving to the path integral in quantum field theory, let's
+reformulate quantum mechanics of a point particle as a path
+integral. That is, we want to compute the amplitude
+\begin{equation}
+  \mathcal{A} = 
+  \langle q_f, t_f | e^{-i H (t_f-t_i)} | q_i, t_i \rangle
+\end{equation}
+of a particle starting at time $t_i$ and position $q_i$ to end up at
+position $q_f$ at the time $t_f$. The $e^{iHt}$ is, of course, the
+time evolution operator. We now slice the interval $[t_i, \dots, t_j,
+t_{j+1}, \dots, t_f]$ into small intervals of length $t_{j+1}-t_j =
+\Delta t$, and insert $1=\int dq |q, t_j\rangle \langle q, t_j|$ at
+each time step. Then the overall amplitude factorizes
+\begin{equation}
+  \mathcal{A} = 
+  \prod_j \int dq_j \;
+  \langle q_{j+1}, t_{j+1} | e^{-i H \Delta t} | q_j, t_j \rangle.
+\end{equation}
+We can think of the integral over all intermediate combinations of
+positions as the integral over paths, and write (up to a normalization
+constant to be determined later) 
+\begin{equation}
+  \prod_j \int dq_j = \int \mathcal{D}q.
+\end{equation}
+
+Using the Baker-Campbell-Hausdorff formula, the particle Hamiltonian
+$H(P, Q) = \tfrac{1}{2m} P^2 + V(Q)$ satisfies
+\begin{equation}
+  e^{-iH(P,Q)\Delta_t} =
+  e^{-\frac{i}{2m}H \Delta t} e^{-iV(Q) \Delta t}
+  + O(\Delta t^2)
+\end{equation}
+as if we can commute $P$ and $Q$ in the limit $\Delta t\to 0$.
+
+
+
+\section{Week 2, Thursday}
+
+\subsection{Path Integral continued}
+
+Inserting a $1=\int dp\; |p\rangle \langle p|$, we derive an expression
+for each small time step:
+\begin{equation}
+  \langle q_{j+1}, t_{j+1} | e^{-i H \Delta t} | q_j, t_j \rangle =
+  \frac{1}{2\pi} \int dp\;
+  e^{-iH(p,q_j)} e^{i (q_{j+1}-q_j) p}
+\end{equation}
+In the limit $\Delta t\to 0$, we can write $q_{j+1} - q_j = \dot{q}_j
+\Delta t$. To get the entire amplitude, we have to multiply the
+contribution from each step and then integrate over all intermediate
+positions,
+\begin{equation}
+  \mathcal{A} = 
+  \langle q_f, t_f | e^{-i H (t_f-t_i)} | q_i, t_i \rangle =
+  \int \mathcal{D}q \mathcal{D}p \;
+  \exp \left[
+    i \int_{t_i}^{t_f} dt \; \big(p \dot{q} - H(p,q) \big)
+  \right]
+\end{equation}
+Our particular (classical!) Hamiltonian $H(p, q) = \tfrac{1}{2m} p^2 +
+V(q)$ is quadratic in $p$, so the momentum integral at each time slice
+is just a Gaussian (actually, Fresnel) integral. The momentum midpoint
+$p_\text{mid}$ of the exponent is at
+\begin{equation}
+  \frac{\partial}{\partial p} \big(p \dot{q} - H(p,q) \big) = 0 
+  \quad \Leftrightarrow \quad
+  \dot{q} = \frac{\partial H}{\partial p}
+\end{equation}
+Hence the momentum integral amounts to replacing $p$ by the equations
+of motion in the Hamiltonian formalism of classical mechanics in the
+exponent $p \dot{q} - H(p,q)$, which is precisely how to translate to
+the Lagrangian formulation. The momentum integral also generates a
+coefficient that is independent of $p$, $q$, which we absorb in the
+normalization of the path integral. The final result is that
+\begin{equation}
+  \mathcal{A} = 
+  \int \mathcal{D}q \;
+  \exp \left[
+    \frac{i}{\hbar} \int_{t_i}^{t_f} dt \; L\big(q(t), \dot{q}(t) \big),
+  \right]
+\end{equation}
+where I also restored the $\hbar$ using dimensional analysis.
+
+A number of comments are in order. First, note that the path integral
+formulation traded all operators back into paths. That is, $q(t)$ is
+just an ordinary (commuting) function here. All quantum effects arise
+from the sum over all paths, and not from commutation relations.
+
+The classical limit $\hbar\to 0$ also has a nice interpretation, it
+causes the integrand to oscillate rapidly everywhere \emph{except}
+where the phase is stationary, that is, $\frac{\partial S}{\partial q}
+= 0$. The domain (paths) of the integration where the phase varies
+rapidly tend to cancel out, whereas the region around the extremal
+paths interfere constructively. By a similar argument, if you have a
+particle in a periodic orbit then the orbits whose action is an
+integer multiple of $2\pi\hbar$ all add up. This explains why the
+Bohr-Sommerfeld quantization condition worked so well.
+
+Due to the imaginary unit in the exponent, the behavior of the path
+integral is oscillatory instead of falling off exponentially. This
+leads to numerous convergence issues. One common trick is to formally
+write it as ``imaginary time path integral''
+\begin{equation}
+  \int \mathcal{D} e^{i\int dt\; L} = 
+  \int \mathcal{D} e^{-\int d\tau\; L}
+\end{equation}
+where $\tau = -i t$. If we treat $\tau$ as real (which we will
+motivate later on), then this changes the Fresnel into a Gaussian
+integral. The action turns into the \emph{Euclidean} action
+\begin{equation}
+  S = \int dt \; 
+  \left( \tfrac{1}{2} \dot{q}^2 - V(\phi) \right) 
+  \quad \longrightarrow \quad 
+  S_E = \int d\tau \; 
+  \left( \tfrac{1}{2} \dot{q}^2 + V(\phi) \right)
+\end{equation}
+
+
+
+
+\section{Week 3, Monday}
+
+\subsection{Green's Functions}
+
+The Klein-Gordon equation describes just propagating plane waves. A
+more interesting question is how does the field react to external
+influences. We can model this with a source term
+\begin{equation}
+  (-\partial_\mu \partial^\mu + m^2) \phi = J(x) = J(t, \vec{x})
+\end{equation}
+This is an inhomogeneous linear differential equation, so any solution
+is the sum of a solution of the homogeneous differential equation plus
+one particular solution of the inhomogeneous equation.
+\begin{definition}[Green's Function] 
+  A solution of 
+  \begin{equation}
+    (-\partial_x^2 + m^2) G(x,y) = \delta^4(x-y)
+  \end{equation}
+  is called a Green's function.
+\end{definition}
+In momentum space
+\begin{equation}
+  \tilde\phi(k) = \int d^4x e^{-ikx} \phi(x)
+  ,\quad
+  \phi(x) = \int \frac{d^4k}{(2\pi)^4} e^{ikx} \tilde\phi(k)
+\end{equation}
+we can formally solve for the Green's function. However, the Fourier
+transformation integral of the formal solution back to position space
+diverges because of poles at $k_0 = \pm \sqrt{\vec{k}+ m^2} = \pm
+\omega$. The correct way\footnote{This is the
+  \href{http://en.wikipedia.org/wiki/Sokhotski-Plemelj_theorem}{Sokhotski-Plemelj
+    Theorem}.} of dealing with the Fourier transform of distributions
+requires a choice of integration contour in the complex $k_0\in\C$
+plane that evades the two poles. The two natural contours are
+\begin{itemize}
+\item Just above the two poles at $k_0=\pm \omega$, this is the
+  \emph{retarded Green's function}. It vanishes if $x$ is in the past
+  of $y$.
+\item Just below the two poles, this is the \emph{advanced Green's
+    function}. It vanishes if $x$ is in the future of $y$.
+\end{itemize}
+In addition, any Green's function vanishes if $x$ and $y$ are
+space-like separated.  Instead of defining the integration in prose,
+we can also use the limit of a small positive $\epsilon$ to describe
+the integration contour as
+\begin{equation}
+  G_{\text{Adv}/\text{Ret}}(x, y) = 
+  \lim_{\epsilon\to 0^+}
+  \int \frac{d^4k}{(2\pi)^4} 
+  \frac{1}{-(k_0 \pm i \epsilon)^2 + \vec{k}^2 + m^2}
+  e^{ikx}
+\end{equation}
+The picture below is the propagator in the $x_2=x_3=0$ plane. At the
+light cone front $x_0 = \pm x_1$ the propagator is a delta function,
+which is not drawn.
+\begin{figure}
+  \centering
+  \includegraphics[width=\linewidth]{figures/propagator.png}
+  \caption{Propagator $G(x-y)$ at $x-y = (40, \xi, 0, 0)$ and $m=1$.}
+\end{figure}
+
+
+\subsection{Propagator of the Free Field}
+
+The propagator of a free scalar field is also a Green's function:
+\begin{equation}
+  \begin{split}
+    \langle 0| \phi(x) \phi(y) |0\rangle =&\;
+    \int \widetilde{dk} \int \widetilde{dk}' 
+    \langle 0| a(\vec{k}) a^\dagger(\vec{k}') |0\rangle \; e^{i(kx-k'y)}
+    \\    =&\;
+    \int \frac{d^3\vec{k}}{(2\pi)^3}
+    \frac{1}{2\omega} 
+    e^{ik(x-y)}
+    \\    =&\;
+    \frac{1}{2} 
+    \int \frac{d^3\vec{k}}{(2\pi)^3}
+    \oint \frac{dk_0}{2\pi i}
+    \frac{1}{k^2+m^2} 
+    e^{ik(x-y)}
+    \\    =&\;
+    \frac{1}{2i} \Big(
+    G_\text{Ret}(x-y) - G_\text{Adv}(x-y)
+    \Big)
+  \end{split}
+\end{equation}
+where the $\oint$-contour consists of two small circles around the two
+poles, which is equals to the retarded Green's function contour minus
+the advanced Green's function contour.
+
+
+\subsection{Feynman Propagator}
+
+There is a third choice of integration contour which turns out to be
+the most useful for quantum field theory. of course we need the vacuum
+expectation value of time-ordered products in quantum field theory, so
+let us define
+\begin{definition}[Feynman propagator]
+  The Green's function $\Delta$ defined as 
+  \begin{equation}
+    \tfrac{1}{i} \Delta(x-y) = 
+    \langle 0 | T \phi(x) \phi(y) |0\rangle
+  \end{equation}
+  is called the Feynman propagator.
+\end{definition}
+In terms of integration contour in the $k_0\in \C$ plane, this is the
+path that goes below at $k_0=-\omega$ and above at $k_0=\omega$, see
+\autoref{fig:feynman_propagator_path}. 
+\begin{figure}
+  \label{fig:feynman_propagator_path}
+  \centering
+  \includegraphics[width=\linewidth]{figures/FeynmanPropagatorPath.pdf}
+  \caption{Feynman propagator integration contour in the $k_0\in \C$ plane.}
+\end{figure}
+Depending on whether $x$ is in the future or the past of $y$, this
+contour selects the advanced or retarded Green's function. Finally, in
+terms of an algebraic $i\epsilon$ prescription, the Feynman propagator
+is
+\begin{equation}
+  \Delta(x-y) = 
+  \lim_{\epsilon \to 0^+}
+  \int
+  \frac{d^4k}{(2\pi)^4}
+  \frac{1}{k^2 + m^2 - i \epsilon}
+  e^{ik(x-y)}
+\end{equation}
+
+
+
+
+\section{Week 3, Wednesday}
+
+\subsection{Path Integral for Free Field Theory}
+
+The Lagrange density and path integral in field theory is
+\begin{equation}
+  \begin{gathered}
+    \mathcal{L} = -\frac{1}{2} \partial_\mu \phi \partial^\mu \phi
+    - \frac{1}{2} m^2 \phi^2 + J(x) \phi,
+    \\
+    Z = \int \mathcal{D}\phi \;
+    e^{i\int d^4x \; \mathcal{L}} =
+    \langle 0 | 0 \rangle,
+  \end{gathered}
+\end{equation}
+which equals one if the path integral measure is properly
+normalized. To get something non-trivial we need, for example,
+boundary conditions on fields. It turns out that a more fruitful way
+is to include insert fields into the integrand. By going back to the
+definition of the path integral as product over time slices, we get
+\begin{equation}
+  \int \mathcal{D}\phi \;
+  \phi(x) \phi(y) e^{i\int d^4x \mathcal{L}} =
+  \langle 0 | T \phi(x) \phi(y) |0\rangle
+\end{equation}
+and similar. A useful trick is to think of the extra fields as coming
+from a source term
+\begin{equation}
+  Z(J) = 
+  \int \mathcal{D}\phi \;
+  e^{i\int d^4x \; [\mathcal{L} + J \phi]}
+\end{equation}
+Acting with the functional derivative on the path integral and then
+setting $J=0$ results in 
+\begin{equation}
+  \tfrac{1}{i} \frac{\delta}{\delta J(x)} \;
+  \tfrac{1}{i} \frac{\delta}{\delta J(y)} \;
+  Z(J)|_{J=0} =
+  \int \mathcal{D}\phi \;
+  \phi(x) \phi(y) e^{i\int d^4x \mathcal{L}},
+\end{equation}
+which is precisely what we want. The analogous formula holds for
+arbitrary numbers of fields in the integrand.
+
+
+\subsection{Solving the Path Integral}
+
+The free Lagrangian is quadratic in $\phi$, so we can again use the
+Gaussian integral to solve it. In momentum space
+\begin{equation}
+  \tilde\phi(k) = \int d^4x e^{-ikx} \phi(x)
+  ,\quad
+  \phi(x) = \int \frac{d^4k}{(2\pi)^4} e^{ikx} \tilde\phi(k),
+\end{equation}
+the action including the source term is
+\begin{equation}
+  \begin{split}
+    S(J) =&\; \int d^4x \; (\mathcal{L} + J\phi) =
+    \\ =&\;
+    \frac{1}{2}
+    \int \frac{d^4k}{(2\pi)^4} \left[
+      \frac{\tilde{J}(k) \tilde{J}(-k)}{k^2+m^2-i\epsilon}
+      - \tilde\chi(k) (k^2+m^2) \tilde{\chi}(-k)
+    \right]
+  \end{split}
+\end{equation}
+where
+\begin{equation}
+  \tilde\chi(k) = \tilde\phi(k) - \frac{\tilde{J}(k)}{k^2 + m^2}
+\end{equation}
+is the ``midpoint'' variable of the quadratic exponent. The path
+integral measure is invariant under the shift, $\mathcal{D}\phi =
+\mathcal{D}\chi$, so we obtain
+\begin{equation}
+  \begin{split}
+    Z(J) =&\;
+    \exp\left[\frac{i}{2} \int \frac{d^4k}{(2\pi)^4} 
+      \frac{\tilde{J}(k)\tilde{J}(-k)}{k^2 + m^2}
+    \right]
+    \\ &\qquad
+    \times
+    \int \mathcal{D}\chi 
+    \exp\left[ i\int d^4x 
+      \left(-\tfrac{1}{2} \partial_\mu \chi \partial^\mu \chi
+      - \tfrac{1}{2} m^2\chi^2\right)
+    \right]
+    \\ =&\;
+    \exp\left[
+      \frac{i}{2} \int d^4x \; d^4y \;
+      J(x) \Delta(x-y) J(y) 
+    \right]
+  \end{split}
+\end{equation}
+where $\Delta$ is again the Feynman propagator.
+
+Hence, the path integral derivation of the propagator is 
+\begin{equation}
+  \begin{split}
+  \langle 0|T \phi(x) \phi(y) |0\rangle 
+  =&\;
+  \tfrac{1}{i} \frac{\delta}{\delta J(x)} \;
+  \tfrac{1}{i} \frac{\delta}{\delta J(y)} \;
+  Z(J)|_{J=0} 
+  \\ =&\;
+  \left( \tfrac{1}{i} \Delta(x-y) + O(J) \right) Z(J) |_{J=0} =
+  \tfrac{1}{i} \Delta(x-y)
+  \end{split}  
+\end{equation}
+which of course matches what we found in the previous lecture using
+the canonical quantization. The generalization to an arbitrary number
+of fields is
+\begin{theorem}[Wick's Theorem]
+  \begin{equation}
+    \langle 0 | T \phi(x_1) \phi(x_2) \cdots \phi(x_{2n}) |0\rangle  =
+    \frac{1}{i^n} \sum_\text{pairings}
+    \Delta(x_{i_1} - x_{i_2})
+    \cdots
+    \Delta(x_{i_{2n-1}} - x_{i_{2n}})
+  \end{equation}
+\end{theorem}
+
+
+
+\section{Week 3, Friday}
+
+
+\subsection{Wick's Theorem For Operators}
+
+There is a version of Wick's theorem directly for operators, which
+roughly states that the difference between time- and normal-ordered
+products is a bunch of terms with pairs of operators replaced by the
+propagator. This replacement process is called a Wick contraction:
+\begin{definition}[Wick Contraction]
+  A Wick contraction, written as
+  $\contraction{}{\phi}{(x)}{\phi}{}\phi(x) \phi(y)$ is the process of
+  replacing the product $\phi(x)\phi(y)$ with the Feynman propagator
+  $\tfrac{1}{i}\Delta(x-y)$.
+\end{definition}
+\begin{theorem}[Wick's Theorem]
+  The time-ordered product of operators is the normal ordered sum of
+  all contractions,
+  \begin{equation}
+    T\big(\phi(x_1) \cdots \phi(x_n)\big) = 
+    \sum_\text{all contractions}
+    :\left(\text{contracted }\prod \phi(x_i)\right):
+  \end{equation}
+\end{theorem}
+For example, consider the field at $4$ positions. For brevity, I'll
+write $\phi_i = \phi(x_i)$. Then the time ordered product equals the
+sum of the normal ordering of terms with no contraction (1 term), one
+contraction (6 terms), and two contractions (3 terms):
+\begin{equation}
+  \begin{split}
+    T(\phi_1 \phi_2 \phi_3 \phi_4) =& \;
+    :\phi_1 \phi_2 \phi_3 \phi_4: +\;
+    \contraction{}{\phi_1}{}{\phi_2}{}\phi_1 \phi_2 :\phi_3 \phi_4: +\;
+    \contraction{}{\phi_1}{}{\phi_3}{}\phi_1 \phi_3 :\phi_2 \phi_4: +\;
+    \contraction{}{\phi_1}{}{\phi_4}{}\phi_1 \phi_4 :\phi_2 \phi_3: 
+    \\ &\quad +\;
+    \contraction{}{\phi_2}{}{\phi_3}{}\phi_2 \phi_3 :\phi_1 \phi_4: +\;
+    \contraction{}{\phi_2}{}{\phi_4}{}\phi_2 \phi_4 :\phi_1 \phi_3: +\;
+    \contraction{}{\phi_3}{}{\phi_4}{}\phi_3 \phi_4 :\phi_1 \phi_2: 
+    \\ &\quad +\;
+    \contraction{}{\phi_1}{}{\phi_2}
+    \contraction{\phi_1 \phi_2}{\phi_3}{}{\phi_4}
+    \phi_1 \phi_2 \phi_3 \phi_4 + 
+    \contraction{}{\phi_1}{\phi_2}{\phi_3}
+    \contraction[2ex]{\phi_1}{\phi_2}{\phi_3}{\phi_4}
+    \phi_1 \phi_2 \phi_3 \phi_4 + 
+    \contraction[2ex]{}{\phi_1}{\phi_2\phi_3}{\phi_4}
+    \contraction{\phi_1}{\phi_2}{}{\phi_3}
+    \phi_1 \phi_2 \phi_3 \phi_4.
+  \end{split}
+\end{equation}
+We note that the propagator evaluated at zero is infinite, this is
+where the delta function source term is located after all. So, at
+least naively,
+\begin{equation}
+  \contraction{}{\phi}{(x)}{\phi}{}\phi(x) \phi(x) =
+  \tfrac{1}{i} \Delta(x-x) =
+  \tfrac{1}{i} \Delta(0) = \infty
+\end{equation}
+does not make sense. On the other hand, if the coincident fields are
+normal-ordered as in 
+\begin{equation}
+  T\big(\phi(x_1) \cdots \phi(x_n) :\phi(y)^m:\big)
+\end{equation}
+then it turns out that there is no singularity. That is, the time
+ordered product can be rewritten, using only Wick's theorem, into
+terms involving normal orders and propagators but never the propagator
+evaluated at zero. An example can be found in the homework. Finally,
+note that Wick's theorem only holds for the free field. However, it
+will turn out to be a useful tool for perturbation theory around a
+free field theory.
+
+\subsection{Interacting QFT}
+
+Of course free fields are boring at the end of the day. Any kind of
+truly interesting quantum field theory has interactions. We have
+already seen that the coefficient $\lambda_n$ of a $\phi^n$ term in
+the potential has dimension $4-n$, so only $n=3$ and $n=4$ have
+non-negative mass dimension. As we will see later, negative
+dimensional terms will lead to problems with renormalization, so we
+will avoid them for now.
+
+First, consider a $\tfrac{1}{3!}\lambda_3 \phi^3$ term in the
+action. This means that the potential $V(\phi) = \tfrac{1}{2} m^2
+\phi^2 + \tfrac{1}{3!}\lambda_3 \phi^3$ is unbounded below, regardless
+of the sign of $\lambda_3$. So even though you might arrange for a
+metastable vacuum, that is, a local minimum of the potential, sooner
+or later your field will tunnel through any potential barrier and
+release an infinite amount of energy as it runs off $\phi(x)\to
+-\mathop{\mathrm{sign}}(\lambda_3)\infty$. Hence this theory cannot be
+defined for all times. Nevertheless, one should be able to describe it
+for small enough time intervals. Furthermore, it is a useful example
+for any calculation that does not describe the tunneling process, so
+you will find it in many books as an example. Hence the situation is
+perhaps not completely hopeless. Still, we will not consider the
+$\phi^3$ interaction in the following.
+
+This leaves us with a single possible interaction:
+\begin{definition}[Scalar $\phi^4$ theory]
+  The theory of a single real-valued scalar field $\phi(x)$ and
+  Lagrange density
+  \begin{equation}
+    \mathcal{L} = 
+    -\frac{1}{2} \partial_\mu \phi \partial^\mu \phi
+    -\frac{1}{2} m^2 \phi^2 
+    -\frac{1}{4!} \lambda \phi^4
+  \end{equation}
+  is called $\phi^4$ theory. It depends on two real parameters $m^2$
+  and $\lambda$.
+\end{definition}
+This is also the theory that you get if you take the Standard Model
+and set all fields to zero except for the Higgs field, so its study is
+a kind of toy model for the Higgs particle. We note that $m^2$ is just
+a name for the coefficient of $\phi^2$, and not necessarily the square
+of a real number. At least classically, we hence distinguish $3$
+regimes:
+\begin{itemize}
+\item $\lambda < 0$: Unstable vacuum.
+\item $\lambda \geq 0$, $m^2 > 0$: Deformed harmonic oscillator.
+\item $\lambda \geq 0$, $m^2 < 0$: Two distinct minima of the
+  potential. In particular, the minimum is not at $\phi=0$.
+\end{itemize}
+It turns out that the quantum theory has the same basic features,
+although the transition point between the different phases receives
+quantum corrections.
+
+There are two particularly useful limits of the parameters:
+\begin{itemize}
+\item $\lambda\to 0$ is the free field limit
+\item $\lambda\to \infty$, $m^2\to -\infty$ creates two
+  infinitely-deep potential wells. The field can no longer take any
+  value, but is constrained to $\phi(x) = \pm \phi_0$ for some some
+  constant $\phi_0\in\R$. This might remind you of a
+  spin-$\tfrac{1}{2}$ particle. In fact, in this limit the $\phi^4$
+  theory becomes the Ising model.
+\end{itemize}
+The bad news is that nobody has found an analytic solution to the
+$\phi^4$ theory so far, so we will have to do a certain amount of
+hand-waving to say anything about it. One thing that we can say much
+about is special limits, for example the Ising model can be solved
+exactly (at least in $1$ and $2$ dimensions). Similarly, we will have
+a lot to say about the perturbation expansion around the free field
+theory. However, there are limits to what perturbation theory can do
+for you. Essentially, perturbation theory is a Taylor series expansion
+\begin{equation}
+  \langle 0|T\prod \phi(x_i)|0\rangle =
+  \sum a_n \lambda^n.
+\end{equation}
+For example, we computed $a_0$ in the previous lecture as the sum of
+all Wick contractions of pairings. Although not physical, we can think
+of $\lambda \in \C$ and think of the correlators as complex
+functions. The radius of convergence of the power series should be as
+far as the first singularity in the complex $\lambda$-plane. But for
+any negative real $\lambda$, the vacuum is unstable and surely the
+correlation functions diverge. Hence the radius of convergence ought
+to be zero. Fortunately, perturbation theory turns out to be much more
+useful that what this argument suggests. What happens is that the
+first couple of terms in the series in fact do provide excellent
+approximations, even though it eventually diverges. But, since we
+anyways can only compute a limited number of terms in perturbation
+theory, this is in practice not much of a concern. This phenomenon is
+known as
+\href{http://en.wikipedia.org/wiki/Asymptotic_expansion}{asymptotic
+  series expansion}
+
+
+
+\section{Week 4, Monday}
+
+\subsection{Wick Rotation}
+
+We mentioned already the imaginary time path integral, where we make
+the time formally imaginary. Now that we have seen the Feynman
+propagator
+\begin{equation}
+  \Delta(x-y) = 
+  \lim_{\epsilon \to 0^+}
+  \int
+  \frac{d^4k}{(2\pi)^4}
+  \frac{1}{k^2 + m^2 - i \epsilon}
+  e^{ik(x-y)},
+\end{equation}
+we can give it a better justification. If we want to deform a
+time-integral into the complex plane, we must never cross a pole of
+the integrand. But the propagator does have two poles for complex
+$t$. Rotating the time contour to go from $-i \infty$ to $+i\infty$
+does not cross either pole, whereas rotating the integration contour
+the other way would have crossed both.
+\begin{definition}
+  A Wick Rotation is the analytic continuation of the time-integration
+  contour in the path integral to run from $-i \infty$ to $+i\infty$
+  along the imaginary axis. It is equivalent to replacing $t\mapsto -i
+  t$.
+\end{definition}
+In practice, nearly every QFT calculation is done after Wick
+rotation. It changes the space-time signature $(-+++) \mapsto (++++)$,
+and $e^{iS} \mapsto e^{-S_E}$ with the Euclidean action
+\begin{equation}
+  S_E = \int d^4x \left( 
+    \frac{1}{2} \partial_\mu\phi \partial^\mu \phi
+    + \frac{1}{2} m^2 \phi^2 
+    + \frac{1}{4!} \lambda \phi^4
+  \right),
+\end{equation}
+which is bounded below as long as the parameters $m^2$, $\lambda$ are
+such that the vacuum exists. By interpreting it as the energy of some
+statistical mechanical system, we see that the Wick rotation maps
+relates the quantum mechanical path integral to the partition function
+\begin{equation}
+  \int \mathcal{D}\phi e^{\frac{i}{\hbar}S} 
+  \mapsto
+  \int \mathcal{D}\phi e^{-\frac{1}{k_B T}S_E} 
+\end{equation}
+with $k_B T=\hbar$. This is a deep and often-used connection: Quantum
+field theory in $(1,d)$-dimensions is statistical mechanics in
+$(d+1)$-dimensional Euclidean space.
+
+
+\subsection{Lattice Action}
+
+In order to simulate QFT on a computer we need truncate the
+infinite-dimensional space of fields to something finite
+dimensional. The easiest way to do so is to allow only discrete
+positions $t, x \in a \mathbb{Z}$ with the lattice spacing $a$. For
+simplicity and to speed up the computations we will only consider
+$(1,1)$-dimensions, that is, one time and one space direction.
+
+The Lagrangian contains derivatives, which we need to discretize
+somehow. There is more than one way of doing so, for example
+\begin{equation}
+  \frac{\partial \phi}{\partial \phi}
+  \approx 
+  \frac{\phi(t,x+a) - \phi(t,x-a)}{2a}
+  \approx
+  \frac{\phi(t,x+a) - \phi(t,x)}{a}
+  \approx
+  \frac{\phi(t,x) - \phi(t,x-a)}{a}
+\end{equation}
+are all approximations that yield the derivative in the limit $a\to
+0$. We can multiply the two asymmetric versions to get a symmetric
+expression for the square,
+\begin{equation}
+  \left(\frac{\partial \phi}{\partial \phi}\right)^2
+  =
+  \frac{1}{a^2} \left(
+    \phi(t, x+a)^2 - 2 \phi(t,x-a) \phi(t,x+a) + \phi(t, x-a)^2
+  \right).
+\end{equation}
+If we furthermore sum over all lattice sites then we can combine the
+two $\phi^2$ terms. That way, we arrive at the lattice action
+\begin{equation}
+  S_E = \sum_{n\in \mathbb{Z}^2} \left[
+    \frac{1}{2} \sum_{i=1}^d 
+    \big(\phi(n+e_i) - \phi(n)\big)^2 
+    + \frac{1}{2} m_L^2 \phi(n)^2 + \frac{1}{4!} \lambda_L \phi(n)^4
+  \right]
+\end{equation}
+where $e_1=(1,0)$ and $e_2=(0,1)$ are the two lattice basis vectors,
+$m_L^2=a^2 m^2$ is the lattice mass-squared, and
+$\lambda_L=a^2\lambda$ is the lattice coupling constant. This also
+matches dimensional analysis, in $d=2$ the field is dimensionless and
+$m^2$, $\lambda$ have mass dimension $2$. A bit more compact is the
+alternate expression
+\begin{equation}
+  S_E = -\sum_{\text{adjacent }i,j} \phi(n_i) \phi(n_j)
+  + \sum_{n\in\mathbb{Z}^2}\Big[
+    \underbrace{\left(2+\tfrac{1}{2}m_L^2\right)}_{=\tilde\mu^2} \phi(n)^2 
+    + \underbrace{\frac{1}{4!} \lambda_L}_{=\tilde\lambda} \phi(n)^4
+  \Big]
+\end{equation}
+The continuum limit is $a\to 0$ with $\frac{m_L^2}{\lambda_L}$ fixed.
+
+The computer can of course not keep an infinite number of lattice
+sites in memory, so we have to approximate the lattice with a finite
+number $N$ of sites in each direction. It is convenient for the
+implementation to use periodic boundary conditions, then we do not
+have to implement separate differentials on the edges and vertices.
+
+
+
+\section{Week 4, Wednesday}
+
+\subsection{Markov Chains}
+
+We ultimately want to compute expectation values in QFT,
+\begin{equation}
+  \langle\mathcal{O}\rangle = 
+  \frac{
+    \int \mathcal{D}\phi \; \mathcal{O} e^{\frac{i}{\hbar}S}
+  }{
+    \int \mathcal{D}\phi \; e^{\frac{i}{\hbar}S}
+  },
+\end{equation}
+where we could set the denominator to one by properly normalizing the
+path integral measure. However, in practice this is too difficult and
+we rather divide by the normalization as above. Wick rotation turns
+this into normal expectation values that you are familiar with from
+statistical mechanics,
+\begin{equation}
+  \langle\mathcal{O}\rangle = 
+  \frac{
+    \sum_\mu \mathcal{O}_\mu e^{-\beta E_\mu}
+  }{
+    \sum_\mu e^{-\beta E_\mu}
+  }
+  ,\quad
+  \beta = \frac{1}{k_B T},
+\end{equation}
+where now $\mu$ indexes the states of the system, $\mathcal{O}_\mu$ is
+the value of some observable for the state $\mu$, and $E_\mu$ is the
+energy of the state $\mu$.
+
+Even for very modest lattices it is impossible to sum over all
+microstates on a computer, even if we restrict the field values to
+just $\pm 1$ instead of a floating-point number. We cannot even sample
+a significant fraction, so naively picking random fields would just
+yield numerical garbage. The trick is to sample \emph{important} ones,
+that is, with large $e^{-\beta E_\mu}$, that is, small energy. In
+fact, the ideal solution would be if we had a means to generate $n$
+random samples with probability not constant but equal to the
+Boltzmann distribution
+\begin{equation}
+  p_\mu = \frac{e^{-\beta\mu}}{\sum_\nu e^{-\beta E_\nu}}.
+\end{equation}
+Then the Boltzmann-weighted average just turns into the normal
+(arithmetic) average 
+\begin{equation}
+  \langle \mathcal{O} \rangle_n = 
+  \frac{
+    \sum_{j=1}^n p_j^{-1} \mathcal{O}_j e^{-\beta E_j}
+  }{
+    \sum_{j=1}^n p_j^{-1} e^{-\beta E_j}
+  }
+  = \frac{1}{n} \sum_{j=1}^n \mathcal{O}_j.
+\end{equation}
+
+In fact, there is a way, and it uses a random walk in the space of
+fields. That is, at each step you modify the field configuration
+according to certain rules and these step sample the fields with
+probability distribution $p_\mu$. The key idea is to use 
+\begin{definition}
+  A Markov chain is a process in which the probability $P(\mu\to\nu)$
+  of making a transition from $\mu$ to $\nu$ depends only on $\mu$ and $\nu$.
+\end{definition}
+Under two conditions the states in a Markov chain sample states with a
+prescribed probability distribution:
+\begin{itemize}
+\item Ergodicity: it must be possible to reach each state by a
+  sequence of steps.
+\item Detailed balance:
+  \begin{math}
+    p_\mu P(\mu\to\nu) = p_\nu P(\nu\to \mu).
+  \end{math}
+\end{itemize}
+Note that the detailed balance condition is a stronger condition than
+balance, that is, equilibrium. The latter means that the rate of
+transition out of $\mu$ must equal the rate of transition towards
+$\mu$, that is,
+\begin{equation}
+  \sum_\nu p_\mu P(\mu\to\nu) = \sum_\nu p_\nu P(\nu\to \mu).
+\end{equation}
+
+\subsection{Metropolis Algorithm}
+
+The Metropolis algorithm is a Markov chain whose states are
+discretized fields and with transition probabilities
+\begin{equation}
+  \frac{P(\mu\to\nu)}{P(\nu\to\mu)}
+  = 
+  \frac{p_\nu}{p_\mu}
+  = 
+  e^{-\beta(E_\nu - E_\mu)},
+\end{equation}
+as required for sampling fields with the Boltzmann probability
+distribution. It works by starting with a random field, in our
+implementation the values are taking to be $\phi(n) \in [-1.5,
+1.5]$. Then repeat the following steps:
+\begin{itemize}
+\item Select a random lattice site $n$.
+\item Select a random $\Delta \phi$, in our implementation uniformly
+  random in the range $[-1.5, 1.5]$.
+\item Let 
+  \begin{equation}
+    \phi'(m) =
+    \begin{cases}
+      \phi(n) + \Delta\phi & \text{if }n = m \\
+      \phi(m) & \text{else}.
+    \end{cases}
+  \end{equation}
+\item Accept $\phi'$ as the new field configuration with the
+  acceptance probability 
+  \begin{equation}
+    A(\phi\to\phi') = 
+    \begin{cases}
+      1 & \text{if } E(\phi') < E(\phi) \\
+      e^{-\beta[E(\phi')-E(\phi)]} & \text{else}.
+    \end{cases}
+  \end{equation}
+\end{itemize}
+The acceptance probability might seem a bit arbitrary, and indeed is a
+choice that could have been made differently. Only the ratio
+\begin{equation}
+  \frac{P(\mu\to\nu)}{P(\nu\to\mu)}
+  = 
+  \frac{A(\mu\to\nu)}{A(\nu\to\mu)}
+  = 
+  e^{-\beta(E(\phi') - E(\phi))}
+\end{equation}
+matters. Also, note that the energy difference $E(\phi') - E(\phi)$
+can be computed very effectively since it only depends on the chosen
+lattice site and its nearest neighbors.
+
+The fields $\phi$, $\phi'$ from a single Metropolis step are by no
+means statistically independent samples. After all, the field was only
+changed at a single lattice site at most. This does not affect the
+limiting value for the average, but it does change how quickly the
+running average approaches the limit as we take more
+samples. Formally, this can be seen in the formula for the standard
+deviation of $M$ correlated samples,
+\begin{equation}
+  \sigma = 
+  \sqrt{
+    \frac{1+2\tau}{M-1}
+    \Big( \langle\mathcal{O}^2\rangle 
+    - (\langle\mathcal{O}\rangle)^2 \Big)
+  }
+\end{equation}
+where $\tau$ is the autocorrelation time. Instead of falling off like
+$\frac{1}{\sqrt{M}}$ form $M\gg1$ as familiar for the standard error
+of random errors, it behaves as if we only collected
+$\frac{M}{1+2\tau}$ samples. Since computing the observable typically
+is much more expensive than a single Metropolis step, one combines
+many steps into a ``Metropolis Sweep'' and only computes the
+observable each sweep. The field configuration after each sweep is
+much less correlated to the one before. For example, in our
+implementation each iteration consists of $5 \times \{\text{\# lattice
+  sites}\}$ Metropolis steps. In addition, the implementation also
+uses the \href{http://en.wikipedia.org/wiki/Wolff_algorithm}{Wolff
+  Algorithm} to flip entire clusters of points. This is a further
+numerical improvement over just the Metropolis algorithm. 
+
+
+
+\section{Week 4, Thursday}
+
+\subsection{Lattice Simulation Results}
+
+We now have everything prepared, all that remains is to pick any
+observable. We then just have to evaluate it on sample field
+configurations and average over the samples to approximate the path
+integral with that observable inserted. The simplest observable would
+be the average field over the $N\times N$ lattice sites:
+\begin{equation}
+  \bar\phi = \frac{1}{N^2} \sum_{n\in (\mathbb{Z}/N)^2} \phi(n).
+\end{equation}
+While the distribution of samples shows some interesting patterns, the
+average alone is always going to be zero because of the $\phi\to
+-\phi$ symmetry of our theory. A more interesting observable would be,
+for example,
+\begin{equation}
+  |\bar\phi| = \frac{1}{N^2} \sum_{n\in (\mathbb{Z}/N)^2}  |\phi(n)|.
+\end{equation}
+By plotting it as a function of $m_L^2$, $\lambda_L$ we make the
+following observations:
+\begin{itemize}
+\item There seems to be a phase transition between an ``unbroken
+  phase'' with $\langle|\bar\phi\rangle=0$ for large $m^2$ and a
+  ``broken phase''with $\langle|\bar\phi\rangle>0$ for small (large
+  negative) $m^2$.
+\item The actual place where the phase transition takes place is at
+  finite negative $m_L^2$, for example $\lambda_L\approx 1.0$,
+  $m_L^2\approx -1.3$.
+\item In the broken phase the actual value of
+  $\langle|\bar\phi\rangle>0$ depends on $m_L^2$, $\lambda_L$. 
+\end{itemize}
+At least the last part is clear: the potential 
+\begin{equation}
+  V(\phi) =
+  \frac{1}{2}m_L^2 \phi^2 + \frac{1}{4!} \lambda_L \phi^4
+\end{equation}
+has two distinct minimal for $m_L^2 < 0$ whose position depends on
+$m_L^2$ and $\lambda_L$. It should also not be too surprising that
+there are qualitative differences between the case where $V(\phi)$ has
+a single minimum at $V(0)=0$ and the case where it has two separate
+minima. Though classically the distinction is just whether $m_L^2$ is
+positive or negative, the fact that the dividing line is not at zero
+will only find an explanation later on.
+
+If we want to numerically find the precise point of the phase
+transition then it would be nice to have a better observable than
+$|\bar\phi|$, for example one that has a simple peak at the point of
+the transition. Such an observable is the susceptibility, which you
+might have seen in the Ising model as magnetic susceptibility. The
+only difference is that $\phi\in \pm 1$ in the Ising model. There, the
+average $\bar\phi$ is the total magnetization. The susceptibility is
+the change of the magnetization if a constant external field is
+applied. In the $\phi^4$ theory it is not really justified to call
+$\bar\phi$ a magnetization, but we can still talk about the change
+in an external field. Technically, this means we add a source term $-E
+\mapsto -E + J\bar\phi$ to the exponent of the partition function.
+\begin{definition}
+  With $Z(J) = \sum_\mu \exp(-E_\mu + J\bar\phi)$, the susceptibility $\chi$
+  is the quantity
+  \begin{equation}
+    \chi = \frac{\partial\langle \bar\phi\rangle}{\partial J} \Big|_{J=0}.
+  \end{equation}
+\end{definition}
+We expect that it is only close to the phase transition that a small
+change in an external field will affect a large change in
+$\langle\bar\phi\rangle$. However, the definition is not very useful
+to compute $\chi$ from a lattice simulation. Fortunately, we can
+rewrite it as
+\begin{equation}
+  \begin{split}
+    \chi  =&\;
+    \frac{\partial}{\partial J}
+    \frac{\sum_\mu \bar\phi e^{-E_\mu +J\bar\phi}}
+    {\sum_\mu e^{-E_\mu +J\bar\phi}} = 
+    \frac{\partial}{\partial J} \frac{1}{Z(J)}
+    \frac{\partial}{\partial J} Z(J) \big|_{J=0}
+    \\ =&\;
+    \left[
+      \frac{1}{Z(J)}
+      \frac{\partial^2 Z(J)}{\partial J^2} -
+      \left(
+        \frac{1}{Z(J)} \frac{\partial Z(J)}{\partial J} Z(J)
+      \right)^2
+    \right]_{J=0}
+    \\ =&\;
+    \langle \bar\phi^2 \rangle - \big( \langle\bar\phi\rangle \big)^2,
+  \end{split}
+\end{equation}
+which is just the variance of the $\bar\phi$ observable. And the
+variance is of course easily approximated using the sample
+variance. The result is plotted in \autoref{fig:susceptibility}.
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth]{figures/susceptibility-latticesize.png}
+  \caption{The susceptibility for fixed $\lambda_L=1.0$ and varying
+    $-2\leq m_L^2 \leq 0$ and three different lattice sizes.}
+\end{figure}
+
