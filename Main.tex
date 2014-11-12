@@ -1494,6 +1494,109 @@ variance. The result is plotted in \autoref{fig:susceptibility}.
 
 
 
+\section{Week 5, Monday}
+
+% \section{Perturbation Theory}
+
+\subsection{Correlators in the Interacting Theory}
+
+In quantum mechanics, perturbation theory is generally done in the
+interaction picture where we split the Hamiltonian $H=H_0 +
+H_\text{int}$ into a free Hamiltonian (harmonic oscillator of in some
+disguise) and the interaction part $H_\text{int}$. The path integral
+analog is to split the action
+\begin{equation}
+  S = S_0 + S_\text{int}
+\end{equation}
+into the action of a free particle and interactions. We use this split
+to write correlators as
+\begin{equation}
+  \label{eq:corrSint}
+  \langle 0 | T\mathcal{O} |0\rangle =
+  \frac{
+    \int \mathcal{D}\phi \; \mathcal{O} e^{i(S_0+S_\text{int})}
+  }{ 
+    \int \mathcal{D}\phi \; e^{i(S_0+S_\text{int})}
+  }
+  = 
+  \frac{
+    \langle0|T \mathcal{O} e^{iS_\text{int}} |0\rangle_0
+  }{
+    \langle0|T e^{iS_\text{int}} |0\rangle_0
+  }
+\end{equation}
+where the subscript zero on $\langle \cdots \rangle_0$ means that we
+use the free action $S_0$ only to compute the correlator. In
+particular, this means that we can use Wick contractions to evaluate
+the right hand side. For $\phi^4$ theory, the free and interacting
+actions are the integrals over the Lagrange densities
+\begin{equation}
+  \mathcal{L}_0 = -\frac{1}{2} \partial_\mu \phi \partial^\mu \phi
+  - \frac{1}{2} m^2 \phi^2
+  , \quad
+  \mathcal{L}_\text{int} = 
+  - \frac{1}{4!} \lambda \phi^4
+\end{equation}
+The basic idea behind perturbation theory is to use the series
+expansion
+\begin{equation}
+  e^{i S_\text{int}} = 
+  1 + 
+  \int d^4y \big(-\tfrac{i\lambda}{24} \phi^4 \big) + 
+  \frac{1}{2!}
+  \left[\int d^4y \big(-\tfrac{i\lambda}{24} \phi^4 \big)\right]^2
+  + \cdots
+\end{equation}
+and compute correlators order-by-order in the coupling constant
+$\lambda$. Note that the coupling constant is in both numerator and
+denominator of eq.~\eqref{eq:corrSint}, so to first order we obtain
+\begin{multline}
+  \begin{split}
+    \langle 0|T\mathcal{O}|0\rangle = &\;
+    \sum_{n=0}^\infty \langle 0|T\mathcal{O}|0\rangle^{(n)} \lambda^n
+    \\ &\;
+    \langle 0|T\mathcal{O}|0\rangle_0 
+    \\ &\;
+    - \frac{i\lambda}{24} \int d^4y \Big(
+    \langle 0|T\mathcal{O} \phi(y)^4 |0\rangle_0 - 
+    \langle 0|T\mathcal{O} |0\rangle_0 
+    \langle 0|T \phi(y)^4 |0\rangle_0 
+    \Big)
+    \\ &\;
+    + O(\lambda^2)
+  \end{split}
+\end{multline}
+
+
+\subsubsection{Leading Order Two-Point Function}
+
+Let us start with the correlator of two fields. For simplicity, we
+define the short-hand notation
+\begin{equation}
+  \phi_i = \phi(x_i)
+  ,\quad
+  \phi_y = \phi(y)
+  ,\quad
+  \langle \mathcal{O} \rangle = \langle 0|T \mathcal{O} |0\rangle
+\end{equation}
+Then the leading term in the expansions
+\begin{equation}
+  \langle \phi_1 \phi_2 \rangle = 
+  \sum_{n=0}^\infty \lambda^n \langle \phi_1 \phi_2 \rangle^{(n)}
+  \lambda^n
+\end{equation}
+is just the free field result
+\begin{equation}
+  \langle \phi_1 \phi_2 \rangle^{(0)}
+  = 
+  \langle \phi_1 \phi_2 \rangle_0
+  = 
+  \overline{\phi_1 \phi_2}
+  = 
+  \tfrac{1}{i} \Delta(x_1 - x_1)
+\end{equation}
+
+
 
 
 
