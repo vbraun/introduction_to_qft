@@ -1,0 +1,102 @@
+\documentclass[12pt]{article}
+\input{Preamble}
+
+\DeclareGraphicsRule{*}{mps}{*}{}
+\usepackage{feynmp}
+
+
+\begin{document}
+~
+\vspace{-2cm}
+\begin{center}
+  {\Huge Homework \#5}
+\end{center}
+\vspace{1cm}
+
+\noindent Please hand in by next Thursday (November 20), either during
+the lecture or email to \texttt{<Philipp.Kleinert@physics.ox.ac.uk>}.
+Tutorials location: Fisher Room (14. November), Conference Room
+(21. November).
+
+
+\begin{enumerate}
+\item Consider the following potential $O(\lambda^2)$ vacuum bubble
+  contribution to the two-point function $\langle \phi_1 \phi_2\rangle$:
+  \begin{center}
+    {\fmfframe(8,8)(10,15){
+        {
+          \begin{fmffile}{Homework-5-doublebubble}
+            \begin{fmfgraph*}(150,20)
+              \fmfleft{i,x1}
+              \fmfright{o,x2}
+              \fmf{plain}{x1,x2}
+              \fmf{phantom,tension=5}{i,iv}
+              \fmf{plain,left}{iv,v,mv,v,iv}
+              \fmf{phantom,tension=2}{mv,mw}
+              \fmf{plain,left}{mw,w,ow,w,mw}
+              \fmf{phantom,tension=5}{ow,o}
+              \fmfdot{v,w,x1,x2}
+              \fmflabel{$x_1$}{x1}
+              \fmflabel{$x_2$}{x2}
+            \end{fmfgraph*}
+          \end{fmffile}}
+      }}
+  \end{center}
+  Identify the terms that give rise to this Wick contraction, find
+  their symmetry factors, and show that they cancel their contribution
+  to $\langle \phi_1 \phi_2\rangle$.
+\item Compute the symmetry factor for the diagram
+  \begin{center}
+    {\fmfframe(8,-5)(10,-10){
+        {
+          \begin{fmffile}{Homework-5-four}
+            \begin{fmfgraph*}(100,100)
+              \fmfleft{x1}
+              \fmfright{x2}
+              \fmftop{x3}
+              \fmfbottom{x4}
+              \fmf{plain,tension=3}{x1,i}
+              \fmf{plain,tension=3}{x2,o}
+              \fmf{phantom,tension=3}{x3,t}
+              \fmf{phantom,tension=3}{x4,b}
+              \fmf{plain}{i,c,o}
+              \fmf{plain,left,tension=0}{t,c,t}
+              \fmf{phantom}{t,c,b}
+              \fmf{plain,left,tension=0}{i,o,i}
+              \fmflabel{$x_1$}{x1}
+              \fmflabel{$x_2$}{x2}
+              \fmfdot{x1,x2,i,o,t,c}
+            \end{fmfgraph*}
+          \end{fmffile}}
+      }}
+  \end{center}
+\item Confirm the formula
+  \begin{equation}
+    W_G = \frac{1}{2!^{S+D}3!^T4!^F N_\text{IVP}}
+  \end{equation}
+  where
+  \begin{itemize}
+  \item $S$ is the number of self-connections,
+  \item $D$ is the number of double connections,
+  \item $T$ is the number of triple connections,
+  \item $N_\text{IVP}$ is the number of identical vertex permutations.
+  \end{itemize}
+  for the diagrams in the first two exercises.
+\item Write the Feynman rules (in momentum space) for the theory of
+  two real scalars of mass $m$ and $M$ and interaction
+  \begin{equation}
+    \begin{split}
+      \mathcal{L}_0 =&\;
+      -\frac{1}{2} \partial_\mu \phi \partial^\mu \phi 
+      -\frac{1}{2} m^2 \phi^2
+      -\frac{1}{2} \partial_\mu \chi \partial^\mu \chi
+      -\frac{1}{2} M^2 \chi^2
+      \\
+      \mathcal{L}_\text{int} =&\;
+      -\frac{1}{2} \lambda \phi^2\chi
+    \end{split}
+  \end{equation}
+  Use plain and dashed lines for the $\phi$ and $\chi$-propagator.
+\end{enumerate}
+
+\end{document}
