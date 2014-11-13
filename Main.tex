@@ -305,7 +305,7 @@ The order-$\lambda$ contribution to the 4-point correlator is
 The Wick contractions of the first term are
 \begin{equation}
   \begin{split}
-    \langle \phi_1 \phi_2 \phi_y^4 \rangle_0 =&\;
+    \langle \phi_1 \phi_2 \phi_3 \phi_4 \phi_y^4 \rangle_0 =&\;
     24~
     \overline{\phi_1 \phi_y}~
     \overline{\phi_2 \phi_y}~
@@ -334,9 +334,57 @@ above (the terms multiplied by $3$). If you draw the corresponding
 diagram, you see that they are ``vacuum bubbles'', that is, contain a
 subdiagram that is disconnected from all external positions. Such
 vacuum bubbles are generally divergent, though fortunately they end up
-being subtracted off by the second term.
+being subtracted off by the second term. 
 
-TODO:
+We also notice that many of the terms are just products of 2-point
+functions, for example
+\begin{equation}
+  \begin{split}
+    \langle \phi_1 \phi_2 \rangle  \langle \phi_3 \phi_4 \rangle 
+    =&\;
+    \overline{\phi_1\phi_2}~
+    \overline{\phi_3\phi_4}
+    \\ &\;
+    - \frac{i\lambda}{2} \int d^4y\;
+    \Big(
+    \overline{\phi_1 \phi_2}~
+    \overline{\phi_3 \phi_y}~
+    \overline{\phi_4 \phi_y}~
+    \overline{\phi_y \phi_y} 
+    +
+    \overline{\phi_1 \phi_y}~
+    \overline{\phi_2 \phi_y}~
+    \overline{\phi_3 \phi_4}~
+    \overline{\phi_y \phi_y} 
+    \Big)
+    \\ &\;
+    + O(\lambda^2)
+ \end{split}
+\end{equation}
+This should also not be surprising, part of amplitude for the
+scattering process of two ingoing and two outgoing particles is just
+two particles not interacting at all. In fact, only the single
+connected diagram at $O(\lambda)$ remains after collecting everything
+we can into products of two-point functions:
+\begin{equation}
+  \begin{split}
+    \langle \phi_1 \phi_2\phi_3 \phi_4 \rangle 
+    =&\;
+    \langle \phi_1 \phi_2 \rangle
+    \langle \phi_3 \phi_4 \rangle +
+    \langle \phi_1 \phi_3 \rangle
+    \langle \phi_2 \phi_4 \rangle +
+    \langle \phi_1 \phi_4 \rangle
+    \langle \phi_2 \phi_3 \rangle
+    \\ &\;
+    - i \lambda \int d^4y
+    \overline{\phi_1 \phi_y}~
+    \overline{\phi_2 \phi_y}~
+    \overline{\phi_3 \phi_y}~
+    \overline{\phi_4 \phi_y} 
+    + O(\lambda^2)
+  \end{split}
+\end{equation}
 
 In fact, this is true in general:
 \begin{itemize}
@@ -346,13 +394,70 @@ In fact, this is true in general:
   \end{equation}
   which we got because we are generally not able to normalize the path
   integral measure.
-\item $n$-point correlators are sums disconnected products plus the
-  connected diagrams.
+\item $n$-point correlators are sums of products of disconnected
+  correlators plus the connected diagrams.
 \item Each internal node is accompanied by a factor of $-i\lambda$ and
   an integral over its position. We will make these also part of the
   graphical notation.
-\item Each term comes with a symmetry factor
+\item Each term comes is multiplied with a combinatorial symmetry
+  factor $\frac{1}{|\Aut G|}$, where $\Aut(G)$ is the automorphism
+  group of the diagram. That is, count all ways to map the vertices to
+  vertices and lines to lines. Note that we \emph{divide} by the
+  number of automorphisms because each symmetry reduces the number of
+  distinct Wick contractions we can make. In the diagrams so far, we had
+  \begin{itemize}
+  \item
+    \begin{math}
+      \overline{\phi_1 \phi_y}~
+      \overline{\phi_2 \phi_y}~
+      \overline{\phi_3 \phi_y}~
+      \overline{\phi_4 \phi_y},
+    \end{math}
+    $\Aut G = 1$, coefficient $\tfrac{24}{24} = 1$,
+  \item 
+    \begin{math}
+      \overline{\phi_1 \phi_y}~
+      \overline{\phi_2 \phi_y}~
+      \overline{\phi_y \phi_y},
+    \end{math}
+    $\Aut G = \mathbb{Z}_2$, coefficient $\tfrac{12}{24} = \tfrac{1}{2}$,
+  \item 
+    \begin{math}
+      \overline{\phi_1 \phi_2}~
+      \overline{\phi_y \phi_y}~
+      \overline{\phi_y \phi_y},
+    \end{math}
+    $\Aut G = D_8$, that is, the dihedral group with $8$ elements,
+    coefficient $\tfrac{3}{24} = \tfrac{1}{8}$.
+  \end{itemize}
 \end{itemize}
+
+
+\subsection{Feynman Rules in Position Space}
+
+\begin{definition}
+  A Feynman graph in position space, for the $\phi^4$-theory, is a
+  graph (undirected, without edge labels) with
+  \begin{itemize}
+  \item 1-valent vertices labelled by $x_i$, called ``external'',
+  \item 4-valent vertices labelled by $y_j$, called ``internal'', and
+  \item without vacuum bubbles.
+  \end{itemize}
+\end{definition}
+In particular, disconnected graphs are allowed but each connected
+component must be attached to at least one external vertex. As we have
+seen, such a graph translates directly into a summand in the series
+expansion of correlation functions. Explicitly, the rules are
+\begin{definition}{Feynman rules for $\phi^4$-theory in momentum space}
+  \begin{itemize}
+  \item For each line joining two vertices $u$, $v$ multiply the
+    integrand with a free propagator $\overline{\phi(u)\phi(v)} =
+    \frac{1}{i} \Delta(u-v)$.
+  \item For each vertex, integrate $-i\lambda \int d^4y_j$
+  \item Multiply with the symmetry factor $\frac{1}{|\Aut G|}$.
+  \end{itemize}
+\end{definition}
+
 
 
 \newpage
