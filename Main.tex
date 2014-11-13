@@ -448,7 +448,8 @@ In particular, disconnected graphs are allowed but each connected
 component must be attached to at least one external vertex. As we have
 seen, such a graph translates directly into a summand in the series
 expansion of correlation functions. Explicitly, the rules are
-\begin{definition}{Feynman rules for $\phi^4$-theory in momentum space}
+\begin{definition}
+  The Feynman rules for $\phi^4$-theory in position space are
   \begin{itemize}
   \item For each line joining two vertices $u$, $v$ multiply the
     integrand with a free propagator $\overline{\phi(u)\phi(v)} =
@@ -457,6 +458,154 @@ expansion of correlation functions. Explicitly, the rules are
   \item Multiply with the symmetry factor $\frac{1}{|\Aut G|}$.
   \end{itemize}
 \end{definition}
+
+
+
+\section{Week 5, Thursday}
+
+\subsection{Feynman Rules in Momentum Space}
+
+It turns out that the Feynman rules take a nicer for in momentum
+space. Partly, this is because it is just more convenient for
+accelerators where we scatter particles with fixed momentum. More
+technically, recall that the Feynman propagator in position space is
+quite complicated involving Bessel functions. And we have to compute
+convolution integrals of the Feynman propagator because of the
+$y_j$-integrals.
+
+Hence, we apply Fourier transformation to each external position $x_i$
+to obtain the $n$-point correlator in momentum space as
+\begin{equation} 
+  F(k_1, \dots, k_n) = 
+  \int d^4x_1 \cdots 
+  \int d^4x_n \;
+  e^{i \sum_j k_j x_j}
+  \langle \phi(x_1) \cdots \phi(x_n) \rangle.
+\end{equation}
+The Fourier transformation of just $\frac{1}{i}$ times the Feynman
+propagator (i.e.\ the free field 2-point function) is
+\begin{equation}
+  \begin{split}
+    G(k_1, k_2) =&\;
+    \frac{1}{i}
+    \int d^4x_1 \int d^4x_2\;
+    e^{i( k_1 x_2 + k_2 x_2)}
+    \int \frac{d^4k}{(2\pi)^4}
+    \frac{e^{i k (x_1-x_2)}}{k^2 + m^2 -i\epsilon}    
+    \\ =&\;
+    \frac{1}{i}
+    (2\pi)^4 \delta^4(k_1+k_2) \frac{1}{k_1^2 + m^2 - i\epsilon}.
+  \end{split}
+\end{equation}
+For the vertex, note that its position $y$ occurs in the exponent of
+the $4$ propagators that it is connected to. If we let $k_1$, $\dots$,
+$k_4$ be the momenta in the $4$ propagators then the contribution of
+the vertex boils down to
+\begin{equation}
+  -i \lambda \int d^4y \; e^{iy(k_1+k_2 + k_3 + k_4)}
+  =
+  -i \lambda (2\pi)^4 \delta^4(k_1+k_2 + k_3 + k_4).
+\end{equation}
+We notice that the delta functions just implement momentum
+conservation on each line and each internal vertex. We make this part
+of our graphical notation, and define
+\begin{definition}
+  A Feynman graph in momentum space for the $\phi^4$-theory is a graph
+  with
+  \begin{itemize}
+  \item 1-valent external vertices labeled with inflowing
+    $4$-momentum $k_j$,
+  \item edges labelled by directed $4$-momenta $\ell_j$,
+  \item 4-valent internal vertices, and
+  \item without vacuum bubbles.
+  \end{itemize}
+\end{definition}
+Each unique graph again can be translated into a particular summand in
+the series expansion of the $n$-point correlator using 
+\begin{definition}[Feynman rules]
+  The Feynman rules for $\phi^4$-theory in momentum space are
+  \begin{itemize}
+  \item for each connected component with inflowing momenta $k_j$,
+    multiply with $(2\pi)^4 \delta^4(\sum k_j)$,
+  \item use momentum conservation along lines and vertices to replace
+    internal momenta $\ell_j$ as far as possible,
+  \item for each remaining internal momentum, integrate $\int
+    \frac{d^4\ell}{(2\pi)^4}$,
+  \item
+    for each edge carrying momentum $k$, multiply the integrand with a factor
+    $\frac{1}{i} \frac{1}{k^2+m^2-i \epsilon}$,
+  \item for each 4-valent vertex multiply with $-i\lambda$,
+  \item multiply with the symmetry factor $\frac{1}{|\Aut G|}$.
+  \end{itemize}
+\end{definition}
+For example, for the tree graph $4$-point function with a single
+internal vertex we get
+\begin{equation}
+  F^{(1)}_\text{conn} = 
+  -i \lambda (2\pi)^4 \delta^4(k_1+k_2+k_3+k_4) \prod_{j=1}^4
+  \frac{1}{k_j^2+m^2-i \epsilon}. 
+\end{equation}
+A more complicated diagram is the ``fish'', which has a $\mathbb{Z}_2$
+symmetry:
+\begin{multline}
+  F = 
+  \frac{1}{2}
+  (-i\lambda)^2
+  (2\pi)^4 \delta^4(k_1+k_2+k_3+k_4) 
+  \prod_{j=1}^4 \frac{1}{k_j^2+m^2-i \epsilon}
+  \\
+  \times
+  \int \frac{d^4\ell}{(2\pi)^4}~
+  \frac{1}{\ell^2 + m^2 -i\epsilon}~
+  \frac{1}{(k_1+k_2-\ell)^2 + m^2 -i\epsilon}
+\end{multline}
+There is a $4$-dimensional momentum integration, but the integrand
+only falls off like $\ell^{-4}$. This results in a logarithmic
+divergence if you try to do the momentum integral. Because it appears
+at high energies, this is called a UV divergence. We will have to
+understand how to systematically deal with these.
+
+If $m^2=0$ and, $k_1=-k_2$, then there is in addition a divergence as
+$\ell\to 0$. Such a divergence is called an IR divergence. It
+typically appears for special values of the external momenta, whereas
+the UV divergence is independent of the external momenta. In the
+following, we will only consider $m^2\not=0$, so at least we do not
+have any problems with IR divergences.
+
+
+
+\subsection{Power Counting}
+
+Counting the powers of the momenta in the integral gives us a first
+hint at whether there is a UV divergence, so we want to do it more
+systematically for all diagrams. So let us define the counts of the
+constituents of a Feynman graph as
+\begin{itemize}
+\item $V$ = number of (internal) vertices,
+\item $I$ = number of internal lines,
+\item $E$ = number of external lines.
+\end{itemize}
+Each internal line ends at two vertices, each external line ends at
+one vertex. Since the vertices are 4-valent, we get
+\begin{equation}
+  4V = 2I + E.
+\end{equation}
+The number of loops $L$ equals the number of unconstrained internal
+momenta. We get one from each internal line, but can eliminate $V-1$
+using all momentum conservation rules except for the overall momentum
+conservation. Hence,
+\begin{equation}
+  L = I - (V-1) = I - V + 1.
+\end{equation}
+We now define the superficial (apparent) degree of divergence $D$ as
+the overall power of the momentum in the integral. For reasons that
+will be clear later, we want to do it in arbitrary space-time
+dimension $d$. Then we get $Ld$ powers of the momentum from the
+measure of the $L$ integrals, and we get a inverse momentum squared
+from each internal propagator. Hence, the degree of divergence is
+\begin{equation}
+  D = dL - 2I
+\end{equation}
 
 
 
