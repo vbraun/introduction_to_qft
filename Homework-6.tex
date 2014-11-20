@@ -1,0 +1,97 @@
+\documentclass[12pt]{article}
+\input{Preamble}
+
+\DeclareGraphicsRule{*}{mps}{*}{}
+\usepackage{feynmp}
+
+\begin{document}
+~
+\vspace{-2cm}
+\begin{center}
+  {\Huge Homework \#6}
+\end{center}
+\vspace{1cm}
+
+\noindent Please hand in by next Thursday (November 27), either during
+the lecture or email to \texttt{<Philipp.Kleinert@physics.ox.ac.uk>}.
+Tutorials location: Seminar Room (21. November), Conference Room
+(28. November).
+\bigskip
+
+\noindent
+In this homework we compute the diagram
+\begin{center}
+  {\fmfframe(8,15)(8,15){
+      {
+        \begin{fmffile}{Homework-6-fish}
+          \begin{fmfgraph*}(170,20)
+            \fmfleft{x1,x2}
+            \fmfright{x3,x4}
+            \fmf{plain}{x1,left}
+            \fmf{plain}{x2,left}
+            \fmf{plain}{x3,right}
+            \fmf{plain}{x4,right}
+            \fmf{plain,left}{left,right,left}
+            \fmfdot{left,right}
+            \fmflabel{$k_1$}{x1}
+            \fmflabel{$k_2$}{x2}
+            \fmflabel{$k_3$}{x3}
+            \fmflabel{$k_4$}{x4}
+          \end{fmfgraph*}
+        \end{fmffile}}
+    }}
+\end{center}
+in 4-d and dimensional regularization.
+\begin{enumerate}
+\item Write the coupling constant as $\lambda_0$ times a suitable
+  power of the mass scale $M$ in $4-\omega$ dimensions.
+\item Show that the Feynman rules in momentum space and after Wick
+  rotation yield
+  \begin{equation}
+    \nonumber
+    A(\omega) = \frac{\lambda_0^2}{2} 
+    M^{2\omega} \int \frac{d^{4-\omega}\ell}{(2\pi)^{4-\omega}}
+    \frac{1}{\ell^2+m^2} \frac{1}{(\ell-k_1-k_2)^2+m^2}
+  \end{equation}
+  for the amputated diagram.
+\item Use Feynman's identity
+  \begin{equation}
+    \nonumber
+    \frac{1}{a_1\cdots a_n} = 
+    \frac{1}{(n-1)!} \int_{\{x_j\geq 0\}} 
+    \frac{
+      (\prod dx_j) ~ \delta(\sum x_j - 1)
+    }{
+      (a_1x_1 + \cdots + a_n x_n)^n
+    }
+  \end{equation}
+  to rewrite the loop integration as
+  \begin{equation}
+    \nonumber
+    A(\omega) = \frac{\lambda_0^2}{2} 
+    M^{2\omega} \int_0^1 dx \int 
+    \frac{d^{4-\omega}p}{(2\pi)^{4-\omega}}
+    \frac{1}{\big(p^2 + x(1-x)(k_1+k_2)^2+m^2\big)^2}
+  \end{equation}
+\item Show that the momentum integral evaluates to
+  \begin{equation}
+    \nonumber
+    A(\omega) = 
+    M^{\omega} \frac{\lambda_0^2}{32\pi^2} 
+    \left[
+      \frac{2}{\omega} - \gamma - 
+      \int_0^1 \!\!dx \; 
+      \ln\left(\frac{m^2+(k_1+k_2)^2 x (1-x)}{4\pi M^2}\right)
+      + O(\omega)
+    \right]
+  \end{equation}
+\item Unlike the tadpole, the finite part of $A(\omega)$ depends on
+  the external momenta. In the four-point function, this diagram
+  appears three times with permutations of $k_1$, $\dots$, $k_4$. Draw
+  the three graphs. Is their $\omega$-independent part of the sum
+  $A(\omega; k_1, k_2) + A(\omega; k_1, k_3) + A(\omega; k_1, k_4)$ an
+  analytic function of the external momenta? Hint: We are still in
+  Euclidean space.
+\end{enumerate}
+
+\end{document}

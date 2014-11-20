@@ -609,6 +609,185 @@ from each internal propagator. Hence, the degree of divergence is
 
 
 
+
+
+
+
+\section{Week 6, Monday}
+
+We simplify the superficial degree of divergence to 
+\begin{equation}
+  \begin{split}
+    D =&\; dL - 2I
+    \\ =&\;
+    d - \frac{d-2}{2}E + V(d-4)
+    \\ =&\;
+    \begin{cases}
+      4-E & \text{in 4d} \\
+      2-2V & \text{in 2d}.
+    \end{cases}
+  \end{split}
+\end{equation}
+A superficial divergence (by power counting) does not necessarily
+translate into an actual divergence, for example the tree level
+interaction (E=4, V=1) has superficial degree of divergence
+$D=0$. But, since there is no loop integral, it obviously does not
+diverge logarithmically. Neither does a superficial convergence $D<0$
+guarantee convergence, for example attach a tadpole to any convergent
+diagram. The tadpole integral remains divergent. But in that case the
+divergence just comes from a sub-diagram, it is not inherently due to
+the larger diagram. This suggests that we should only look at diagrams
+without superficially divergent sub-diagrams; If there is a divergent
+sub-diagram then you really only have to worry about that
+sub-diagram. This suggests the following:
+\begin{theorem}[Dyson-Weinberg convergence theorem]
+  A superficially convergent diagram such that all of its sub-diagrams are
+  also superficially convergent is actually convergent.
+\end{theorem}
+The theorem might seem obvious but is actually rather tricky due to
+the issue of overlapping divergences. We will explain what this in a
+second, but first let us classify the primitively divergent diagrams
+in $\phi^4$-theory. That is, look for the divergent diagrams that do
+not have a divergent sub-diagram. These are the real troublemakers,
+and we really only have to deal with their divergences.
+\begin{itemize}
+\item In the two-dimensional $\phi^4$-theory there is only a single
+  primitively divergent diagram, namely the tadpole. It has
+  superficial degree of divergence $D=0$.
+\item In the four-dimensional $\phi^4$-theory there are two primitive
+  divergences at $O(\lambda)$, namely the tadpole $D=2$ and the
+  ``fish'', the only (up to permutations of the external vertices)
+  connected one-loop diagram contributing to the 4-point
+  function. There are further primitive divergences at all higher
+  powers of $\lambda$, but only with two or four external legs.
+\item In the four-dimensional $\phi^k$-theory with $k\geq 5$ there are
+  primitive divergences with any number of external legs. This is what
+  makes the theory non-renormalizable, as we will see.
+\end{itemize}
+
+
+\subsection{Overlapping Divergences}
+
+There is one subtlety when dealing with potentially divergent loop
+integrals: Sometimes you can't split the integrals into an outer
+integral times an inner integral and analyze the convergence
+separately. This happens when an internal line is part of two separate
+loops, giving rise to a propagator $\frac{1}{(\ell+p)^2+m^2}$ that
+depends on both the $\ell$ and $p$-loop momentum. More properly, these
+should be called overlapping integrals.
+
+The simplest overlapping loop diagram would be in $\phi^3$-theory.
+So, just for this section, let us consider tri-valent interaction
+vertices and the diagram
+\begin{center}
+  {\fmfframe(8,0)(8,0){
+      {
+        \begin{fmffile}{figures/fig-overlapping-divergence}
+          \begin{fmfgraph*}(200,50)
+            \fmfleft{left}
+            \fmfright{right}
+            \fmftop{top}
+            \fmfbottom{bottom}
+            \fmf{plain_arrow,tension=4}{left,x1}
+            \fmf{plain_arrow,tension=4}{right,x2}
+            \fmf{plain_arrow,label=$p$,label.side=left}{x1,top}
+            \fmf{plain_arrow,label=$\ell$,label.side=right}{x2,top}
+            \fmf{plain}{x1,bottom}
+            \fmf{plain}{x2,bottom}
+            \fmf{plain_arrow,label=$p+\ell$}{top,bottom}
+            \fmflabel{$k_1$}{left}
+            \fmflabel{$k_2$}{right}
+          \end{fmfgraph*}
+        \end{fmffile}}
+    }}
+\end{center}
+leading to the loop integral
+\begin{equation}
+  \begin{split}
+    I =&\; \int 
+    d^4p \;
+    d^4\ell \;
+    \frac{1}{p^2+m^2-i\epsilon}
+    \frac{1}{\ell^2+m^2-i\epsilon}
+    \\ &\; \qquad
+    \times
+    \frac{1}{(p+\ell)^2+m^2-i\epsilon}
+    \frac{1}{(p-k_1)^2+m^2-i\epsilon}
+    \frac{1}{(\ell-k_2)^2+m^2-i\epsilon}
+  \end{split}
+\end{equation}
+where we left out constants and the external propagators, anything
+that does not depend on the loop momenta. We now
+\begin{itemize}
+\item Perform Wick rotation: drop the $-i\epsilon$.
+\item Set $m^2=0$ and $k_1=0=k_2$ since the UV divergence is at $k^2
+  \gg m^2, k_1^2, k_2^2$.
+\item Remove a region of small momenta by hand to avoid the IR
+  divergence.
+\end{itemize}
+Hence the asymptotic behavior of the loop integral is that of 
+\begin{equation}
+  I \sim
+  \int \frac{d^4p \; d^4\ell}{p^4 (p+\ell)^2 \ell^4}.
+\end{equation}
+This is an example of an overlapping divergence: by power counting,
+the diagram superficial degree of divergence $D=2\times 4-5\times 2
+=-2$ and no divergent sub-diagram, so we expect convergence. But the
+actual integral is not so obviously convergent, for example there is a
+region where $p+\ell$ is constant. In that region, just the
+$p$-integral seems to have superficial degree of divergence $D=0$,
+which would indicate a logarithmic divergence. This is actually not
+true, the whole integral still converges.
+
+To show that the integral does converge, we have to split up the
+domain according to which momentum factor is the smallest. For
+example, consider the region where $\ell^2$ is the smallest,
+\begin{equation}
+  U_p = \big\{
+  p \big|
+  p^2 \geq \ell^2,~ (p+\ell)^2 \geq \ell^2  \big\},
+\end{equation}
+and combine it with the necessary IR cutoff
+\begin{equation}
+  U_\ell = \big\{
+  \ell \big| \ell^2 \geq 1 \big\}.
+\end{equation}
+Splitting the 4-momentum $\ell = \bar\ell e_\ell$ into its absolute
+value $\bar\ell\in\R$ and unit 4-vector $e_\ell$, the loop integral
+becomes
+\begin{equation}
+  I \sim
+  \int_{U_p} \int_{U_\ell}
+  \frac{d^4p \; d^4\ell}{p^4 (p+\ell)^2 \ell^4}
+  = 
+  \int_0^\infty d\bar\ell
+  \bar\ell^3
+  \frac{1}{\bar\ell^6}
+  \int_{S^3} de_\ell 
+  \int_{U_{p'}}
+  \frac{d^4 p'}{(p')^4 (p'+e_\ell)^2}
+\end{equation}
+where we rescaled $p' = p \bar\ell$ and integrate over the  rescaled
+region
+\begin{equation}
+  U_{p'} = \big\{
+  p' \big|
+  (p')^2 \geq 1,~ (p'+\ell)^2 \geq 1  \big\}.
+\end{equation}
+The $\bar\ell$-integration is, indeed, of superficial degree of
+divergence $D=-2$. The overlapping diagram does converge as expected
+by power counting, the potential overlapping divergence does not cause
+an actual divergence.
+
+
+
+
+
+
+
+
+
+
 \newpage
 \appendix
 
