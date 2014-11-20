@@ -781,7 +781,193 @@ an actual divergence.
 
 
 
+\section{Week 6, Wednesday}
 
+
+\subsection{Regularization}
+
+As we have seen, it is unavoidable that some of the Feynman diagrams
+contain divergent momentum integrals. It turns out that this can be
+dealt with, but we must be careful when handling the
+infinities. Naively, $1+\infty = \infty$ so how can we make any
+sensible computation? The key is to introduce a suitable parameter
+(called ``regulator'') that makes all loop integrals finite. Perhaps
+the simplest way to do that is to cut off momentum integrals at some
+scale $\Lambda$, for example for the tadpole integral
+\begin{equation}
+  A(\Lambda) = - \frac{\lambda}{2} \int_{|\ell| \leq \Lambda}
+  \frac{d^4 \ell}{\ell^2+m^2}.
+\end{equation}
+Only at the end we then let $\Lambda \to \infty$ to recover the
+integration over the entire momentum space. This is actually very
+similar to the lattice computation that we have seen before, there the
+lattice spacing $a$ also ensures that we can only sample waves with
+momentum up to some upper limit $\approx \frac{1}{a}$.
+
+Both the direct momentum cutoff and the lattice regularization break
+Lorentz invariance badly: Cutting off momenta in some special frame
+breaks boost invariance. And the lattice even breaks rotational
+invariance down to a discrete subgroup, namely rotations by
+$\tfrac{2\pi}{4}$. Since symmetries are one of the key guiding
+principles in physics, a lot of attention was spent on finding
+regularization schemes that do not break a particular symmetry that
+one is interested in. One such example is analytic regularization
+\begin{equation}
+  A(z) = - \frac{\lambda}{2} \int
+  \frac{d^4 \ell}{\big(\ell^2+m^2\big)^z},
+  \quad
+  z \gg 1.
+\end{equation}
+However, the most common regularization scheme is dimensional
+regularization where we compute the momentum integral in $d-\omega$
+dimensions for some $\omega > 0$. This is the regularization scheme
+that we will always be using in the following. For example, the
+tadpole integrand is actually rotationally symmetric so we can just
+split it into a one-dimensional integral times the area of the
+$(d-\omega)$-sphere.
+
+In each integral dimension $d\in \Z$, the volume of the
+$d$-dimensional disk and the area of the $d$-dimensional sphere are
+related by the recurrence relations for the area of the
+$d$-dimensional disc $D_d$ and sphere $S_d$,
+\begin{equation}
+  D_d = \frac{1}{d} S_{d-1}
+  ,\quad
+  S_d = 2\pi D_{d-1},
+\end{equation}
+which have a simple geometric origin. We can solve them in closed form
+as
+\begin{equation}
+  D_d = \frac{\pi^{d/2}}{\Gamma(\frac{d}{2}+2)}
+  ,\quad
+  S_{d-1} = \frac{2 \pi^{d/2}}{\Gamma(\frac{d}{2})}.
+\end{equation}
+The result is actually an analytic function of the dimension, and we
+will use it to define what me mean by the area of the $(d-1)$-sphere
+for arbitrary $d\in\mathbb{C}$. It is by no means the unique analytic
+function that equals $S_{d-1}$ when restricted to the integers, but it
+is certainly the most convenient choice. Any other choice would just
+be a different regularization scheme.
+
+Hence, the dimensionally-regulated tadpole is 
+\begin{equation}
+  A(\omega) = -\frac{\lambda}{2}
+  \int
+  \frac{d^{d-\omega}\ell}{(2\pi)^{d-\omega}} ~
+  \frac{1}{\ell^2 + m^2}
+  = -\frac{\lambda}{2}
+  S_{d-1-\omega}
+  \int_0^\infty \frac{d\bar\ell ~ \bar\ell^{d-1-\omega}}{\bar\ell^2 + m^2}.
+\end{equation}
+The remaining one-dimensional integral can be solved by the formula
+\begin{equation}
+  \int_0^\infty 
+  \frac{x^k dx}{\big(x^n + a^n\big)^r} 
+  =
+  \frac{
+    (-1)^{r-1}\; \pi \; a^{k+1-nr} \; \Gamma\big(\tfrac{k+1}{n}\big)
+  }{
+    n \; \sin\big(\tfrac{k+1}{n} \pi\big) 
+    \; \Gamma\big(\tfrac{k+1}{n}-r+1\big) 
+    \; (r-1)!
+  }
+\end{equation}
+and using Euler's reflection formula
+\begin{equation}
+  \Gamma(x) \Gamma(1-x) = \frac{\pi}{\sin(\pi x)}.
+\end{equation}
+The result is 
+\begin{equation}
+  A(\omega) = -\frac{\lambda}{4\pi} 
+  \Gamma\big(\tfrac{\omega}{2}\big)
+  \left(\frac{2 \sqrt{\pi}}{m} \right)^\omega,
+\end{equation}
+but there is something troubling about the $m^{-\omega}$: what kind of
+units (or mass dimension) does such a quantity have? The answer is
+that we forgot that the mass dimension of $\lambda$ is also
+non-trivial and dependent on the ambient space dimension. In
+particular, in $d-\omega$ dimensions we have $[\lambda] =
+2+\omega$. To better understand how the units work in the equation, it
+is convenient to split the dimensionful coupling constant
+\begin{equation}
+  \lambda = \lambda_0 M^{2+\omega}
+\end{equation}
+into a dimensionless coupling constant $\lambda_0$ times a mass scale
+$M$. Then,
+\begin{equation}
+  A(\omega) = -\frac{\lambda_0 M^2}{4\pi} 
+  \Gamma\big(\tfrac{\omega}{2}\big)
+  \left(\frac{2 \sqrt{\pi}M}{m} \right)^\omega,
+\end{equation}
+At the end of the day, we will of course be interested in the limit
+$\omega\to 0$, and we can understand the behavior of $A(\omega)$ in
+this limit by expanding it in a Laurent
+series. Using\footnote{$\gamma\approx 0.577\dots$ is the
+  Euler-Mascheroni constant}
+\begin{equation}
+  \Gamma(\omega) = \frac{1}{\omega} - \gamma + O(\omega)
+  ,\quad
+  x^\omega = 1 + \omega \ln(x) + O(\omega^2)
+\end{equation}
+we obtain
+\begin{equation}
+  A(\omega) = -\frac{\lambda_0 M^2}{4\pi}
+  \left[
+    \frac{2}{\omega}
+    - \gamma
+    + \ln\left(
+      \frac{4\pi M^2}{m^2}
+    \right)
+    + O(\omega)
+  \right]
+\end{equation}
+Clearly this is still infinite in the limit $\omega\to 0$, as it
+must. But the infinity just comes from the simple pole at $\omega=0$,
+so we can easily handle it.
+
+
+
+\subsection{Renormalization}
+
+We did not write the external propagators in the previous section for
+brevity, this is also called the amputated Feynman diagram. The actual
+contribution to the two-point function is
+\begin{equation}
+  A(\omega) \delta(k_1-k_2) \frac{1}{k_1^2+m^2} ~ \frac{1}{k_2^2+m^2}.
+\end{equation}
+To get rid of the $\frac{1}{\omega}$ pole, we now add a new Feynman
+rule that cancels it. The easiest way is to add a new 2-valent vertex
+with just the right interaction strength such that 
+\begin{equation}
+  \raisebox{-1mm}{\fmfframe(8,0)(8,0){
+      {
+        \begin{fmffile}{figures/fig-counterterm}
+          \begin{fmfgraph*}(80,10)
+            \fmfleft{left}
+            \fmfright{right}
+            \fmf{plain}{left,center,right}
+            \fmfv{decoration.shape=cross}{center}
+            \fmflabel{$k_1$}{left}
+            \fmflabel{$k_2$}{right}
+          \end{fmfgraph*}
+        \end{fmffile}}
+    }}
+  ~= 
+  \frac{\lambda_0 M^2}{4\pi}
+  \left(\frac{2}{\omega} + F \right)
+  \delta(k_1-k_2) \frac{1}{k_1^2+m^2} ~ \frac{1}{k_2^2+m^2},
+\end{equation}
+where $F$ is some arbitrary finite quantity. Then the
+$\frac{1}{\omega}$-pole cancels in sum of the tadpole and the
+counterterm, rendering the 2-point correlator finite at order
+$O(\lambda)$. Of course we cannot just add new Feynman rules at will,
+they must come from an interaction term in the Lagrangian. Since the
+counterterm vertex is 2-valent, it corresponds to 
+\begin{equation}
+  \mathcal{L}_\text{ct} = 
+  \frac{\lambda_0 M^2}{2\pi} 
+  \left(\frac{2}{\omega} + F \right) \phi^2
+\end{equation}
 
 
 
