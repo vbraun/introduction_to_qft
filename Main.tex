@@ -962,13 +962,160 @@ $\frac{1}{\omega}$-pole cancels in sum of the tadpole and the
 counterterm, rendering the 2-point correlator finite at order
 $O(\lambda)$. Of course we cannot just add new Feynman rules at will,
 they must come from an interaction term in the Lagrangian. Since the
-counterterm vertex is 2-valent, it corresponds to 
+counterterm vertex is 2-valent, it is the Feynman rule corresponding
+to the interaction term
 \begin{equation}
   \mathcal{L}_\text{ct} = 
-  \frac{\lambda_0 M^2}{2\pi} 
+  \frac{1}{2} ~
+  \frac{\lambda_0 M^2}{4\pi} 
   \left(\frac{2}{\omega} + F \right) \phi^2
 \end{equation}
 
+
+
+\section{Week 6, Thursday}
+
+\subsection{Two-Point Correlators at Second Order}
+
+Up to $O(\lambda^2)$, the Feynman rules including the counterterm
+yield
+\begin{itemize}
+\item Tree level propagator $\frac{1}{k^2+m^2}$,
+  \begin{center}
+    \includegraphics[scale=0.7]{figures/draw-propagator-tree.pdf}
+  \end{center}
+\item At $O(\lambda)$: Tadpole + counterterm.
+  \begin{center}
+    \includegraphics[scale=0.7]{figures/draw-propagator-tadpole_and_counterterm.pdf}
+  \end{center}
+\item Four one-particle reducible diagrams, and
+  \begin{center}
+    \includegraphics[scale=0.7]{figures/draw-propagator-twoloop_reducible.pdf}
+  \end{center}
+\item Three one-particle irreducible diagrams.
+  \begin{center}
+    \includegraphics[scale=0.7]{figures/draw-propagator-twoloop_1PI.pdf}
+  \end{center}
+\end{itemize}
+By one-particle irreducible diagram (1PI) we mean any diagram that can
+not be disconnected by cutting a single internal line. Like the
+disconnected diagrams, the one-particle reducible diagrams are again a
+type of diagram that we have to add up to get the correlation
+function, but that really is just a combination of lower-order
+diagrams and does not present any real difficulty. In particular, up
+to a factor of the external propagator $\frac{1}{k^2+m^2}$, the sum of
+the four one-particle reducible diagrams is just the square of tadpole
+and counterterm.
+
+The really interesting part are the three 1PI diagrams. The ``double
+scoop'' (first) diagram is divergent only because the top loop
+integral is a tadpole, so it yields the same $A(\omega)$ as the
+tadpole times whatever the convergent integral over the lower loop
+is. To it, we have to add the tadpole-with-counterterm (second)
+diagram. Its loop integral is just the same as the lower loop integral
+of the previous diagram, now multiplied by the counterterm. Hence, the
+first two diagrams just cancel the $\frac{1}{\omega}$ pole just like
+tadpole and counterterm alone. Finally, the ``sunset'' diagram (third)
+is convergent in two dimensions.
+
+By as similar reasoning, the addition of the counterterm to the
+Feynman rules always cancels the $\frac{1}{\omega}$ pole from any
+tadpole sub-diagram, rendering every correlation function finite. As a
+word of warning, however, this is not typical of quantum field
+theories. For example in 4-d $\phi^4$-theory, there are new
+divergences at each order in $\lambda$, for which we have to add more
+and more counterterms. In particular, the leading
+$\frac{1}{\omega^2}$-divergence will cancel between the first two
+diagrams as above, but only to leave a $\frac{1}{\omega}$-pole that
+still diverges. However, as we will see, the $\phi$-dependence of all
+of the counterterms is just like one of the terms that is already in
+the Lagrangian, and this is what makes the theory renormalizable.
+
+
+\subsection{Renormalization Prescription}
+
+To summarize, we can combine the Lagrangian and counterterms into a
+renormalized Lagrangian
+\begin{equation}
+  \mathcal{L}_\text{Ren} = 
+  -\frac{1}{2} \partial_\mu \phi \partial^\mu \phi
+  -\frac{1}{2} m_\text{bare}^2 \phi^2 
+  - \frac{1}{4!} \lambda_\text{bare} \phi^4
+\end{equation}
+with ``bare'' parameters
+\begin{equation}
+  \begin{split}
+    \lambda_\text{bare} =&\; \lambda_0 M^2 = \lambda \\
+    m_\text{bare}^2 =&\; 
+    m^2 - \frac{\lambda_0 M^2}{4\pi} \left( \frac{2}{\omega} + F\right)
+  \end{split}
+\end{equation}
+The bare parameters in the Lagrangian are unphysical (and usually
+infinite in the $\omega\to 0$ limit). We can now compute correlation
+functions in two ways, either using the renormalized Lagrangian and
+bare parameters or using the original Lagrangian with (divergent)
+counterterms. Either way, the divergences in the $\omega\to 0$ limit
+cancel to give finite correlation functions
+\begin{equation}
+  \Gamma_{\mathcal{L}_\text{Ren}}
+  (k_1, \dots, k_n; m_\text{bare}^2, \lambda_\text{bare}, \omega) = 
+  \Gamma_{\mathcal{L}+\mathcal{L}_\text{ct}}
+  (k_1, \dots, k_n; m^2, \lambda_0, M, \omega).
+\end{equation}
+Analyzing the $M$-dependence of this equation will lead us to the
+renormalization group later, but before we get there we need to
+understand how to relate the parameters to the physical mass and
+coupling strength.
+
+Really, the mass and coupling constant are experimental input. Because
+of the ambiguities introduced in the renormalization procedure, these
+are not directly related to any set of parameters in the
+Lagrangian. Instead, we have to fix a certain number of observables
+and match the computed value (as a power series in the coupling
+constant, most likely) to the experimental input. The ambiguity in
+choosing a particular set of observables is called the
+``renormalization prescription'', and reflects the ambiguity in the
+finite part of the counterterms.
+
+In quantum field theory, the observables are simply the correlation
+functions. The renormalization prescription for the mass are always
+linked to the two-point functions in some way. Popular choices are
+\begin{itemize}
+\item Pole mass: Let the mass be the location of the pole in the
+  two-point function $\Gamma^{(2)}$ in Minkowski space. This is a very
+  physical prescription, but not convenient in Euclidean space after
+  Wick rotation.
+\item More convenient for calculations (as long as there is no IR
+  divergence) is to demand that
+  \begin{equation}
+    \frac{1}{\Gamma^{(2)}(k_1,k_2)} \Big|_{k_1=k_2=0} = m^2.
+  \end{equation}
+  This is just a little bit unphysical as $k_1=k_2=0$ is not really
+  allowed for massive external particles, it violates the mass shell
+  condition. But nothing stops us from evaluating the $2$-point
+  function and use it in our prescription. Inverting the two-point
+  function to first order in $\lambda$ is easy enough, and by summing
+  the tree-level, tadpole, and counterterm we obtain
+  \begin{equation}
+    \frac{1}{\Gamma^{(2)}(k_1,k_2)} \Big|_{k_1=k_2=0} =
+    m^2 \left[
+      1 + 
+      \frac{\lambda_0 M^2}{4\pi m^2} \left(
+        -\gamma + 
+        \ln\left(\frac{4\pi M^2}{m^2}\right) - F
+      \right)
+      + O(\lambda^2)
+    \right]
+  \end{equation}
+  which we can solve by setting
+  \begin{equation}
+    F = -\gamma + \ln\left(\frac{4\pi M^2}{m^2}\right)
+  \end{equation}
+\item Even more convenient for calculations is the ``minimal
+  subtraction'', where we set $F=0$ as our choice of renormalization
+  prescription. In other words, we only use the minimial counterterm
+  necessary to precisely cancel the $\frac{1}{\omega}$-pole.
+\end{itemize}
 
 
 
