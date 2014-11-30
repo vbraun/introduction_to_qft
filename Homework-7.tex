@@ -1,0 +1,55 @@
+\documentclass[12pt]{article}
+\input{Preamble}
+
+\DeclareGraphicsRule{*}{mps}{*}{}
+\usepackage{feynmp}
+
+\begin{document}
+~
+\vspace{-2cm}
+\begin{center}
+  {\Huge Homework \#7}
+\end{center}
+\vspace{1cm}
+
+\noindent Please hand in by next Thursday (December 4), either during
+the lecture or email to \texttt{<Philipp.Kleinert@physics.ox.ac.uk>}.
+Tutorials location: Conference Room (28. November), Fisher Room
+(5. December). There is no tutorial for this final homework. 
+\bigskip
+
+\noindent
+Consider the massless $\phi^4$ theory with Lagrangian
+\begin{equation}
+  \mathcal{L} = -\frac{1}{2}\partial_\mu \phi \partial^\mu\phi
+  - \frac{1}{4!}\lambda \phi^4
+\end{equation}
+In the lecture we derived the Coleman-Weinberg effective
+potential\footnote{All formula on this sheet are in 4-d and after Wick
+  rotation.}
+\begin{equation}
+  V_\text{eff}(\varphi) = 
+  V(\varphi) 
+  - \frac{1}{2}
+  \int \frac{d^4k}{(2\pi)^4}
+  \log\left(\frac{k^2-V''(\varphi)}{k^2}\right)
+\end{equation}
+\begin{enumerate}
+\item Classify all 1-loop diagrams in $\phi^4$ theory (with an
+  arbitrary number of external legs).
+\item The 1-loop contribution to the potential (after Wick rotation)
+  \begin{equation}
+    V_\text{1-loop}(\varphi) = 
+    \int \frac{d^4k}{(2\pi)^4}
+    \sum_{n=1}^\infty \frac{1}{2n}
+    \left( \frac{\tfrac{1}{2}\lambda \varphi^2}{k^2} 
+    \right)^n
+  \end{equation}
+  comes from the Feynman diagrams where the constant mean field
+  $\varphi$ is inserted at each external leg. Explain the symmetry
+  factors $\frac{1}{2n}$ and $\frac{1}{2}$ in the sum.
+\item Check that the one-loop result matches the Coleman-Weinberg
+  effective potential, that is, $V_\text{eff} = V + V_\text{1-loop}$.
+\end{enumerate}
+
+\end{document}
