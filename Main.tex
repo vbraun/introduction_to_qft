@@ -243,7 +243,7 @@ requirements:
 \item The renormalization prescription should be convenient for
   lattice calculations.
 \end{enumerate}
-THe solution to both of these requirements is to take $T_L$ as the
+The solution to both of these requirements is to take $T_L$ as the
 counterterm,
 \begin{equation}
   \label{eq:2dphi4bare}
@@ -282,6 +282,124 @@ origin, which defines the \emph{critical value}
   10.8
 \end{equation}
 
+
+
+\section{Week 7, Wednesday}
+
+\subsection{1PI Effective Action}
+
+Let us start by taking a step back and reformulate some of the
+combinatorics of Feynman diagrams in terms of algebra of the
+generating function. First, consider a Feynman diagram
+\begin{equation}
+  D = \cup_{j=1}^k n_J C_j
+\end{equation}
+consisting of connected components $C_j$ with multiplicity $n_j$. The
+Feynman rules for $D$ contain a symmetry factor
+\begin{equation}
+  \frac{1}{|\Aut D|} =
+  \prod_{j=1}^k \frac{1}{n_j! ~ |\Aut C_j|}
+\end{equation}
+To evaluate the path integral we have to sum over all diagrams,
+connected or not. Writing $C_j$ for both the Feynman diagram and the
+expression obtained by applying the Feynman rules, we find
+\begin{equation}
+  Z = \int \mathcal{D}\phi e^{iS} =
+  \sum_k D_k = 
+  \prod_j \sum_{n_j} \frac{1}{n_j!} C_j =
+  \prod_j e^{C_j} = e^{\sum_j C_j}.
+\end{equation}
+This suggests to define a functional $W[J]$ as 
+\begin{equation}
+  Z[J] = e^{i W[J]}
+  ,\quad
+  Z_E[J] = e^{W_E[J]}
+\end{equation}
+in Minkowski and Euclidean signature, respectively. The $W[J]$ then
+has an expansion into a sum over connected Feynman diagrams. We can
+define ``connected'' correlation functions
+\begin{equation}
+  \langle \phi(x_1) \cdots \phi(x_n) \rangle_C =
+  \tfrac{1}{i} \frac{\delta}{\delta J(x_1)} \;
+  \cdots
+  \tfrac{1}{i} \frac{\delta}{\delta J(x_n)} \;
+  W[J] \Big|_{J=0},
+\end{equation}
+and, in particular,
+\begin{equation}
+  \langle \phi(x)\rangle_C =
+  \tfrac{1}{i} \frac{\delta}{\delta J(x_1)} \;
+  W[J] \Big|_{J=0} =
+  \frac{1}{i^2} \frac{1}{Z} 
+  \frac{\delta Z}{\delta J(x)}  \Big|_{J=0} =
+  \frac{1}{i^2} \langle 0|\phi(x) |0\rangle.
+\end{equation}
+The vev of $\phi$ is, of course, $0$ in $\phi^4$-theory because of the
+$\phi\mapsto -\phi$ symmetry. To get something non-trivial, we should
+\emph{not} set $J=0$, this amounts to measuring the response of the
+field to an external source. Hence, we define the \emph{mean field} as
+\begin{equation}
+  \label{eq:meanfield}
+  \varphi(J) = \frac{\delta W}{\delta J}
+\end{equation}
+It is perhaps suggestive to think of $W$ in
+\begin{equation}
+  e^{iW[J]} = \int\mathcal{D}\phi e^{i\int d^4x (\mathcal{L}+J\phi)}
+\end{equation}
+as an ``effective action'' which incorporates all the quantum effects
+from the path integral. However, it depends on the source $J$ and not
+on the field. Hence, to define something that deserves the name, we
+have to replace the $J$-dependence with a dependence on the mean field
+$\varphi$. The right way to do this is to use the Legendre transform,
+just like how we change between $(q, \dot q)$ and $(q,p)$-dependence
+in classical mechanics. Hence, we invert eq.~\eqref{eq:meanfield} to
+obtain $J=J(\varphi)$ and define the \emph{1PI effective action} as
+\begin{equation}
+  \Gamma[\varphi] = 
+  W[J(\varphi)] - \int d^dx \; \varphi J(\varphi).
+\end{equation}
+Functionally differentiating with respect to the mean field yields
+\begin{equation}
+  \frac{\delta \Gamma[\varphi]}{\delta \varphi}  + J = 0
+  \quad \Leftrightarrow \quad
+  J = -\frac{\delta \Gamma[\varphi]}{\delta \varphi}
+\end{equation}
+We interpret this in the following way: The stationary point of the
+effective action $\Gamma[\varphi]$ is where the mean field satisfies
+$J(\varphi)=0$. Hence
+\begin{equation}
+  \frac{\delta \Gamma[\varphi]}{\delta \varphi}
+  \quad\Rightarrow\quad
+  J=0
+  \quad\Rightarrow\quad
+  \varphi = 
+  \frac{\delta W}{\delta J} \;
+  \Big|_{J=0} =
+  \tfrac{1}{i} \langle 0|\phi(x) |0\rangle,
+\end{equation}
+that is, the stationary points of the effective action determine the
+quantum one-point function. A similar calculation for higher
+derivatives shows that all correlation functions are determined by the
+higher derivatives of $\Gamma[\phi]$. 
+
+By this argument, the classical solutions of the effective action
+$\Gamma$ are equivalent to full path integral with the action $S=\int
+d^4x \mathcal{L}$. In terms of Feynman diagrams, this means that the
+sum over all tree level $\Gamma$-diagrams equals the sum over all
+connected $S$-diagrams. It remains to explain why $\Gamma$ is called
+the \emph{one-particle irreducible} (1PI) effective action. This is
+because it can be expanded
+\begin{equation}
+  \Gamma[\varphi] = S[\varphi] + \sum_{1PI} A(G)
+\end{equation}
+where the sum runs over all 1PI graphs $G$ and $A(G)$ is the
+corresponding amputated diagram. A mathematical proof is quite
+involved, but we can understand it by the following heuristic
+argument. According to this equation, the $\Gamma$-Feynman rules have
+a different type of vertex for each 1PI $S$-Feynman graph. The
+correspondence between all $\Gamma$ and $S$-Feynman graphs is obtained
+by shrinking each 1PI $S$-subgraph to the corresponding
+$\Gamma$-vertex.
 
 
 
